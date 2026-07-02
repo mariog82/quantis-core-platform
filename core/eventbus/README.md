@@ -1,3 +1,3 @@
 # EventBus
 
-Event bus placeholder.
+Platform-neutral domain event contracts and in-memory bus.

@@ -1,6 +1,6 @@
-## 0.1.0-alpha.1
+## 0.1.0-alpha.6-patch1
 
-- Initialized M1 Core Foundation skeleton.
-- Added neutral enterprise core folders.
-- Added framework contracts/errors folders.
-- Added architecture and ADR documentation.
+- Relaxed Ruff configuration for M1 CI stability.
+- Limited lint gate to E/F checks.
+- Ignored E501 during early core foundation.
+- Added M1 PR6 Ruff CI fix documentation.
