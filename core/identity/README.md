@@ -1,3 +1,3 @@
 # Identity
 
-Identity domain placeholder.
+Platform-neutral user identity contracts.

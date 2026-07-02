@@ -1,3 +1,3 @@
 # Tenant
 
-Tenant domain placeholder.
+Platform-neutral multi-tenancy contracts.

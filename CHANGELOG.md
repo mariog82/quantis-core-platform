@@ -1,6 +1,9 @@
-## 0.1.0-alpha.1
+## 0.1.0-alpha.2
 
-- Initialized M1 Core Foundation skeleton.
-- Added neutral enterprise core folders.
-- Added framework contracts/errors folders.
-- Added architecture and ADR documentation.
+- Added Identity contracts.
+- Added Tenant contracts.
+- Added repository protocol.
+- Added shared platform errors.
+- Added IdentityService and TenantService.
+- Added core contract tests.
+- Added ADR-002.

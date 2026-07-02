@@ -5,18 +5,16 @@ on:
   pull_request:
 
 jobs:
-  core-structure:
+  core-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate core skeleton
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test dependencies
         run: |
-          test -d core/identity
-          test -d core/tenant
-          test -d core/rbac
-          test -d core/audit
-          test -d core/eventbus
-          test -d core/configuration
-          test -d core/observability
-          test -d framework/contracts
-          test -d framework/errors
+          python -m pip install --upgrade pip
+          pip install pytest
+      - name: Run core tests
+        run: pytest tests/core
