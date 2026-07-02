@@ -1,0 +1,3 @@
+# EventBus
+
+Event bus placeholder.

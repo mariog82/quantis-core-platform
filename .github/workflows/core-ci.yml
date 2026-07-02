@@ -1,0 +1,22 @@
+name: core-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  core-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate core skeleton
+        run: |
+          test -d core/identity
+          test -d core/tenant
+          test -d core/rbac
+          test -d core/audit
+          test -d core/eventbus
+          test -d core/configuration
+          test -d core/observability
+          test -d framework/contracts
+          test -d framework/errors

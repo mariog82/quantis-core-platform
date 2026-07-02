@@ -1,86 +1,17 @@
-\# ADR-001
+# ADR-001 — Core Foundation
 
-
-
-\## Title
-
-
-
-Core Foundation
-
-
-
-\## Status
-
-
+## Status
 
 Accepted
 
+## Context
 
+QUANTIS Core Platform™ must become an independent enterprise framework reusable by multiple vertical products.
 
-\## Context
+## Decision
 
+Create a neutral core skeleton with reusable enterprise domains and no vertical-specific logic.
 
+## Consequences
 
-La piattaforma deve poter supportare molteplici prodotti verticali.
-
-
-
-Duplicare codice infrastrutturale aumenterebbe il costo di manutenzione.
-
-
-
-\## Decision
-
-
-
-Creare un Core indipendente che implementi esclusivamente funzionalità riutilizzabili.
-
-
-
-Ogni prodotto verticale utilizzerà il Core attraverso il Framework.
-
-
-
-\## Consequences
-
-
-
-Vantaggi
-
-
-
-\- alta riusabilità
-
-
-
-\- maggiore manutenibilità
-
-
-
-\- standardizzazione
-
-
-
-\- API uniformi
-
-
-
-\- minore duplicazione
-
-
-
-Svantaggi
-
-
-
-\- maggiore investimento iniziale
-
-
-
-\- progettazione più rigorosa
-
-
-
-\- necessità di contratti stabili
-
+Vertical products will be built on top of the framework instead of duplicating infrastructure and platform capabilities.
