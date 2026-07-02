@@ -1,9 +1,10 @@
-# QUANTIS Core Platform™ Roadmap
+# M2 — Framework Contracts
 
-## M1 — Core Foundation
-Completed.
+## Objective
 
-## M2 — Framework Contracts
+Create reusable application framework contracts on top of M1 Core Foundation.
+
+## Planned PRs
 
 - PR1 Framework Contracts Skeleton
 - PR2 BaseModule + Module Manifest

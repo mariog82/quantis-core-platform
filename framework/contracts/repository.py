@@ -9,3 +9,10 @@ class Repository(Protocol, Generic[T, ID]):
 
     def get(self, entity_id: ID) -> T | None:
         ...
+
+class BaseRepository(Generic[T, ID]):
+    def save(self, entity: T) -> T:
+        raise NotImplementedError
+
+    def get(self, entity_id: ID) -> T | None:
+        raise NotImplementedError

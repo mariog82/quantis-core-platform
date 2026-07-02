@@ -1,6 +1,10 @@
-## 0.1.0-alpha.6-patch1
+## 0.2.0-alpha.1
 
-- Relaxed Ruff configuration for M1 CI stability.
-- Limited lint gate to E/F checks.
-- Ignored E501 during early core foundation.
-- Added M1 PR6 Ruff CI fix documentation.
+- Started M2 Framework Contracts.
+- Added base framework contract metadata.
+- Added BaseModule and ModuleManifest.
+- Added BaseService and ServiceContext.
+- Added BaseRepository.
+- Added BaseController and ApiResponse.
+- Added BasePlugin and PluginManifest.
+- Added framework tests and ADR-007.
