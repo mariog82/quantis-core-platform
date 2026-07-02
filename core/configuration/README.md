@@ -1,3 +1,3 @@
 # Configuration
 
-Configuration domain placeholder.
+Platform-neutral configuration provider contracts.

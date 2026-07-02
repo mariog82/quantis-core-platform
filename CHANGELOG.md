@@ -1,7 +1,9 @@
-## 0.1.0-alpha.3
+## 0.1.0-alpha.4
 
-- Added RBAC contracts and service.
-- Added Audit contracts and service.
-- Added RBAC contract tests.
-- Added Audit contract tests.
-- Added ADR-003.
+- Added EventBus contracts.
+- Added in-memory event bus.
+- Added EventBusService.
+- Added Configuration contracts.
+- Added in-memory configuration provider.
+- Added ConfigurationService.
+- Added tests and ADR-004.
