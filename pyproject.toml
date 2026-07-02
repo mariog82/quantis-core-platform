@@ -1,10 +1,11 @@
 [project]
 name = "quantis-core-platform"
-version = "0.1.0-alpha.0"
+version = "0.1.0-alpha.2"
 requires-python = ">=3.12"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 
 [tool.ruff]
 line-length = 100

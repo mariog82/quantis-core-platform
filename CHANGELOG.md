@@ -1,9 +1,5 @@
-## 0.1.0-alpha.2
+## 0.1.0-alpha.2-patch1
 
-- Added Identity contracts.
-- Added Tenant contracts.
-- Added repository protocol.
-- Added shared platform errors.
-- Added IdentityService and TenantService.
-- Added core contract tests.
-- Added ADR-002.
+- Fixed Python import path for core package.
+- Added missing package initializers.
+- Added pytest pythonpath configuration.
