@@ -1,3 +1,3 @@
 # Observability
 
-Observability domain placeholder.
+Platform-neutral logging, metrics and tracing contracts.

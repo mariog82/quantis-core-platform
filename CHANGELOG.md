@@ -1,9 +1,8 @@
-## 0.1.0-alpha.4
+## 0.1.0-alpha.5
 
-- Added EventBus contracts.
-- Added in-memory event bus.
-- Added EventBusService.
-- Added Configuration contracts.
-- Added in-memory configuration provider.
-- Added ConfigurationService.
-- Added tests and ADR-004.
+- Added Observability contracts.
+- Added LogRecord, MetricRecord and Span models.
+- Added LoggerPort, MetricsPort and TracerPort.
+- Added in-memory logger, metrics and tracer.
+- Added ObservabilityService.
+- Added tests and ADR-005.
