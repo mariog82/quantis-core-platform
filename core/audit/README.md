@@ -1,3 +1,3 @@
 # Audit
 
-Audit domain placeholder.
+Platform-neutral append-only audit contracts.

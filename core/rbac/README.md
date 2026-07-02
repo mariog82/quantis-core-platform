@@ -1,3 +1,3 @@
 # RBAC
 
-Role-based access control placeholder.
+Platform-neutral role, permission and policy contracts.

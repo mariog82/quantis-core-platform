@@ -1,5 +1,7 @@
-## 0.1.0-alpha.2-patch1
+## 0.1.0-alpha.3
 
-- Fixed Python import path for core package.
-- Added missing package initializers.
-- Added pytest pythonpath configuration.
+- Added RBAC contracts and service.
+- Added Audit contracts and service.
+- Added RBAC contract tests.
+- Added Audit contract tests.
+- Added ADR-003.
