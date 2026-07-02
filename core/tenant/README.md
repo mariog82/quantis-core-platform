@@ -1,0 +1,3 @@
+# Tenant
+
+Tenant domain placeholder.

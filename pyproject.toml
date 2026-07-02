@@ -1,0 +1,15 @@
+[project]
+name = "quantis-core-platform"
+version = "0.1.0-alpha.0"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
