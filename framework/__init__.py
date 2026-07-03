@@ -1,1 +1,4 @@
-"""QUANTIS Core Platform framework package."""
+"""
+QUANTIS Core Platform™
+Core Package
+"""
