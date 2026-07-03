@@ -1,1 +1,4 @@
-"""QUANTIS Core Platform core package."""
+"""
+QUANTIS Core Platform™
+Core Package
+"""

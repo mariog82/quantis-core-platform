@@ -1,6 +1,12 @@
-## 0.1.0-alpha.6-patch1
+## 0.2.0-alpha.2
 
-- Relaxed Ruff configuration for M1 CI stability.
-- Limited lint gate to E/F checks.
-- Ignored E501 during early core foundation.
-- Added M1 PR6 Ruff CI fix documentation.
+- Added clean Runtime Kernel implementation.
+- Added Runtime Manager.
+- Added Module Registry.
+- Added Module Lifecycle Manager.
+- Added Dependency Graph.
+- Added Runtime Context.
+- Added runtime events.
+- Added runtime health and state models.
+- Added runtime tests and CI.
+- Added ADR-008, ADR-009, ADR-010 and ADR-011.
