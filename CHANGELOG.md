@@ -1,8 +1,4 @@
-## 0.2.0-alpha.3
+## 0.2.0-alpha.4-patch1
 
-- Added Dependency Injection Container.
-- Added DependencyToken.
-- Added InstanceProvider, SingletonProvider and FactoryProvider.
-- Added DependencyScope.
-- Integrated DependencyContainer with RuntimeContext and bootstrap.
-- Added DI tests and ADR-012.
+- Fixed missing BaseRepository export in framework contracts repository.
+- Restored compatibility with framework.contracts imports.
