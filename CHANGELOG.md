@@ -1,7 +1,4 @@
-## 0.2.0-alpha.6
+## 0.2.0-alpha.6-patch1
 
-- Added Plugin Runtime.
-- Added PluginRegistry.
-- Added PluginLifecycleManager.
-- Added ExtensionPoint and ExtensionPointRegistry.
-- Added plugin runtime tests and ADR-015.
+- Fixed PluginRegistry annotation issue caused by `list` method shadowing built-in list.
+- Added `list_plugins()` API and kept `list()` as compatibility alias.

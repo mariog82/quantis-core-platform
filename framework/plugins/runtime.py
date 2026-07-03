@@ -34,7 +34,7 @@ class PluginRuntime:
         self.extension_points.attach(extension_point, handler)
 
     def list_plugins(self) -> list[BasePlugin]:
-        return self.registry.list()
+        return self.registry.list_plugins()
 
     def list_extension_points(self) -> list[ExtensionPoint]:
         return self.extension_points.list()

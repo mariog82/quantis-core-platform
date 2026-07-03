@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from framework.contracts.plugin import BasePlugin
 from framework.plugins.exceptions import PluginAlreadyRegistered, PluginNotFound
 
@@ -26,8 +28,11 @@ class PluginRegistry:
     def exists(self, name: str) -> bool:
         return name in self._plugins
 
-    def list(self) -> list[BasePlugin]:
+    def list_plugins(self) -> list[BasePlugin]:
         return list(self._plugins.values())
+
+    def list(self) -> list[BasePlugin]:
+        return self.list_plugins()
 
     def enabled(self) -> list[BasePlugin]:
         return [plugin for plugin in self._plugins.values() if plugin.status == "enabled"]
