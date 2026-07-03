@@ -1,8 +1,7 @@
-## 0.2.0-alpha.3
+## 0.2.0-alpha.6
 
-- Added Dependency Injection Container.
-- Added DependencyToken.
-- Added InstanceProvider, SingletonProvider and FactoryProvider.
-- Added DependencyScope.
-- Integrated DependencyContainer with RuntimeContext and bootstrap.
-- Added DI tests and ADR-012.
+- Added Plugin Runtime.
+- Added PluginRegistry.
+- Added PluginLifecycleManager.
+- Added ExtensionPoint and ExtensionPointRegistry.
+- Added plugin runtime tests and ADR-015.

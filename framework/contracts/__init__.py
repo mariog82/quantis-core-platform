@@ -1,9 +1,10 @@
-from .base import ContractId, ContractMetadata, FrameworkContract
-from .controller import ApiResponse, BaseController
-from .module import BaseModule, ModuleManifest
-from .plugin import BasePlugin, PluginManifest
-from .repository import BaseRepository, Repository
-from .service import BaseService, ServiceContext
+from framework.contracts.api import ControllerContract
+from framework.contracts.base import ContractId, ContractMetadata, FrameworkContract
+from framework.contracts.controller import ApiResponse, BaseController
+from framework.contracts.module import BaseModule, ModuleManifest
+from framework.contracts.plugin import BasePlugin, PluginManifest
+from framework.contracts.repository import BaseRepository, Repository
+from framework.contracts.service import BaseService, ServiceContext
 
 __all__ = [
     "ApiResponse",
@@ -14,6 +15,7 @@ __all__ = [
     "BaseService",
     "ContractId",
     "ContractMetadata",
+    "ControllerContract",
     "FrameworkContract",
     "ModuleManifest",
     "PluginManifest",
