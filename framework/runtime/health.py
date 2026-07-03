@@ -1,5 +1,5 @@
+from dataclasses import dataclass, field
 from enum import Enum
-
 
 class ModuleHealth(str, Enum):
     READY = "READY"
@@ -7,8 +7,13 @@ class ModuleHealth(str, Enum):
     FAILED = "FAILED"
     UNKNOWN = "UNKNOWN"
 
-
 class RuntimeHealth(str, Enum):
     READY = "READY"
     PARTIAL = "PARTIAL"
     FAILED = "FAILED"
+
+@dataclass
+class HealthReport:
+    status: ModuleHealth | RuntimeHealth
+    component: str
+    details: dict = field(default_factory=dict)

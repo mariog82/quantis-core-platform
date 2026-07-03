@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RuntimeState(str, Enum):
     BOOTING = "BOOTING"
     INITIALIZING = "INITIALIZING"
@@ -8,7 +7,6 @@ class RuntimeState(str, Enum):
     STOPPING = "STOPPING"
     STOPPED = "STOPPED"
     FAILED = "FAILED"
-
 
 class ModuleState(str, Enum):
     CREATED = "CREATED"

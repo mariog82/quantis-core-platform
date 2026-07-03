@@ -1,20 +1,27 @@
+from framework.contracts.module import BaseModule
+from framework.runtime.context import RuntimeContext
 from framework.runtime.state import ModuleState
 
+class ModuleLifecycleManager:
+    def initialize(self, module: BaseModule, context: RuntimeContext | None = None) -> ModuleState:
+        if hasattr(module, 'initialize'): module.initialize(context)
+        return ModuleState.INITIALIZED
 
-class LifecycleManager:
+    def boot(self, module: BaseModule) -> ModuleState:
+        module.boot(); return ModuleState.READY
 
-    def initialize(self, module):
+    def start(self, module: BaseModule) -> ModuleState:
+        if hasattr(module, 'start'): module.start()
+        return ModuleState.RUNNING
 
-        module.state = ModuleState.INITIALIZED
+    def stop(self, module: BaseModule) -> ModuleState:
+        if hasattr(module, 'stop'): module.stop()
+        else: module.shutdown()
+        return ModuleState.STOPPED
 
-    def start(self, module):
+    def dispose(self, module: BaseModule) -> ModuleState:
+        if hasattr(module, 'dispose'): module.dispose()
+        return ModuleState.STOPPED
 
-        module.state = ModuleState.RUNNING
-
-    def stop(self, module):
-
-        module.state = ModuleState.STOPPED
-
-    def disable(self, module):
-
-        module.state = ModuleState.DISABLED
+    def restart(self, module: BaseModule, context: RuntimeContext | None = None) -> ModuleState:
+        self.stop(module); self.initialize(module, context); self.boot(module); return self.start(module)

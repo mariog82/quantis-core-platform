@@ -1,15 +1,7 @@
-from framework.runtime.context import RuntimeContext
+from framework.runtime import RuntimeContext
 
-
-def test_runtime_context_defaults():
-    context = RuntimeContext()
-
-    assert context.identity is None
-    assert context.tenant is None
-    assert context.rbac is None
-    assert context.audit is None
-    assert context.configuration is None
-    assert context.eventbus is None
-    assert context.logger is None
-    assert context.metrics is None
-    assert context.tracer is None
+def test_runtime_context_ports():
+    context = RuntimeContext(identity='identity-port')
+    assert context.has_port('identity')
+    assert context.get_port('identity') == 'identity-port'
+    assert not context.has_port('tenant')

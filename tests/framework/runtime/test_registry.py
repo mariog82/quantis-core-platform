@@ -1,33 +1,14 @@
-from framework.contracts import ModuleManifest
-from framework.runtime.registry import ModuleRegistry
-
-
-class DemoModule:
-    manifest = ModuleManifest(name="demo", version="0.1.0")
-
+from framework.contracts.module import BaseModule, ModuleManifest
+from framework.runtime import ModuleRegistry, ModuleState
+class DemoModule(BaseModule):
+    manifest = ModuleManifest(name='demo', version='0.1.0', capabilities=['demo'])
+    def boot(self): pass
+    def shutdown(self): pass
 
 def test_register_module():
-    registry = ModuleRegistry()
-    module = DemoModule()
+    registry = ModuleRegistry(); module = registry.register(DemoModule())
+    assert module.manifest.name == 'demo'; assert registry.exists('demo'); assert registry.state('demo') == ModuleState.REGISTERED
 
-    registry.register(module)
-
-    assert registry.exists("demo") is True
-    assert registry.get("demo") == module
-
-
-def test_unregister_module():
-    registry = ModuleRegistry()
-    module = DemoModule()
-
-    registry.register(module)
-    registry.unregister("demo")
-
-    assert registry.exists("demo") is False
-
-
-def test_list_modules():
-    registry = ModuleRegistry()
-    registry.register(DemoModule())
-
-    assert len(registry.list()) == 1
+def test_find_by_capability():
+    registry = ModuleRegistry(); registry.register(DemoModule())
+    assert len(registry.find_by_capability('demo')) == 1

@@ -1,3 +1,1 @@
-"""
-Runtime test suite for QUANTIS Framework.
-"""
+"""Runtime tests package."""
