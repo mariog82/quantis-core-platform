@@ -1,4 +1,12 @@
-## 0.2.0-alpha.2-patch3
+## 0.2.0-alpha.2
 
-- Removed unused runtime event import in tests.
-- Rewrote dependency graph and runtime tests to satisfy Ruff E701/E702/F401.
+- Added clean Runtime Kernel implementation.
+- Added Runtime Manager.
+- Added Module Registry.
+- Added Module Lifecycle Manager.
+- Added Dependency Graph.
+- Added Runtime Context.
+- Added runtime events.
+- Added runtime health and state models.
+- Added runtime tests and CI.
+- Added ADR-008, ADR-009, ADR-010 and ADR-011.

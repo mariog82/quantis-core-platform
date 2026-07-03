@@ -1,0 +1,22 @@
+from enum import Enum
+
+
+class RuntimeState(str, Enum):
+    BOOTING = "BOOTING"
+    INITIALIZING = "INITIALIZING"
+    RUNNING = "RUNNING"
+    STOPPING = "STOPPING"
+    STOPPED = "STOPPED"
+    FAILED = "FAILED"
+
+
+class ModuleState(str, Enum):
+    CREATED = "CREATED"
+    REGISTERED = "REGISTERED"
+    INITIALIZED = "INITIALIZED"
+    READY = "READY"
+    RUNNING = "RUNNING"
+    STOPPING = "STOPPING"
+    STOPPED = "STOPPED"
+    FAILED = "FAILED"
+    DISABLED = "DISABLED"
