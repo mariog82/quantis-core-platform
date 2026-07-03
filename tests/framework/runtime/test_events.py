@@ -1,4 +1,4 @@
-from framework.runtime.events import KernelStarted, ModuleRegistered
+from framework.runtime.events import KernelStarted, ModuleRegistered, ModuleStarted
 
 
 def test_kernel_started_event():
@@ -11,4 +11,11 @@ def test_module_registered_event():
     event = ModuleRegistered("analytics")
 
     assert event.event_type == "module.registered"
+    assert event.module_name == "analytics"
+
+
+def test_module_started_event():
+    event = ModuleStarted("analytics")
+
+    assert event.event_type == "module.started"
     assert event.module_name == "analytics"

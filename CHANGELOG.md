@@ -1,4 +1,4 @@
-## 0.2.0-alpha.2-patch2
+## 0.2.0-alpha.2-patch3
 
-- Fixed Ruff E701/E702 violations in runtime dependency graph and tests.
-- Reformatted runtime tests to enterprise coding standard.
+- Removed unused runtime event import in tests.
+- Rewrote dependency graph and runtime tests to satisfy Ruff E701/E702/F401.
