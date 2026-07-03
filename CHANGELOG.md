@@ -1,4 +1,4 @@
-## 0.2.0-alpha.2-patch1
+## 0.2.0-alpha.2-patch2
 
-- Fixed ModuleRegistry annotation issue caused by `list` method shadowing built-in list.
-- Added runtime fix documentation.
+- Fixed Ruff E701/E702 violations in runtime dependency graph and tests.
+- Reformatted runtime tests to enterprise coding standard.
