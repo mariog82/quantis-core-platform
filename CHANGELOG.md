@@ -1,8 +1,3 @@
-## 0.3.0-alpha.3
+## 0.3.0-alpha.3-patch1
 
-- Added Reporting Module Foundation.
-- Added ReportTemplate.
-- Added ReportCatalog.
-- Added ReportingModuleService.
-- Integrated module with framework ReportingRuntime.
-- Added reporting module tests and ADR-025.
+- Fixed ReportingModuleService compatibility with ReportContext implementations that do not accept `filters` in constructor.

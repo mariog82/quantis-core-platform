@@ -16,7 +16,10 @@ class ReportingModuleService:
         self.catalog.register(template)
 
         def provider(context: ReportContext) -> dict:
-            return template.build_payload(context.filters)
+            source_data = getattr(context, "filters", None)
+            if source_data is None:
+                source_data = getattr(context, "metadata", {})
+            return template.build_payload(source_data)
 
         self.runtime.register(
             ReportDefinition(
@@ -29,5 +32,11 @@ class ReportingModuleService:
         return template
 
     def generate(self, template_key: str, data: dict) -> bytes:
-        output = self.runtime.generate(template_key, ReportContext(filters=data))
+        context = ReportContext()
+        if hasattr(context, "filters"):
+            context.filters = data
+        else:
+            context.metadata = data
+
+        output = self.runtime.generate(template_key, context)
         return output.content
