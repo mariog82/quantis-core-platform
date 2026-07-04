@@ -1,0 +1,26 @@
+name: m3-beta-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  m3-beta-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest ruff mypy
+      - name: Ruff
+        run: ruff check .
+      - name: Core framework and modules tests
+        run: python -m pytest tests/core tests/framework tests/modules
+      - name: Modules integration tests
+        run: python -m pytest tests/modules/integration
+      - name: Modules stabilization tests
+        run: python -m pytest tests/modules/stabilization
