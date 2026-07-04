@@ -1,3 +1,8 @@
-## 0.2.0-beta.1-rc2-patch1
+## 0.3.0-alpha.2
 
-- Fixed Ruff E701 violations in plugin exceptions.
+- Added Analytics Module Foundation.
+- Added Indicator and IndicatorResult.
+- Added IndicatorRegistry.
+- Added AnalyticsEngine.
+- Added default analytics indicators.
+- Added analytics module tests and ADR-024.
