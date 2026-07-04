@@ -1,7 +1,6 @@
-## 0.2.0-alpha.10
+## 0.2.0-alpha.10-patch2
 
-- Added framework integration tests.
-- Validated Runtime + DI + Plugin + Workflow composition.
-- Validated Dashboard + Reporting + API composition.
-- Validated Persistence + Workflow + Reporting composition.
-- Added ADR-019 and integration CI.
+- Restored missing framework.api source modules.
+- Restored missing framework.persistence source modules.
+- Restored missing framework.plugins source modules.
+- Fixed M2 PR10 integration import errors.
