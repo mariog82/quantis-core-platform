@@ -1,0 +1,36 @@
+name: m2-beta-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  m2-beta-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest ruff mypy
+
+      - name: Ruff
+        run: ruff check .
+
+      - name: Core tests
+        run: python -m pytest tests/core
+
+      - name: Framework tests
+        run: python -m pytest tests/framework
+
+      - name: Required release docs
+        run: |
+          test -f docs/release/M2_BETA_FREEZE.md
+          test -f docs/release/M2_RELEASE_NOTES.md
+          test -f docs/release/M2_ACCEPTANCE_CHECKLIST.md
+          test -f docs/release/M2_PUBLIC_API_BASELINE.md

@@ -1,8 +1,8 @@
-## 0.2.0-alpha.3
+## 0.2.0-beta.1
 
-- Added Dependency Injection Container.
-- Added DependencyToken.
-- Added InstanceProvider, SingletonProvider and FactoryProvider.
-- Added DependencyScope.
-- Integrated DependencyContainer with RuntimeContext and bootstrap.
-- Added DI tests and ADR-012.
+- Frozen M2 Framework baseline.
+- Added M2 beta release notes.
+- Added M2 acceptance checklist.
+- Added M2 public API baseline.
+- Added ADR-021.
+- Added M2 beta CI validation workflow.
