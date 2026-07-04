@@ -1,3 +1,8 @@
-## 0.2.0-beta.1-rc2-patch1
+## 0.3.0-alpha.3
 
-- Fixed Ruff E701 violations in plugin exceptions.
+- Added Reporting Module Foundation.
+- Added ReportTemplate.
+- Added ReportCatalog.
+- Added ReportingModuleService.
+- Integrated module with framework ReportingRuntime.
+- Added reporting module tests and ADR-025.
