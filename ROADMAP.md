@@ -5,7 +5,7 @@ Completed.
 
 ## M2 — Framework Contracts
 
-Status: ✅ Beta Freeze
+Status: ✅ Beta Freeze Candidate
 
 - PR1 Framework Contracts Skeleton ✅
 - PR2 Runtime Kernel & Module Lifecycle ✅
@@ -20,7 +20,11 @@ Status: ✅ Beta Freeze
 - PR11 Framework Documentation ✅
 - PR12 Beta Freeze ✅
 
+## M2.1 — Stabilization
+
+- PR1 Package Stabilization ✅
+- PR2 Final Release Gate, if needed
+
 ## Next Milestone
 
 M3 — Reusable Modules Foundation
-
