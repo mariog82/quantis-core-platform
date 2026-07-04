@@ -1,3 +1,10 @@
-## 0.2.0-beta.1-rc2-patch1
+## 0.3.0-alpha.1
 
-- Fixed Ruff E701 violations in plugin exceptions.
+- Started M3 Reusable Modules Foundation.
+- Added modules package.
+- Added AnalyticsModule skeleton.
+- Added ReportingModule skeleton.
+- Added DashboardModule skeleton.
+- Added NotificationModule skeleton.
+- Added default module registry helper.
+- Added module tests and ADR-023.
