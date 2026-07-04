@@ -1,0 +1,21 @@
+name: modules-docs-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  modules-docs-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required modules docs
+        run: |
+          test -f docs/modules/README.md
+          test -f docs/modules/architecture-overview.md
+          test -f docs/modules/analytics-guide.md
+          test -f docs/modules/reporting-guide.md
+          test -f docs/modules/dashboard-guide.md
+          test -f docs/modules/notification-guide.md
+          test -f docs/modules/module-composition-guide.md
+          test -f docs/modules/testing-guide.md

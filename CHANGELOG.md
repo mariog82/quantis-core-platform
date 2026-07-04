@@ -1,3 +1,8 @@
-## 0.2.0-beta.1-rc2-patch1
+## 0.3.0-alpha.7
 
-- Fixed Ruff E701 violations in plugin exceptions.
+- Added complete incremental M3 module source baseline.
+- Added consolidated modules documentation.
+- Added module architecture overview.
+- Added analytics, reporting, dashboard and notification guides.
+- Added module composition and testing guides.
+- Added ADR-029 and modules docs CI.
