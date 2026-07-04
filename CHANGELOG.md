@@ -1,12 +1,8 @@
-## 0.2.0-alpha.2
+## 0.2.0-beta.1
 
-- Added clean Runtime Kernel implementation.
-- Added Runtime Manager.
-- Added Module Registry.
-- Added Module Lifecycle Manager.
-- Added Dependency Graph.
-- Added Runtime Context.
-- Added runtime events.
-- Added runtime health and state models.
-- Added runtime tests and CI.
-- Added ADR-008, ADR-009, ADR-010 and ADR-011.
+- Frozen M2 Framework baseline.
+- Added M2 beta release notes.
+- Added M2 acceptance checklist.
+- Added M2 public API baseline.
+- Added ADR-021.
+- Added M2 beta CI validation workflow.
