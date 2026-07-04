@@ -4,20 +4,11 @@
 
 ## Current Version
 
-`0.3.0-beta.1`
+`0.4.0-alpha.1`
 
 ## Current Status
 
-M3 Reusable Modules Foundation is ready for final release validation.
-
-## Architecture Layers
-
-```text
-Core
-Framework
-Modules
-Verticals
-```
+M4 Enterprise Services Foundation started.
 
 ## Completed
 
@@ -34,6 +25,10 @@ Verticals
 - Dashboard
 - Notification
 
-## Next
+## Current enterprise services
 
-M4 — Enterprise Services Foundation
+- Licensing
+- Subscription
+- Billing
+- Provisioning
+- Compliance
