@@ -1,0 +1,24 @@
+name: docs-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  docs-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required docs
+        run: |
+          test -f docs/framework/README.md
+          test -f docs/framework/architecture-overview.md
+          test -f docs/framework/runtime-guide.md
+          test -f docs/framework/dependency-injection-guide.md
+          test -f docs/framework/plugin-guide.md
+          test -f docs/framework/workflow-guide.md
+          test -f docs/framework/dashboard-guide.md
+          test -f docs/framework/reporting-guide.md
+          test -f docs/framework/api-guide.md
+          test -f docs/framework/persistence-guide.md
+          test -f docs/framework/testing-guide.md

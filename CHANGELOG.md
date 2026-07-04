@@ -1,8 +1,8 @@
-## 0.2.0-alpha.3
+## 0.2.0-alpha.11
 
-- Added Dependency Injection Container.
-- Added DependencyToken.
-- Added InstanceProvider, SingletonProvider and FactoryProvider.
-- Added DependencyScope.
-- Integrated DependencyContainer with RuntimeContext and bootstrap.
-- Added DI tests and ADR-012.
+- Added consolidated Framework documentation.
+- Added runtime, DI, persistence, API, plugin, workflow, dashboard and reporting guides.
+- Added public API documentation.
+- Added framework testing guide.
+- Added M2 framework summary.
+- Added ADR-020 and docs CI.
