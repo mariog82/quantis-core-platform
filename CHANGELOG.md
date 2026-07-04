@@ -1,8 +1,4 @@
-## 0.2.0-beta.1-rc1
+## 0.2.0-beta.1-rc2
 
-- Added M2.1 stabilization tests.
-- Added public package import checks.
-- Added public symbol export checks.
-- Added required release file checks.
-- Added stabilization CI.
-- Added ADR-022.
+- Restored missing M2 public framework packages.
+- Added final release gate package baseline.
