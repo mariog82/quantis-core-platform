@@ -1,9 +1,5 @@
-## 0.3.0-alpha.6
+## 0.3.0-alpha.6-patch1
 
-- Added M3 module integration tests.
-- Validated default module runtime registration.
-- Validated Analytics → Reporting flow.
-- Validated Analytics → Dashboard flow.
-- Validated Reporting → Notification flow.
-- Validated full module flow.
-- Added ADR-028 and modules integration CI.
+- Restored missing M3 module source files.
+- Restored module public exports.
+- Restored default module registry.
