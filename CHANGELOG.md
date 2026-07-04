@@ -1,3 +1,8 @@
-## 0.2.0-beta.1-rc2-patch1
+## 0.3.0-alpha.4
 
-- Fixed Ruff E701 violations in plugin exceptions.
+- Added Dashboard Module Foundation.
+- Added DashboardWidgetDefinition.
+- Added DashboardCatalog.
+- Added DashboardModuleService.
+- Integrated module with framework DashboardRuntime.
+- Added dashboard module tests and ADR-026.
