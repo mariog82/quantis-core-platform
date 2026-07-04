@@ -1,3 +1,8 @@
-## 0.2.0-beta.1-rc2-patch1
+## 0.3.0-alpha.5
 
-- Fixed Ruff E701 violations in plugin exceptions.
+- Added Notification Module Foundation.
+- Added NotificationMessage and NotificationPriority.
+- Added NotificationChannel and InMemoryNotificationChannel.
+- Added NotificationChannelRegistry.
+- Added NotificationService.
+- Added notification module tests and ADR-027.
