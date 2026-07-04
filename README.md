@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 \# Quantis Core Platform™
 
 
@@ -478,7 +479,7 @@ Status
 
 
 
-🟡 In Progress
+✅ Beta Freeze
 
 
 
@@ -494,23 +495,23 @@ Completato
 
 
 
-In sviluppo
+Completato
 
 
 
-\- Dependency Injection
+\✅ Dependency Injection
 
-\- Unit of Work
+\✅ Unit of Work
 
-\- API Contracts
+\✅ API Contracts
 
-\- Plugin Runtime
+\✅ Plugin Runtime
 
-\- Workflow Runtime
+\✅ Workflow Runtime
 
-\- Dashboard Runtime
+\✅ Dashboard Runtime
 
-\- Reporting Runtime
+\✅ Reporting Runtime
 
 
 
@@ -756,13 +757,7 @@ MAJOR.MINOR.PATCH
 
 Versione corrente
 
-
-
-```
-
-0.2.0-alpha.2
-
-```
+0.2.0-beta.1
 
 
 
@@ -856,3 +851,34 @@ Tutti i diritti riservati.
 
 Quantis Core Platform™ è software proprietario. La riproduzione, distribuzione o utilizzo non autorizzati sono vietati salvo esplicita autorizzazione del titolare.
 
+=======
+# Quantis Core Platform™
+
+> Enterprise Modular Framework for Building Secure, Scalable and Reusable SaaS Platforms.
+
+## Current Version
+
+`0.2.0-beta.1`
+
+## Current Status
+
+M2 Framework Contracts is now in beta freeze.
+
+## Architecture Layers
+
+```text
+Core
+Framework
+Modules
+Verticals
+```
+
+## Completed
+
+- M1 Core Foundation
+- M2 Framework Contracts Beta
+
+## Next
+
+M3 — Reusable Modules Foundation
+>>>>>>> 06185b7c61e78ae42b568b1c7e634a1031c8930c
