@@ -1,5 +1,4 @@
-## 0.4.0-alpha.2-patch1
+## 0.4.0-alpha.2-patch2
 
-- Restored services base package.
-- Restored EnterpriseService and ServiceResult.
-- Fixed Licensing Service imports.
+- Updated M3 release gate to be compatible with M4 version progression.
+- Added M4 alpha.2 version gate.
