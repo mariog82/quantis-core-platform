@@ -1,8 +1,8 @@
-## 0.3.0-beta.1
+## 0.4.0-alpha.3
 
-- Consolidated M3 beta freeze into a complete final stabilization increment.
-- Included full M3 module source baseline.
-- Included pytest importlib configuration.
-- Included module integration and stabilization tests.
-- Added M3 final release gate.
-- Added ADR-031.
+- Added enhanced Subscription Service.
+- Added plan features and subscription cancellation.
+- Added enhanced Billing Service.
+- Added invoice status, tax calculation and paid state.
+- Added Subscription + Billing integration tests.
+- Added ADR-034.
