@@ -1,3 +1,4 @@
-## 0.4.0-alpha.3-patch1
+## 0.4.0-alpha.3-patch2
 
-- Restored services base package for Subscription and Billing services.
+- Updated M3 release gate for M4 alpha.3 progression.
+- Added M4 alpha.3 version gate.
