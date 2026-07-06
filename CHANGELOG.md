@@ -1,5 +1,4 @@
-## 0.4.0-beta.1-patch1
+## 0.4.0-beta.1-patch2
 
-- Restored complete M4 service source baseline.
-- Restored public service exports.
-- Restored enterprise services documentation required by release gates.
+- Restored `tests/services/integration`.
+- Restored Enterprise Services integration test suite.
