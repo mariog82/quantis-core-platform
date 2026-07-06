@@ -1,8 +1,8 @@
-## 0.3.0-beta.1
+## 0.4.0-alpha.5
 
-- Consolidated M3 beta freeze into a complete final stabilization increment.
-- Included full M3 module source baseline.
-- Included pytest importlib configuration.
-- Included module integration and stabilization tests.
-- Added M3 final release gate.
-- Added ADR-031.
+- Added Compliance Service.
+- Added ComplianceControl and ComplianceControlStatus.
+- Added ComplianceEvaluationResult.
+- Added policy and control evaluation.
+- Added Licensing → Compliance integration test.
+- Added ADR-036.
