@@ -4,11 +4,11 @@
 
 ## Current Version
 
-`0.3.0-beta.1`
+`0.4.0-beta.1`
 
 ## Current Status
 
-M3 Reusable Modules Foundation is ready for final release validation.
+M4 Enterprise Services Foundation is now in beta freeze.
 
 ## Architecture Layers
 
@@ -16,6 +16,7 @@ M3 Reusable Modules Foundation is ready for final release validation.
 Core
 Framework
 Modules
+Enterprise Services
 Verticals
 ```
 
@@ -26,6 +27,7 @@ Verticals
 - M2.1 Stabilization
 - M3 Reusable Modules Foundation Beta
 - M3.1 Final Stabilization
+- M4 Enterprise Services Foundation Beta
 
 ## Current reusable modules
 
@@ -34,6 +36,14 @@ Verticals
 - Dashboard
 - Notification
 
+## Current enterprise services
+
+- Licensing
+- Subscription
+- Billing
+- Provisioning
+- Compliance
+
 ## Next
 
-M4 — Enterprise Services Foundation
+M5 — Adapter & Integration Layer
