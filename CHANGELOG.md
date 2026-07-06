@@ -1,4 +1,3 @@
-## 0.4.0-beta.1-patch4
+## 0.4.0-beta.1-patch5
 
-- Fixed legacy M3 version gate blocking M4 beta.
-- Added M4 beta version gate.
+- Restored VERSION to `0.4.0-beta.1` for M4 beta freeze.
