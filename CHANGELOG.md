@@ -1,4 +1,4 @@
-## 0.4.0-alpha.4-patch2
+## 0.4.0-alpha.4-patch3
 
-- Restored Subscription Service source files and public exports.
-- Fixed Subscription → Provisioning integration imports.
+- Updated M3 release gate for M4 alpha.4 progression.
+- Added M4 alpha.4 version gate.
