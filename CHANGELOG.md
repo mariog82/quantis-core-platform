@@ -1,3 +1,6 @@
-## Unreleased
+## 0.5.0-alpha.2
 
-- Fixed unresolved Git conflict markers in `tests/modules/stabilization/test_m3_release_gate.py`.
+- Added provider-neutral HTTP adapter contracts.
+- Added HttpRequest, HttpResponse, HttpHeader, HttpMethod and HttpStatus.
+- Added HttpAdapter and InMemoryHttpAdapter.
+- Added HTTP adapter tests and ADR-041.
