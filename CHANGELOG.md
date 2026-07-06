@@ -1,6 +1,4 @@
-## 0.5.0-alpha.2
+## 0.5.0-alpha.2-patch1
 
-- Added provider-neutral HTTP adapter contracts.
-- Added HttpRequest, HttpResponse, HttpHeader, HttpMethod and HttpStatus.
-- Added HttpAdapter and InMemoryHttpAdapter.
-- Added HTTP adapter tests and ADR-041.
+- Restored M5 Adapter Contracts baseline required by HTTP Adapter.
+- Fixed `framework.adapters` public exports.
