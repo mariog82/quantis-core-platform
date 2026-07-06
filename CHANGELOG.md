@@ -1,8 +1,8 @@
-## 0.3.0-beta.1
+## 0.4.0-alpha.4
 
-- Consolidated M3 beta freeze into a complete final stabilization increment.
-- Included full M3 module source baseline.
-- Included pytest importlib configuration.
-- Included module integration and stabilization tests.
-- Added M3 final release gate.
-- Added ADR-031.
+- Added Provisioning Service.
+- Added ProvisioningRequest, ProvisioningResult and ProvisioningStatus.
+- Added ProvisionedEnvironment.
+- Added tenant provisioning and deprovisioning flows.
+- Added Subscription → Provisioning integration test.
+- Added ADR-035.
