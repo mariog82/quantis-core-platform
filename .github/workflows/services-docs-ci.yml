@@ -1,0 +1,24 @@
+name: services-docs-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  services-docs-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required service docs
+        run: |
+          test -f docs/services/README.md
+          test -f docs/services/architecture-overview.md
+          test -f docs/services/licensing-guide.md
+          test -f docs/services/subscription-guide.md
+          test -f docs/services/billing-guide.md
+          test -f docs/services/provisioning-guide.md
+          test -f docs/services/compliance-guide.md
+          test -f docs/services/service-composition-guide.md
+          test -f docs/services/testing-guide.md
+          test -f docs/services/public-api.md
+          test -f docs/services/m4-summary.md
