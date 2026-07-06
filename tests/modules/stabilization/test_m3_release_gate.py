@@ -18,4 +18,5 @@ def test_m3_release_documents_exist():
     ]
 
     missing = [path for path in required if not Path(path).exists()]
+
     assert missing == []

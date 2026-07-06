@@ -1,3 +1,3 @@
-## 0.4.0-beta.1-patch5
+## Unreleased
 
-- Restored VERSION to `0.4.0-beta.1` for M4 beta freeze.
+- Fixed unresolved Git conflict markers in `tests/modules/stabilization/test_m3_release_gate.py`.

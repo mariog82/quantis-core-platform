@@ -12,20 +12,21 @@ Status: ✅ Completed
 ## M3 — Reusable Modules Foundation
 Status: ✅ Beta Freeze
 
-- PR1 Modules Foundation Skeleton ✅
-- PR2 Analytics Module Foundation ✅
-- PR3 Reporting Module Foundation ✅
-- PR4 Dashboard Module Foundation ✅
-- PR5 Notification Module Foundation ✅
-- PR6 Module Integration Tests ✅
-- PR7 Modules Documentation ✅
-- PR8 M3 Beta Freeze ✅
-
 ## M3.1 — Final Stabilization
-Status: ✅ Ready for Release Gate
+Status: ✅ Completed
 
-- PR1 Final Stabilization Complete Increment ✅
+## M4 — Enterprise Services Foundation
+Status: ✅ Beta Freeze
+
+- PR1 Enterprise Services Skeleton ✅
+- PR2 Licensing Service ✅
+- PR3 Subscription + Billing Services ✅
+- PR4 Provisioning Service ✅
+- PR5 Compliance Service ✅
+- PR6 Enterprise Services Integration Tests ✅
+- PR7 Enterprise Services Documentation ✅
+- PR8 M4 Beta Freeze ✅
 
 ## Next Milestone
 
-M4 — Enterprise Services Foundation
+M5 — Adapter & Integration Layer
