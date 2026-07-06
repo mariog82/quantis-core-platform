@@ -1,8 +1,7 @@
-## 0.3.0-beta.1
+## 0.4.0-alpha.6
 
-- Consolidated M3 beta freeze into a complete final stabilization increment.
-- Included full M3 module source baseline.
-- Included pytest importlib configuration.
-- Included module integration and stabilization tests.
-- Added M3 final release gate.
-- Added ADR-031.
+- Added complete M4 enterprise services source baseline.
+- Added full enterprise services integration flow.
+- Added EnterpriseServiceRegistry integration tests.
+- Added enterprise services health checks.
+- Added ADR-037 and enterprise services integration CI.
