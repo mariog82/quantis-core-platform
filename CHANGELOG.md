@@ -1,3 +1,6 @@
-## Unreleased
+## 0.5.0-alpha.6
 
-- Fixed unresolved Git conflict markers in `tests/modules/stabilization/test_m3_release_gate.py`.
+- Added cumulative M5 alpha.6 baseline.
+- Added provider-neutral Messaging Adapter contracts.
+- Added MessagingAdapter and InMemoryMessagingAdapter.
+- Added messaging adapter tests, public package regression tests and ADR-045.
