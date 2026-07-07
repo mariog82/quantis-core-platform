@@ -64,7 +64,11 @@ class PaymentResponse:
 
     @property
     def successful(self) -> bool:
-        return self.status in {PaymentStatus.AUTHORIZED, PaymentStatus.CAPTURED}
+        return self.status in {
+            PaymentStatus.AUTHORIZED,
+            PaymentStatus.CAPTURED,
+            PaymentStatus.REFUNDED,
+        }
 
 
 @dataclass(frozen=True)
