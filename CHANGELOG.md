@@ -1,3 +1,6 @@
-## Unreleased
+## 0.5.0-alpha.4
 
-- Fixed unresolved Git conflict markers in `tests/modules/stabilization/test_m3_release_gate.py`.
+- Added provider-neutral Authentication Adapter contracts.
+- Added Principal, PrincipalClaim, AuthRequest, AuthSession and AuthResult.
+- Added AuthenticationAdapter and InMemoryAuthenticationAdapter.
+- Added authentication adapter tests and ADR-043.

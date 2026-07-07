@@ -1,32 +1,16 @@
 # QUANTIS Core Platform™ Roadmap
 
-## M1 — Core Foundation
-Status: ✅ Completed
+## M5 — Adapter & Integration Layer
 
-## M2 — Framework Contracts
-Status: ✅ Beta Freeze
-
-## M2.1 — Stabilization
-Status: ✅ Completed
-
-## M3 — Reusable Modules Foundation
-Status: ✅ Beta Freeze
-
-## M3.1 — Final Stabilization
-Status: ✅ Completed
-
-## M4 — Enterprise Services Foundation
-Status: ✅ Beta Freeze
-
-- PR1 Enterprise Services Skeleton ✅
-- PR2 Licensing Service ✅
-- PR3 Subscription + Billing Services ✅
-- PR4 Provisioning Service ✅
-- PR5 Compliance Service ✅
-- PR6 Enterprise Services Integration Tests ✅
-- PR7 Enterprise Services Documentation ✅
-- PR8 M4 Beta Freeze ✅
-
-## Next Milestone
-
-M5 — Adapter & Integration Layer
+- PR1 Adapter Contracts ✅
+- PR2 HTTP Adapter ✅
+- PR3 Database Adapter ✅
+- PR4 Authentication Adapter ✅
+- PR5 Storage Adapter
+- PR6 Messaging Adapter
+- PR7 AI Adapter
+- PR8 Notification Adapter
+- PR9 Payment Adapter
+- PR10 Identity Provider Adapter
+- PR11 SDK Foundations
+- PR12 M5 Beta Freeze
