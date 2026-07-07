@@ -1,3 +1,4 @@
-## 0.5.0-alpha.7
+## Unreleased
 
-- Added AI Adapter cumulative release.
+- Fixed M4 historical version gate.
+- Added M5 adapter version gate.
