@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any
 
+
 class AIProviderType(str, Enum):
     MEMORY = "memory"
     OPENAI = "openai"
@@ -11,11 +12,13 @@ class AIProviderType(str, Enum):
     OLLAMA = "ollama"
     LOCAL = "local"
 
+
 class AIRole(str, Enum):
     SYSTEM = "system"
     USER = "user"
     ASSISTANT = "assistant"
     TOOL = "tool"
+
 
 @dataclass(frozen=True)
 class AIModel:
@@ -25,11 +28,13 @@ class AIModel:
     supports_tools: bool = False
     supports_embeddings: bool = False
 
+
 @dataclass
 class AIMessage:
     role: AIRole
     content: str
     metadata: dict[str, Any] = field(default_factory=dict)
+
 
 @dataclass
 class AIRequest:
@@ -39,16 +44,19 @@ class AIRequest:
     max_tokens: int | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
 
+
 @dataclass
 class AICompletionChoice:
     message: AIMessage
     finish_reason: str = "stop"
+
 
 @dataclass
 class AIUsage:
     prompt_tokens: int = 0
     completion_tokens: int = 0
     total_tokens: int = 0
+
 
 @dataclass
 class AIResponse:
@@ -58,7 +66,10 @@ class AIResponse:
 
     @property
     def text(self) -> str:
-        return self.choices[0].message.content if self.choices else ""
+        if not self.choices:
+            return ""
+        return self.choices[0].message.content
+
 
 @dataclass
 class AIEmbeddingRequest:
@@ -66,10 +77,12 @@ class AIEmbeddingRequest:
     input: str | list[str]
     metadata: dict[str, Any] = field(default_factory=dict)
 
+
 @dataclass
 class AIEmbedding:
     values: list[float]
     index: int = 0
+
 
 @dataclass
 class AIEmbeddingResponse:
