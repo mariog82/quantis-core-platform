@@ -1,3 +1,6 @@
-## Unreleased
+## 0.5.0-alpha.5
 
-- Fixed unresolved Git conflict markers in `tests/modules/stabilization/test_m3_release_gate.py`.
+- Added provider-neutral Storage Adapter contracts.
+- Added StorageObjectMetadata, StorageObject, StorageWriteRequest and StorageReadRequest.
+- Added StorageAdapter and InMemoryStorageAdapter.
+- Added storage adapter tests and ADR-044.
