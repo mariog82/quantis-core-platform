@@ -3,6 +3,7 @@ from framework.adapters.context import AdapterContext
 from framework.adapters.registry import AdapterRegistry
 from framework.adapters.result import AdapterResult
 
+
 class AdapterRuntime:
     def __init__(self, registry: AdapterRegistry | None = None):
         self.registry = registry or AdapterRegistry()
@@ -22,4 +23,5 @@ class AdapterRuntime:
             adapter.stop()
 
     def execute(self, adapter_name: str, operation: str, payload: dict | None = None) -> AdapterResult:
-        return self.registry.get(adapter_name).execute(operation, payload or {})
+        adapter = self.registry.get(adapter_name)
+        return adapter.execute(operation, payload or {})

@@ -1,1 +1,1 @@
-__all__ = ['placeholder']
+__all__ = ['StorageAdapter', 'InMemoryStorageAdapter', 'StorageObject', 'StorageObjectMetadata', 'StorageProviderType', 'StorageReadRequest', 'StorageWriteRequest']

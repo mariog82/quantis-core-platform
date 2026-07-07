@@ -1,11 +1,12 @@
 from dataclasses import dataclass, field
 from typing import Any
 
+
 @dataclass(frozen=True)
 class AdapterMetadata:
     name: str
     adapter_type: str
-    version: str = "0.5.0-alpha.7"
+    version: str = "0.5.0-alpha.8"
     description: str = ""
     capabilities: list[str] = field(default_factory=list)
     provider: str | None = None

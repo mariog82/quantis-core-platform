@@ -1,9 +1,12 @@
 from typing import Callable
+
 from framework.adapters.adapter import Adapter
 from framework.adapters.context import AdapterContext
 from framework.adapters.exceptions import AdapterNotFound
 
+
 AdapterBuilder = Callable[[AdapterContext], Adapter]
+
 
 class AdapterFactory:
     def __init__(self):
