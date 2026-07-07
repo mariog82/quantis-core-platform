@@ -1,6 +1,11 @@
 import importlib
 
-PACKAGES = ["framework.adapters", "framework.adapters.ai"]
+
+PACKAGES = [
+    "framework.adapters",
+    "framework.adapters.payment",
+]
+
 
 def test_m5_adapter_packages_define_all():
     for package_name in PACKAGES:
