@@ -1,3 +1,3 @@
-## Unreleased
+## 0.5.0-alpha.7
 
-- Fixed unresolved Git conflict markers in `tests/modules/stabilization/test_m3_release_gate.py`.
+- Added AI Adapter cumulative release.
