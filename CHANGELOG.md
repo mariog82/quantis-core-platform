@@ -1,3 +1,6 @@
-## Unreleased
+## 0.5.0-alpha.3
 
-- Fixed unresolved Git conflict markers in `tests/modules/stabilization/test_m3_release_gate.py`.
+- Added provider-neutral Database Adapter contracts.
+- Added DatabaseConnectionConfig, DatabaseQuery, DatabaseCommand, DatabaseRecord and DatabaseResult.
+- Added DatabaseAdapter and InMemoryDatabaseAdapter.
+- Added database adapter tests and ADR-042.
