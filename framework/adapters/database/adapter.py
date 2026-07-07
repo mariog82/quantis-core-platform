@@ -4,7 +4,7 @@ from framework.adapters import Adapter, AdapterMetadata, AdapterResult
 from framework.adapters.database.contracts import (
     DatabaseCommand,
     DatabaseConnectionConfig,
-    DatabaseDialect,
+    #DatabaseDialect,
     DatabaseQuery,
     DatabaseRecord,
     DatabaseResult,
