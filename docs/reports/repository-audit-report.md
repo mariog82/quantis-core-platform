@@ -5,7 +5,7 @@ Status: `WARN`
 
 ## Summary
 
-- Total files: `403`
+- Total files: `404`
 - Total directories: `129`
 - Python files: `267`
 
@@ -201,6 +201,7 @@ Status: `WARN`
 - 📄 `docs/release/M5_RELEASE_NOTES.md`
 - 📁 `docs/reports`
 - 📄 `docs/reports/README.md`
+- 📄 `docs/reports/repository-audit-report.md`
 - 📁 `docs/runtime`
 - 📄 `docs/runtime/dependency-graph.md`
 - 📄 `docs/runtime/module-lifecycle.md`
@@ -549,5 +550,4 @@ Status: `WARN`
 - 📄 `tests/services/integration/test_licensing_compliance_integration.py`
 - 📄 `tests/services/integration/test_service_registry_integration.py`
 - 📄 `tests/services/integration/test_subscription_billing_integration.py`
-- 📄 `tests/services/integration/test_subscription_provisioning_integration.py`
-- ... truncated, total entries: 532
+- ... truncated, total entries: 533

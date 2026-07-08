@@ -1,7 +1,10 @@
 """SDK adapter tests package.
 
-This package defines __all__ so that the M5 public package gate remains stable
-even when pytest places this test package on the import path during collection.
+This package intentionally has a distinct __all__ for test discovery gates.
+It must not be imported as the application `sdk` package.
 """
 
-__all__ = ["test_sdk_adapter", "test_sdk_factory"]
+__all__ = [
+    "test_sdk_adapter",
+    "test_sdk_factory",
+]

@@ -1,7 +1,3 @@
-## 0.5.1-alpha.6
+## 0.5.1-alpha.6-patch2
 
-- Added Repository Audit tooling.
-- Added repository tree reporting.
-- Added `__pycache__`-only directory detection.
-- Added empty package detection.
-- Added large source file detection.
+- Converted M5 version gate into historical freeze-document check.
