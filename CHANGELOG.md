@@ -1,3 +1,3 @@
-## 0.5.0-beta.1-patch7
+## 0.5.0-beta.1-patch8
 
-- Fixed SDK generator public package import gate.
+- Restored SDK generator package sources for M5 beta CI.

@@ -1,5 +1,6 @@
 class SDKError(Exception):
-    pass
+    """Base SDK error."""
+
 
 class SDKRequestError(SDKError):
-    pass
+    """Raised when an SDK request fails."""

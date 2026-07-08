@@ -29,12 +29,15 @@ def _ensure_repo_root_first() -> None:
 
     sys.path.insert(0, repo_root_str)
 
-    loaded_sdk = sys.modules.get("sdk")
-    if loaded_sdk is not None:
-        loaded_sdk_file = getattr(loaded_sdk, "__file__", "") or ""
-        if "\\tests\\framework\\adapters\\sdk\\" in loaded_sdk_file:
-            sys.modules.pop("sdk", None)
-            sys.modules.pop("sdk.generator", None)
+    for module_name in ["sdk.generator", "sdk"]:
+        loaded_module = sys.modules.get(module_name)
+        if loaded_module is None:
+            continue
+
+        loaded_file = getattr(loaded_module, "__file__", "") or ""
+        normalized = loaded_file.replace("/", "\\")
+        if "\\tests\\framework\\adapters\\sdk\\" in normalized:
+            sys.modules.pop(module_name, None)
 
 
 def test_m5_public_packages_are_importable_and_define_all():

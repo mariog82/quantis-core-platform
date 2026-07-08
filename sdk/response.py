@@ -11,8 +11,8 @@ class SDKResponse:
 
     @classmethod
     def ok(cls, data: Any = None, status_code: int | None = None) -> "SDKResponse":
-        return cls(True, data, status_code=status_code)
+        return cls(success=True, data=data, status_code=status_code)
 
     @classmethod
     def fail(cls, error: str, status_code: int | None = None) -> "SDKResponse":
-        return cls(False, error=error, status_code=status_code)
+        return cls(success=False, error=error, status_code=status_code)

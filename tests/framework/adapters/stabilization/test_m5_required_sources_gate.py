@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 REQUIRED_FILES = [
     "framework/adapters/__init__.py",
     "framework/adapters/http/__init__.py",
@@ -15,8 +16,12 @@ REQUIRED_FILES = [
     "sdk/__init__.py",
     "sdk/client.py",
     "sdk/generator/__init__.py",
+    "sdk/generator/manifest.py",
+    "sdk/generator/openapi.py",
 ]
+
 
 def test_m5_required_sources_exist():
     missing = [path for path in REQUIRED_FILES if not Path(path).exists()]
+
     assert missing == []
