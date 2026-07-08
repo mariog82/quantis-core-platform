@@ -1,18 +1,7 @@
-from framework.adapters.identity.adapter import IdentityProviderAdapter
-from framework.adapters.identity.contracts import (
-    IdentityTokenValidationRequest,
-    IdentityTokenValidationResponse,
-    IdentityUserLookupRequest,
-    IdentityUserLookupResponse,
-)
-
-
 class IdentityProviderRuntime:
-    def __init__(self, adapter: IdentityProviderAdapter):
+    def __init__(self, adapter):
         self.adapter = adapter
-
-    def validate_token(self, request: IdentityTokenValidationRequest) -> IdentityTokenValidationResponse:
+    def validate_token(self, request):
         return self.adapter.validate_token(request)
-
-    def lookup_user(self, request: IdentityUserLookupRequest) -> IdentityUserLookupResponse:
+    def lookup_user(self, request):
         return self.adapter.lookup_user(request)

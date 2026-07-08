@@ -1,14 +1,17 @@
 from abc import ABC, abstractmethod
 from enum import Enum
+
 from framework.adapters.context import AdapterContext
 from framework.adapters.metadata import AdapterMetadata
 from framework.adapters.result import AdapterResult
+
 
 class AdapterLifecycleState(str, Enum):
     CREATED = "created"
     CONFIGURED = "configured"
     STARTED = "started"
     STOPPED = "stopped"
+
 
 class Adapter(ABC):
     metadata: AdapterMetadata

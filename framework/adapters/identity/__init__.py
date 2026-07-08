@@ -1,24 +1,3 @@
 from framework.adapters.identity.adapter import IdentityProviderAdapter, InMemoryIdentityProviderAdapter
-from framework.adapters.identity.contracts import (
-    IdentityProviderType,
-    IdentityToken,
-    IdentityTokenValidationRequest,
-    IdentityTokenValidationResponse,
-    IdentityUser,
-    IdentityUserLookupRequest,
-    IdentityUserLookupResponse,
-    IdentityUserStatus,
-)
-
-__all__ = [
-    "IdentityProviderAdapter",
-    "IdentityProviderType",
-    "IdentityToken",
-    "IdentityTokenValidationRequest",
-    "IdentityTokenValidationResponse",
-    "IdentityUser",
-    "IdentityUserLookupRequest",
-    "IdentityUserLookupResponse",
-    "IdentityUserStatus",
-    "InMemoryIdentityProviderAdapter",
-]
+from framework.adapters.identity.contracts import IdentityProviderType, IdentityToken, IdentityTokenValidationRequest, IdentityTokenValidationResponse, IdentityUser, IdentityUserLookupRequest, IdentityUserLookupResponse, IdentityUserStatus
+__all__ = ["IdentityProviderAdapter", "IdentityProviderType", "IdentityToken", "IdentityTokenValidationRequest", "IdentityTokenValidationResponse", "IdentityUser", "IdentityUserLookupRequest", "IdentityUserLookupResponse", "IdentityUserStatus", "InMemoryIdentityProviderAdapter"]

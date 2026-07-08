@@ -4,19 +4,20 @@
 
 `0.5.0-beta.1`
 
-## Current Status
+## Status
 
-M5 Adapter & Integration Layer is frozen in beta.
+M5 Adapter & Integration Layer complete beta release.
 
-## Completed Milestones
+## Included
 
-- M0 Repository Baseline
-- M1 Core Foundation
-- M2 Framework Contracts
-- M3 Reusable Modules Foundation
-- M4 Enterprise Services Foundation
-- M5 Adapter & Integration Layer
-
-## Next Milestone
-
-M6 — Event-Driven Platform
+- Adapter Contracts
+- HTTP Adapter
+- Database Adapter
+- Authentication Adapter
+- Storage Adapter
+- Messaging Adapter
+- AI Adapter
+- Notification Adapter
+- Payment Adapter
+- Identity Provider Adapter
+- SDK Foundations

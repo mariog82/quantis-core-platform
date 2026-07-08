@@ -1,0 +1,2 @@
+class NotificationAdapterError(Exception):
+    pass

@@ -1,4 +1,3 @@
-## 0.5.0-beta.1-patch1
+## 0.5.0-beta.1-patch7
 
-- Restored required M5 Identity Provider Adapter sources.
-- Restored required SDK Foundation sources.
+- Fixed SDK generator public package import gate.

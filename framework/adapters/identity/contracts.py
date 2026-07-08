@@ -5,31 +5,18 @@ from typing import Any
 
 class IdentityProviderType(str, Enum):
     MEMORY = "memory"
-    KEYCLOAK = "keycloak"
-    AZURE_AD = "azure_ad"
-    GOOGLE = "google"
-    GITHUB = "github"
-    APPLE = "apple"
-    OIDC = "oidc"
-    SAML = "saml"
-    LDAP = "ldap"
 
 
 class IdentityUserStatus(str, Enum):
     ACTIVE = "active"
-    DISABLED = "disabled"
-    LOCKED = "locked"
-    UNKNOWN = "unknown"
 
 
 @dataclass(frozen=True)
 class IdentityUser:
     subject: str
     email: str | None = None
-    display_name: str | None = None
     roles: list[str] = field(default_factory=list)
     groups: list[str] = field(default_factory=list)
-    status: IdentityUserStatus = IdentityUserStatus.ACTIVE
     claims: dict[str, Any] = field(default_factory=dict)
 
     def has_role(self, role: str) -> bool:
@@ -42,9 +29,6 @@ class IdentityUser:
 @dataclass(frozen=True)
 class IdentityToken:
     value: str
-    token_type: str = "Bearer"
-    expires_in: int | None = None
-    claims: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

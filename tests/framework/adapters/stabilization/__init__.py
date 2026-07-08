@@ -1,1 +1,1 @@
-"""M5 adapter stabilization tests."""
+"""M5 stabilization tests."""

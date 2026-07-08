@@ -1,6 +1,7 @@
 from framework.adapters.adapter import Adapter
 from framework.adapters.exceptions import AdapterAlreadyRegistered, AdapterNotFound
 
+
 class AdapterRegistry:
     def __init__(self):
         self._adapters: dict[str, Adapter] = {}
@@ -24,7 +25,7 @@ class AdapterRegistry:
         return list(self._adapters.values())
 
     def find_by_type(self, adapter_type: str) -> list[Adapter]:
-        return [a for a in self._adapters.values() if a.metadata.adapter_type == adapter_type]
+        return [adapter for adapter in self._adapters.values() if adapter.metadata.adapter_type == adapter_type]
 
     def find_by_capability(self, capability: str) -> list[Adapter]:
-        return [a for a in self._adapters.values() if capability in a.metadata.capabilities]
+        return [adapter for adapter in self._adapters.values() if capability in adapter.metadata.capabilities]
