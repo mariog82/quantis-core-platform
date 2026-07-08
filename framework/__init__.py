@@ -1,4 +1,1 @@
-"""
-QUANTIS Core Platform™
-Core Package
-"""
+"""Quantis framework package."""

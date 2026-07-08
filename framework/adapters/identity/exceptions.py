@@ -1,0 +1,2 @@
+class IdentityProviderAdapterError(Exception):
+    pass

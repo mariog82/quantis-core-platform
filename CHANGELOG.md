@@ -1,4 +1,3 @@
-## 0.4.0-beta.1-patch2
+## 0.5.0-beta.1-patch8
 
-- Restored `tests/services/integration`.
-- Restored Enterprise Services integration test suite.
+- Restored SDK generator package sources for M5 beta CI.

@@ -1,32 +1,14 @@
 # QUANTIS Core Platform™ Roadmap
 
-## M1 — Core Foundation
-Status: ✅ Completed
+## Completed
 
-## M2 — Framework Contracts
-Status: ✅ Beta Freeze
+- M0 Repository Baseline ✅
+- M1 Core Foundation ✅
+- M2 Framework Foundation ✅
+- M3 Reusable Modules Foundation ✅
+- M4 Enterprise Services Foundation ✅
+- M5 Adapter & Integration Layer ✅ Beta
 
-## M2.1 — Stabilization
-Status: ✅ Completed
+## Next
 
-## M3 — Reusable Modules Foundation
-Status: ✅ Beta Freeze
-
-## M3.1 — Final Stabilization
-Status: ✅ Completed
-
-## M4 — Enterprise Services Foundation
-Status: ✅ Beta Freeze
-
-- PR1 Enterprise Services Skeleton ✅
-- PR2 Licensing Service ✅
-- PR3 Subscription + Billing Services ✅
-- PR4 Provisioning Service ✅
-- PR5 Compliance Service ✅
-- PR6 Enterprise Services Integration Tests ✅
-- PR7 Enterprise Services Documentation ✅
-- PR8 M4 Beta Freeze ✅
-
-## Next Milestone
-
-M5 — Adapter & Integration Layer
+- M6 Event-Driven Platform

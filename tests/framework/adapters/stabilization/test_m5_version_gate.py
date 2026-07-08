@@ -1,0 +1,4 @@
+from pathlib import Path
+
+def test_m5_version_is_beta_1():
+    assert Path('VERSION').read_text(encoding='utf-8').strip() == '0.5.0-beta.1'
