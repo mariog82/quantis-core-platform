@@ -1,14 +1,17 @@
 # QUANTIS Core Platform™ Roadmap
 
-## Completed
+## Current
 
-- M0 Repository Baseline ✅
-- M1 Core Foundation ✅
-- M2 Framework Foundation ✅
-- M3 Reusable Modules Foundation ✅
-- M4 Enterprise Services Foundation ✅
-- M5 Adapter & Integration Layer ✅ Beta
+- M5.1.1 Repository Recovery
+  - PR1 Restore Integrity Tools ✅
+  - PR2 Repository Cleanup ✅
+  - PR3 Recovery Reports ✅
 
 ## Next
 
+- M5.1 Beta Freeze
 - M6 Event-Driven Platform
+
+## Current Version
+
+`0.5.1-alpha.7`

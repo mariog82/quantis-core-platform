@@ -1,3 +1,3 @@
-## 0.5.0-beta.1-patch8
+## 0.5.1-alpha.7-patch1
 
-- Restored SDK generator package sources for M5 beta CI.
+- Fixed main CI workflow to include all M5.1.1 integrity gates.
