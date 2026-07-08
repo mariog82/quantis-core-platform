@@ -5,7 +5,7 @@ Status: `PASS`
 
 ## Summary
 
-- Total files: `439`
+- Total files: `441`
 - Total directories: `107`
 - Python files: `297`
 
@@ -125,6 +125,7 @@ Status: `PASS`
 - 📄 `docs/fixes/M4_PR8_M3_GATE_FINAL_FIX.md`
 - 📄 `docs/fixes/M4_PR8_SERVICES_INTEGRATION_TESTS_RESTORE.md`
 - 📄 `docs/fixes/M4_PR8_VERSION_RESTORE.md`
+- 📄 `docs/fixes/M5_1_1_CI_PATTERN_FIX.md`
 - 📄 `docs/fixes/M5_BETA_RUFF_SDK_IMPORT_FIX.md`
 - 📄 `docs/fixes/M5_BETA_SDK_GENERATOR_IMPORT_FIX.md`
 - 📄 `docs/fixes/M5_BETA_SDK_GENERATOR_SOURCE_RESTORE.md`
@@ -165,6 +166,7 @@ Status: `PASS`
 - 📄 `docs/reports/public-api-integrity-report.md`
 - 📄 `docs/reports/README.md`
 - 📄 `docs/reports/release-manager-report.md`
+- 📄 `docs/reports/repository-audit-report.md`
 - 📄 `docs/reports/repository-integrity-report.md`
 - 📄 `docs/reports/repository-recovery-cleanup-report.md`
 - 📄 `docs/reports/test-integrity-report.md`
@@ -509,6 +511,4 @@ Status: `PASS`
 - 📄 `tests/tools/ci_stabilization/test_ci_stabilization.py`
 - 📁 `tests/tools/public_api_integrity`
 - 📄 `tests/tools/public_api_integrity/__init__.py`
-- 📄 `tests/tools/public_api_integrity/test_public_api_integrity.py`
-- 📁 `tests/tools/release_manager`
-- ... truncated, total entries: 546
+- ... truncated, total entries: 548
