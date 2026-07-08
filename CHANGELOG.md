@@ -1,3 +1,6 @@
-## 0.5.0-beta.1-patch8
+## 0.5.1-alpha.5
 
-- Restored SDK generator package sources for M5 beta CI.
+- Added Release Manager tooling.
+- Added release consistency checks.
+- Added release report generation.
+- Added release-manager CI workflow.
