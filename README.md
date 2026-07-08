@@ -2,22 +2,12 @@
 
 ## Current Version
 
-`0.5.0-beta.1`
+`0.5.1-alpha.6`
 
-## Status
+## Current Milestone
 
-M5 Adapter & Integration Layer complete beta release.
+M5.1 — Repository Stabilization
 
-## Included
+## Current PR
 
-- Adapter Contracts
-- HTTP Adapter
-- Database Adapter
-- Authentication Adapter
-- Storage Adapter
-- Messaging Adapter
-- AI Adapter
-- Notification Adapter
-- Payment Adapter
-- Identity Provider Adapter
-- SDK Foundations
+PR6 — Repository Audit

@@ -1,3 +1,7 @@
-## 0.5.0-beta.1-patch8
+## 0.5.1-alpha.6
 
-- Restored SDK generator package sources for M5 beta CI.
+- Added Repository Audit tooling.
+- Added repository tree reporting.
+- Added `__pycache__`-only directory detection.
+- Added empty package detection.
+- Added large source file detection.
