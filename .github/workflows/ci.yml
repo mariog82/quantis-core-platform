@@ -1,20 +1,51 @@
-name: ci
+name: quantis-ci
 
 on:
   push:
   pull_request:
 
 jobs:
-  quality:
+  quality-gate:
+    name: Quality Gate
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: |
+
+      - name: Install dependencies
+        run: |
           python -m pip install --upgrade pip
-          pip install pytest ruff mypy
-      - run: ruff check .
-      - run: mypy . || true
-      - run: pytest || true
+          pip install pytest ruff mypy coverage
+
+      - name: Ruff
+        run: ruff check .
+
+      - name: Repository Integrity
+        run: python -m tools.repository_integrity.cli
+
+      - name: Test Integrity
+        run: python -m tools.test_integrity.cli
+
+      - name: Public API Integrity
+        run: python -m tools.public_api_integrity.cli
+
+      - name: CI Stabilization
+        run: python -m tools.ci_stabilization.cli
+
+      - name: Release Manager
+        run: python -m tools.release_manager.cli
+
+      - name: Repository Audit
+        run: python -m tools.repository_audit.cli
+
+      - name: Tool Tests
+        run: python -m pytest tests/tools
+
+      - name: Full Test Suite
+        run: python -m pytest tests
