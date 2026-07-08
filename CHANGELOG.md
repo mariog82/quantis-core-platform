@@ -1,3 +1,4 @@
-## 0.5.0-beta.1-patch8
+## 0.5.1-alpha.1-patch1
 
-- Restored SDK generator package sources for M5 beta CI.
+- Converted M5 version gate into historical release documentation check.
+- Kept M5.1 current version gate on VERSION.
