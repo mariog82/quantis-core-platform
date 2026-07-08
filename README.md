@@ -1,23 +1,15 @@
 # Quantis Core Platform™
 
-## Current Version
+## Version
 
-`0.5.0-beta.1`
+`0.5.1-alpha.3`
 
-## Status
+## Milestone
 
-M5 Adapter & Integration Layer complete beta release.
+M5.1 — Repository Stabilization
 
 ## Included
 
-- Adapter Contracts
-- HTTP Adapter
-- Database Adapter
-- Authentication Adapter
-- Storage Adapter
-- Messaging Adapter
-- AI Adapter
-- Notification Adapter
-- Payment Adapter
-- Identity Provider Adapter
-- SDK Foundations
+- PR1 Repository Integrity
+- PR2 Test Integrity
+- PR3 Public API Integrity

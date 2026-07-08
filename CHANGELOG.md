@@ -1,3 +1,7 @@
-## 0.5.0-beta.1-patch8
+## 0.5.1-alpha.3
 
-- Restored SDK generator package sources for M5 beta CI.
+- Complete cumulative M5.1 alpha release through PR3.
+- Added Repository Integrity gate.
+- Added Test Integrity gate.
+- Added Public API Integrity gate.
+- Restored tests and package exports for all M5.1 tools.
