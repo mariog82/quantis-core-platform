@@ -1,3 +1,4 @@
-## 0.5.0-beta.1-patch8
+## 0.5.1-alpha.4-patch1
 
-- Restored SDK generator package sources for M5 beta CI.
+- Added Ruff execution step to M5.1 stabilization workflow.
+- Made CI stabilization checks semantic instead of literal.
