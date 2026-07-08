@@ -1,3 +1,3 @@
-## 0.5.0-beta.1-patch8
+## 0.5.1-beta.1-patch2
 
-- Restored SDK generator package sources for M5 beta CI.
+- Added cleanup script to remove the test package that shadows the application SDK.
