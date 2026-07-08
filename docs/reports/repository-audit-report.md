@@ -5,9 +5,9 @@ Status: `PASS`
 
 ## Summary
 
-- Total files: `441`
+- Total files: `446`
 - Total directories: `107`
-- Python files: `297`
+- Python files: `300`
 
 ## Repository Tree
 
@@ -133,7 +133,9 @@ Status: `PASS`
 - 📄 `docs/fixes/M5_PR12_PAYMENT_SOURCES_RESTORE.md`
 - 📄 `docs/fixes/M5_PR12_REQUIRED_SOURCES_RESTORE.md`
 - 📄 `docs/fixes/M5_PR12_SDK_ADAPTER_SOURCES_RESTORE.md`
+- 📄 `docs/fixes/M5_VERSION_GATE_FINAL_FIX.md`
 - 📄 `docs/fixes/M5_VERSION_GATES_FIX.md`
+- 📄 `docs/fixes/SDK_IMPORT_SHADOWING_FINAL_FIX.md`
 - 📁 `docs/framework`
 - 📄 `docs/framework/dependency-injection-container.md`
 - 📁 `docs/milestones`
@@ -423,6 +425,7 @@ Status: `PASS`
 - 📄 `services/subscription/subscription.py`
 - 📁 `tests`
 - 📄 `tests/__init__.py`
+- 📄 `tests/conftest.py`
 - 📁 `tests/core`
 - 📄 `tests/core/__init__.py`
 - 📄 `tests/core/README.md`
@@ -487,6 +490,8 @@ Status: `PASS`
 - 📄 `tests/modules/stabilization/test_required_module_sources.py`
 - 📁 `tests/sdk`
 - 📄 `tests/sdk/__init__.py`
+- 📄 `tests/sdk/_import_app_sdk.py`
+- 📄 `tests/sdk/conftest.py`
 - 📄 `tests/sdk/test_quantis_client.py`
 - 📄 `tests/sdk/test_sdk_config.py`
 - 📄 `tests/sdk/test_sdk_generator.py`
@@ -506,9 +511,4 @@ Status: `PASS`
 - 📄 `tests/services/stabilization/test_m4_version_gate.py`
 - 📄 `tests/services/stabilization/test_required_service_sources.py`
 - 📁 `tests/tools`
-- 📁 `tests/tools/ci_stabilization`
-- 📄 `tests/tools/ci_stabilization/__init__.py`
-- 📄 `tests/tools/ci_stabilization/test_ci_stabilization.py`
-- 📁 `tests/tools/public_api_integrity`
-- 📄 `tests/tools/public_api_integrity/__init__.py`
-- ... truncated, total entries: 548
+- ... truncated, total entries: 553
