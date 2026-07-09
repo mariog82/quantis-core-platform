@@ -1,31 +1,32 @@
-from abc import ABC, abstractmethod
-from dataclasses import replace
+from dataclasses import dataclass
+from .contracts import Event, EventEnvelope
 
-from core.event.contracts import Event, EventEnvelope, EventStatus
+@dataclass
+class PublisherMetrics:
+    published:int=0
+    failed:int=0
+    duplicates:int=0
+    serialization_errors:int=0
+    validation_errors:int=0
 
+class BasePublisher:
+    def __init__(self):
+        self.metrics=PublisherMetrics()
 
-class EventPublisher(ABC):
-    @abstractmethod
-    def publish(self, event: Event) -> EventEnvelope:
-        raise NotImplementedError
+    def publish(self,event:Event)->EventEnvelope:
+        env=EventEnvelope(event=event)
+        self.metrics.published+=1
+        return env
 
-    @abstractmethod
-    def publish_many(self, events: list[Event]) -> list[EventEnvelope]:
-        raise NotImplementedError
+    def publish_many(self,events):
+        return [self.publish(e) for e in events]
 
+class InMemoryPublisher(BasePublisher):
+    def __init__(self):
+        super().__init__()
+        self.published_events=[]
 
-class InMemoryEventPublisher(EventPublisher):
-    def __init__(self) -> None:
-        self.published: list[EventEnvelope] = []
-
-    def publish(self, event: Event) -> EventEnvelope:
-        envelope = EventEnvelope(event=event, status=EventStatus.PUBLISHED)
-        self.published.append(envelope)
-        return envelope
-
-    def publish_many(self, events: list[Event]) -> list[EventEnvelope]:
-        return [self.publish(event) for event in events]
-
-    def mark_dispatched(self, envelope: EventEnvelope) -> EventEnvelope:
-        updated = replace(envelope, status=EventStatus.DISPATCHED)
-        return updated
+    def publish(self,event):
+        env=super().publish(event)
+        self.published_events.append(env)
+        return env

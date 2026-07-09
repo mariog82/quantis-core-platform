@@ -1,12 +1,10 @@
 # Changelog
 
-## 0.6.0-alpha.1
+## 0.6.0-alpha.2
 
 ### Added
-
-- Event Core contracts.
-- Event metadata.
-- Event envelope.
-- JSON event serialization.
-- Event Core tests.
-- PR1 architecture, ADR, RFC and test plan.
+- Publisher Layer
+- PublisherFactory
+- PublisherMetrics
+- Publisher exceptions
+- Event Doctor tool
