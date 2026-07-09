@@ -1,4 +1,4 @@
-from tools.repository_audit.audit import (
+from tools.repository_audit.checks import (
     RepositoryAuditIssue,
     RepositoryAuditReport,
     RepositoryTreeEntry,

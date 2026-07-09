@@ -1,45 +1,47 @@
 # M5.1 Beta Freeze
 
-## Version
+**Version:** `0.5.1-beta.1`
 
-`0.5.1-beta.1`
+## Stato
 
-## Scope
+Questa release rappresenta il congelamento (Beta Freeze) della milestone
+**M5.1 -- Repository Stabilization**, dopo il completamento della
+Repository Recovery.
 
-This release freezes the repository stabilization work completed after M5.
+## Milestone incluse
 
-## Included milestones
+-   M5 -- Adapter & Integration Layer
+-   M5.1 -- Repository Stabilization
+-   M5.1.1 -- Repository Recovery
 
-- M5 Adapter & Integration Layer
-- M5.1 Repository Stabilization
-- M5.1.1 Repository Recovery
+## Gate completati
 
-## Included gates
+-   Repository Integrity
+-   Test Integrity
+-   Public API Integrity
+-   CI Stabilization
+-   Release Manager
+-   Repository Audit
 
-- Repository Integrity
-- Test Integrity
-- Public API Integrity
-- CI Stabilization
-- Release Manager
-- Repository Audit
+## Correzioni principali
 
-## Included recovery fixes
+-   Ripristino dei package pubblici.
+-   Ripristino delle CLI dei tool di qualità.
+-   Risoluzione dello shadowing del package `sdk`.
+-   Ripristino dei test mancanti.
+-   Separazione dei gate storici dalle versioni correnti.
+-   Pulizia delle directory `__pycache__`.
 
-- restored missing tool packages;
-- restored tool CLI entrypoints;
-- restored tool tests;
-- removed SDK package shadowing risk;
-- cleaned `__pycache__`-only directories;
-- stabilized historical version gates.
+## Versioni
 
-## Acceptance criteria
+-   Repository Recovery: `0.5.1-alpha.7`
+-   Beta Freeze: `0.5.1-beta.1`
 
-- `ruff check .` passes;
-- `python -m pytest --cache-clear --import-mode=importlib` passes;
-- all repository tools execute;
-- current `VERSION` is `0.5.1-beta.1`;
-- M5 historical freeze remains documented as `0.5.0-beta.1`.
-
-## Tag
+## Tag Git
 
 `v0.5.1-beta.1`
+
+## Prossimo passo
+
+Avvio della milestone **M6 -- Event-Driven Platform** dopo il merge
+della release e la creazione del tag Git.

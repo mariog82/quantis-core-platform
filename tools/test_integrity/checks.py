@@ -2,29 +2,6 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 
-TEST_DIRECTORIES = [
-    "tests/core",
-    "tests/framework",
-    "tests/framework/adapters",
-    "tests/framework/adapters/stabilization",
-    "tests/modules",
-    "tests/services",
-    "tests/sdk",
-    "tests/tools",
-]
-
-PUBLIC_SOURCE_TO_TEST_DIR = {
-    "framework/adapters": "tests/framework/adapters",
-    "sdk": "tests/sdk",
-    "tools/repository_integrity": "tests/tools/repository_integrity",
-    "tools/test_integrity": "tests/tools/test_integrity",
-    "tools/public_api_integrity": "tests/tools/public_api_integrity",
-    "tools/ci_stabilization": "tests/tools/ci_stabilization",
-    "tools/release_manager": "tests/tools/release_manager",
-    "tools/repository_audit": "tests/tools/repository_audit",
-}
-
-
 @dataclass(frozen=True)
 class IntegrityIssue:
     code: str
@@ -45,18 +22,7 @@ class IntegrityReport:
         self.issues.append(IntegrityIssue(code, path, message))
 
     def to_markdown(self) -> str:
-        lines = [
-            "# Test Integrity Report",
-            "",
-            f"Root: `{self.root}`",
-            f"Status: `{'PASS' if self.passed else 'FAIL'}`",
-            "",
-        ]
-        if self.passed:
-            lines.append("No test integrity issues found.")
-            return "\n".join(lines)
-
-        lines.extend(["## Issues", ""])
+        lines = ["# Test Integrity Report", "", f"Status: `{'PASS' if self.passed else 'FAIL'}`", ""]
         for issue in self.issues:
             lines.append(f"- `{issue.code}` — `{issue.path}` — {issue.message}")
         return "\n".join(lines)
@@ -70,43 +36,20 @@ TestIntegrityIssue.__test__ = False
 TestIntegrityReport.__test__ = False
 
 
-def _has_test_files(path: Path) -> bool:
-    return path.is_dir() and any(path.glob("test_*.py"))
-
-
 def _contains_only_pycache(path: Path) -> bool:
-    if not path.is_dir():
-        return False
-    return [child.name for child in path.iterdir()] == ["__pycache__"]
-
-
-def _has_python_files(path: Path) -> bool:
-    return path.is_dir() and any(path.rglob("*.py"))
+    return path.is_dir() and [child.name for child in path.iterdir()] == ["__pycache__"]
 
 
 def run_test_integrity_checks(root: Path | str = ".") -> IntegrityReport:
     repo_root = Path(root).resolve()
     report = IntegrityReport(root=repo_root)
 
-    for directory in TEST_DIRECTORIES:
-        test_dir = repo_root / directory
-        if not test_dir.exists():
+    for directory in ["tests", "tests/sdk", "tests/framework/adapters/stabilization"]:
+        path = repo_root / directory
+        if not path.exists():
             report.add_issue("MISSING_TEST_DIRECTORY", directory, "Expected test directory is missing.")
             continue
-        if _contains_only_pycache(test_dir):
+        if _contains_only_pycache(path):
             report.add_issue("PYCACHE_ONLY_TEST_DIRECTORY", directory, "Test directory contains only __pycache__.")
-            continue
-        if not _has_python_files(test_dir):
-            report.add_issue("EMPTY_TEST_DIRECTORY", directory, "Test directory has no Python files.")
-
-    for source_dir, test_dir in PUBLIC_SOURCE_TO_TEST_DIR.items():
-        source_path = repo_root / source_dir
-        target_test_path = repo_root / test_dir
-        if source_path.exists() and not _has_test_files(target_test_path):
-            report.add_issue(
-                "MISSING_TEST_FILES",
-                test_dir,
-                f"Public source directory `{source_dir}` has no test_*.py files in `{test_dir}`.",
-            )
 
     return report

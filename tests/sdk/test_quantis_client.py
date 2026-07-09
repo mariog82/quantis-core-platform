@@ -1,8 +1,4 @@
-from tests.sdk._import_app_sdk import import_app_sdk
-
-sdk = import_app_sdk()
-QuantisClient = sdk.QuantisClient
-SDKConfig = sdk.SDKConfig
+from sdk import QuantisClient, SDKConfig
 
 
 def test_quantis_client_health():

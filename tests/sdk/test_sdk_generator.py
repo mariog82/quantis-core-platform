@@ -1,19 +1,15 @@
-from tests.sdk._import_app_sdk import import_app_sdk_generator
-
-sdk_generator = import_app_sdk_generator()
-OpenAPISpec = sdk_generator.OpenAPISpec
-SDKManifest = sdk_generator.SDKManifest
+from sdk.generator import OpenAPISpec, SDKManifest
 
 
 def test_sdk_manifest_supported_languages():
-    manifest = SDKManifest(name="quantis", version="0.5.1-alpha.7")
+    manifest = SDKManifest(name="quantis", version="0.5.1-beta.1")
 
     assert manifest.supports("python") is True
     assert manifest.supports("typescript") is True
 
 
 def test_openapi_spec_to_dict():
-    spec = OpenAPISpec(title="Quantis API", version="0.5.1-alpha.7")
+    spec = OpenAPISpec(title="Quantis API", version="0.5.1-beta.1")
     spec.add_path("/health", {"get": {"summary": "Health"}})
 
     result = spec.to_dict()
