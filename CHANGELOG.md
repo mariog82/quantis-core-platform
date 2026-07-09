@@ -1,10 +1,13 @@
 # Changelog
 
-## 0.5.1
+## 0.6.0-alpha.1
 
-### Stable
+### Added
 
-- Promoted `0.5.1-rc.1` to stable.
-- Confirmed Release Gates Framework.
-- Confirmed repository quality tools.
-- No new functional features introduced.
+- M6 WP1 Event Platform foundation.
+- Event contracts.
+- JSON event serialization.
+- In-memory publisher, subscriber and dispatcher.
+- In-memory event bus.
+- Retry policy and dead letter queue.
+- WP1 documentation, ADR and RFC.

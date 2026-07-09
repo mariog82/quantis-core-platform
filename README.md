@@ -2,10 +2,12 @@
 
 ## Current Version
 
-`0.5.1`
+`0.6.0-alpha.1`
 
 ## Current Milestone
 
-M5.3 — Stable Release
+M6 WP1 — Event Platform
 
-Stable 0.5.x baseline before M6 Event-Driven Platform.
+## Scope
+
+First event-driven foundation for Quantis Core Platform.

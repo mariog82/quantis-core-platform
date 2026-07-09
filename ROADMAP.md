@@ -1,14 +1,18 @@
 # Roadmap
 
-## Completed
-
-- M5.1 Beta Freeze — `0.5.1-beta.1`
-- M5.2 Release Candidate — `0.5.1-rc.1`
-
 ## Current
 
-- M5.3 Stable — `0.5.1`
+M6 WP1 — Event Platform — `0.6.0-alpha.1`
 
-## Next
+## WP1 PRs
 
-- M6 Event-Driven Platform
+- PR1 Event Core ✅
+- PR2 Publisher ✅
+- PR3 Subscriber ✅
+- PR4 Dispatcher ✅
+- PR5 Dead Letter Queue ✅
+- PR6 InMemory Adapter ✅
+- PR7 Redis Streams Adapter ⏳
+- PR8 RabbitMQ Adapter ⏳
+- PR9 Kafka Adapter ⏳
+- PR10 WP1 Freeze ⏳
