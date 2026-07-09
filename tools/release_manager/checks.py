@@ -21,6 +21,8 @@ class ReleaseVersion:
 
     @property
     def milestone_doc_name(self) -> str:
+        if self.value == "0.5.1-beta.1":
+            return "M5_1_BETA_FREEZE.md"
         if self.value.startswith("0.5.1-alpha.7"):
             return "M5_1_1_REPOSITORY_RECOVERY.md"
         return "M5_1_RELEASE.md"
@@ -55,6 +57,7 @@ class ReleaseManagerReport:
             f"Status: `{'PASS' if self.passed else 'FAIL'}`",
             "",
         ]
+
         if self.passed:
             lines.append("No release manager issues found.")
             return "\n".join(lines)
@@ -62,6 +65,7 @@ class ReleaseManagerReport:
         lines.extend(["## Issues", ""])
         for issue in self.issues:
             lines.append(f"- `{issue.code}` — `{issue.path}` — {issue.message}")
+
         return "\n".join(lines)
 
 

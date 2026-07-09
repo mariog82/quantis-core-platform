@@ -1,3 +1,3 @@
-## 0.5.1-alpha.7-patch3
+## 0.5.1-beta.1-patch1
 
-- Fixed stale M5 version gate.
+- Converted M5.1.1 version gate into historical release-document check.

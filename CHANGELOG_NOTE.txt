@@ -1,0 +1,1 @@
+This package intentionally overwrites CHANGELOG.md with the beta release changelog.

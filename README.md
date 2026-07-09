@@ -2,12 +2,12 @@
 
 ## Current Version
 
-`0.5.1-alpha.7`
+`0.5.1-beta.1`
 
-## Current Milestone
+## Release
 
-M5.1.1 — Repository Recovery
+M5.1 Beta Freeze
 
-## Purpose
+## Status
 
-Recover and consolidate all M5.1 repository tooling before M5.1 Beta Freeze.
+Repository Stabilization completed and frozen before M6.
