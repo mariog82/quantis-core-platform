@@ -1,22 +1,30 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "quantis-core-platform"
-version = "0.1.0-alpha.6"
+version = "0.5.1rc1"
+description = "Quantis Core Platform foundation packages"
+readme = "README.md"
 requires-python = ">=3.12"
+authors = [
+  { name = "Quantis" }
+]
+license = { text = "Proprietary" }
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
 pythonpath = ["."]
-addopts = "-q"
+testpaths = ["tests"]
+addopts = "--import-mode=importlib"
 
 [tool.ruff]
 line-length = 120
 target-version = "py312"
 
-[tool.ruff.lint]
-select = ["E", "F"]
-ignore = ["E501"]
-
-[tool.mypy]
-python_version = "3.12"
-ignore_missing_imports = true
-check_untyped_defs = false
+[tool.setuptools.packages.find]
+include = ["core*", "framework*", "modules*", "services*", "sdk*", "tools*"]

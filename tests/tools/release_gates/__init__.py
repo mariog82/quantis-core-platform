@@ -1,0 +1,1 @@
+"""Release gates tool tests."""
