@@ -2,22 +2,12 @@
 
 ## Current Version
 
-`0.5.0-beta.1`
+`0.5.1-beta.1`
+
+## Release
+
+M5.1 Beta Freeze
 
 ## Status
 
-M5 Adapter & Integration Layer complete beta release.
-
-## Included
-
-- Adapter Contracts
-- HTTP Adapter
-- Database Adapter
-- Authentication Adapter
-- Storage Adapter
-- Messaging Adapter
-- AI Adapter
-- Notification Adapter
-- Payment Adapter
-- Identity Provider Adapter
-- SDK Foundations
+Repository Stabilization completed and frozen before M6.

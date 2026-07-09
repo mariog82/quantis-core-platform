@@ -1,20 +1,17 @@
-name: quantis-ci
+name: m5-1-beta-freeze
 
 on:
   push:
   pull_request:
 
 jobs:
-  quality-gate:
-    name: Quality Gate
+  beta-freeze:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
@@ -25,6 +22,9 @@ jobs:
 
       - name: Ruff
         run: ruff check .
+
+      - name: Repository Recovery
+        run: python -m tools.repository_recovery.cli
 
       - name: Repository Integrity
         run: python -m tools.repository_integrity.cli
@@ -44,8 +44,5 @@ jobs:
       - name: Repository Audit
         run: python -m tools.repository_audit.cli
 
-      - name: Tool Tests
-        run: python -m pytest tests/tools
-
-      - name: Full Test Suite
-        run: python -m pytest tests
+      - name: Tests
+        run: python -m pytest --cache-clear --import-mode=importlib
