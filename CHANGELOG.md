@@ -1,3 +1,3 @@
-## 0.5.1-beta.1-patch2
+## 0.5.1-beta.1-patch-tools
 
-- Added cleanup script to remove the test package that shadows the application SDK.
+- Restored repository tool packages and CLI entrypoints.
