@@ -13,6 +13,8 @@ class ReleaseVersion:
 
     @property
     def milestone_doc_name(self) -> str:
+        if self.value == "0.5.1":
+            return "M5_3_STABLE.md"
         if self.value == "0.5.1-rc.1":
             return "M5_2_RELEASE_CANDIDATE.md"
         if self.value == "0.5.1-beta.1":
@@ -41,12 +43,7 @@ class ReleaseManagerReport:
         self.issues.append(ReleaseManagerIssue(code, path, message))
 
     def to_markdown(self) -> str:
-        lines = [
-            "# Release Manager Report",
-            "",
-            f"Status: `{'PASS' if self.passed else 'FAIL'}`",
-            "",
-        ]
+        lines = ["# Release Manager Report", "", f"Status: `{'PASS' if self.passed else 'FAIL'}`", ""]
         for issue in self.issues:
             lines.append(f"- `{issue.code}` — `{issue.path}` — {issue.message}")
         return "\n".join(lines)
