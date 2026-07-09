@@ -1,6 +1,6 @@
 # Repository Recovery Cleanup Report
 
-Removed directories: `64`
+Removed directories: `71`
 
 - `core/__pycache__`
 - `framework/__pycache__`
@@ -59,6 +59,13 @@ Removed directories: `64`
 - `tests/modules/stabilization/__pycache__`
 - `tests/services/integration/__pycache__`
 - `tests/services/stabilization/__pycache__`
+- `tests/tools/ci_stabilization/__pycache__`
+- `tests/tools/public_api_integrity/__pycache__`
+- `tests/tools/release_manager/__pycache__`
+- `tests/tools/repository_audit/__pycache__`
+- `tests/tools/repository_integrity/__pycache__`
+- `tests/tools/repository_recovery/__pycache__`
+- `tests/tools/test_integrity/__pycache__`
 - `tools/ci_stabilization/__pycache__`
 - `tools/public_api_integrity/__pycache__`
 - `tools/release_manager/__pycache__`
