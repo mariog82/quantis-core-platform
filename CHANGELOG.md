@@ -4,10 +4,9 @@
 
 ### Added
 
-- M6 WP1 Event Platform foundation.
-- Event contracts.
+- Event Core contracts.
+- Event metadata.
+- Event envelope.
 - JSON event serialization.
-- In-memory publisher, subscriber and dispatcher.
-- In-memory event bus.
-- Retry policy and dead letter queue.
-- WP1 documentation, ADR and RFC.
+- Event Core tests.
+- PR1 architecture, ADR, RFC and test plan.

@@ -7,10 +7,9 @@ from uuid import uuid4
 
 class EventStatus(str, Enum):
     PENDING = "pending"
-    PUBLISHED = "published"
-    DISPATCHED = "dispatched"
-    FAILED = "failed"
-    DEAD_LETTERED = "dead_lettered"
+    RECORDED = "recorded"
+    SERIALIZED = "serialized"
+    INVALID = "invalid"
 
 
 class EventPriority(str, Enum):
@@ -28,6 +27,10 @@ class EventId:
 @dataclass(frozen=True)
 class EventType:
     name: str
+
+    def __post_init__(self) -> None:
+        if not self.name or "." not in self.name:
+            raise ValueError("EventType must use dotted notation, e.g. tenant.created")
 
 
 @dataclass(frozen=True)
@@ -55,3 +58,11 @@ class EventEnvelope:
     event: Event
     status: EventStatus = EventStatus.PENDING
     attempts: int = 0
+
+    @property
+    def event_id(self) -> str:
+        return self.event.event_id.value
+
+    @property
+    def type_name(self) -> str:
+        return self.event.event_type.name

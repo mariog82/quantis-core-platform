@@ -6,8 +6,4 @@
 
 ## Current Milestone
 
-M6 WP1 — Event Platform
-
-## Scope
-
-First event-driven foundation for Quantis Core Platform.
+M6 WP1 PR1 — Event Core

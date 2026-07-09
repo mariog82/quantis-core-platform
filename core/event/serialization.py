@@ -3,7 +3,15 @@ from datetime import datetime
 import json
 from typing import Any
 
-from core.event.contracts import Event, EventEnvelope, EventId, EventMetadata, EventPriority, EventStatus, EventType
+from core.event.contracts import (
+    Event,
+    EventEnvelope,
+    EventId,
+    EventMetadata,
+    EventPriority,
+    EventStatus,
+    EventType,
+)
 
 
 class EventSerializer(ABC):
@@ -61,4 +69,8 @@ class JsonEventSerializer(EventSerializer, EventDeserializer):
             payload=dict(raw["payload"]),
             metadata=metadata,
         )
-        return EventEnvelope(event=event, status=EventStatus(raw["status"]), attempts=int(raw["attempts"]))
+        return EventEnvelope(
+            event=event,
+            status=EventStatus(raw["status"]),
+            attempts=int(raw["attempts"]),
+        )
