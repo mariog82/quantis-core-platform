@@ -2,15 +2,8 @@
 
 Only the active milestone checks the repository-level `VERSION` file.
 
-Closed milestones must verify their versions through historical release documents under `docs/release/`.
-
-## Structure
-
-```text
-tests/release/current/
-tests/release/history/
-```
+Closed milestones verify their versions through historical release documents under `docs/release/`.
 
 ## Current active release
 
-`0.5.1-rc.1`
+`0.5.1`
