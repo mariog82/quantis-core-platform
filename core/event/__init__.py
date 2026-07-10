@@ -7,6 +7,23 @@ from core.event.contracts import (
     EventStatus,
     EventType,
 )
+from core.event.dispatcher import (
+    EventDispatcher,
+    EventInterceptor,
+    EventMiddleware,
+    EventRouter,
+    InMemoryEventDispatcher,
+)
+from core.event.dispatcher_exceptions import (
+    DispatchFailedException,
+    DispatcherException,
+    InterceptorExecutionException,
+    MiddlewareExecutionException,
+)
+from core.event.dispatcher_factory import DispatcherFactory
+from core.event.dispatcher_metrics import DispatcherMetrics
+from core.event.interceptor import RecordingInterceptor
+from core.event.middleware import CorrelationMiddleware, HeaderMiddleware
 from core.event.publisher import BasePublisher, InMemoryPublisher, PublisherMetrics
 from core.event.publisher_exceptions import (
     InvalidEventException,
@@ -62,4 +79,18 @@ __all__ = [
     "InvalidSubscriptionException",
     "DuplicateSubscriptionException",
     "SubscriberNotFoundException",
+    "EventDispatcher",
+    "InMemoryEventDispatcher",
+    "EventRouter",
+    "EventMiddleware",
+    "EventInterceptor",
+    "DispatcherFactory",
+    "DispatcherMetrics",
+    "DispatcherException",
+    "DispatchFailedException",
+    "MiddlewareExecutionException",
+    "InterceptorExecutionException",
+    "CorrelationMiddleware",
+    "HeaderMiddleware",
+    "RecordingInterceptor",
 ]

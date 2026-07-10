@@ -1,6 +1,12 @@
 from dataclasses import dataclass, field
 
-from core.event import EventType, SubscriberFactory
+from core.event import (
+    DispatcherFactory,
+    Event,
+    EventEnvelope,
+    EventType,
+    InMemoryEventSubscriber,
+)
 
 
 @dataclass(frozen=True)
@@ -37,13 +43,33 @@ def run_event_doctor_checks() -> EventDoctorReport:
     report = EventDoctorReport()
 
     try:
-        EventType("event.doctor")
-    except ValueError as exc:
-        report.issues.append(EventDoctorIssue("EVENT_TYPE_INVALID", str(exc)))
+        subscriber = InMemoryEventSubscriber()
+        received: list[str] = []
+        subscriber.subscribe(
+            "event.doctor",
+            lambda envelope: received.append(envelope.event_id),
+        )
 
-    try:
-        SubscriberFactory.create("memory")
+        dispatcher = DispatcherFactory.create(subscriber=subscriber)
+        envelope = EventEnvelope(Event(EventType("event.doctor"), {}))
+        dispatched = dispatcher.dispatch(envelope)
+
+        if not received or received[0] != envelope.event_id:
+            report.issues.append(
+                EventDoctorIssue(
+                    "DISPATCHER_DELIVERY_FAILED",
+                    "Dispatcher did not deliver the envelope to the registered handler.",
+                )
+            )
+
+        if dispatched.event_id != envelope.event_id:
+            report.issues.append(
+                EventDoctorIssue(
+                    "DISPATCHER_IDENTITY_CHANGED",
+                    "Dispatcher changed the event identity.",
+                )
+            )
     except Exception as exc:
-        report.issues.append(EventDoctorIssue("SUBSCRIBER_FACTORY_FAILED", str(exc)))
+        report.issues.append(EventDoctorIssue("DISPATCHER_CHECK_FAILED", str(exc)))
 
     return report
