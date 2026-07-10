@@ -1,3 +1,9 @@
-# M6 WP1 PR2 – Publisher
+# Quantis Core Platform™
 
-Incremental release for the Publisher Layer.
+## Current Version
+
+`0.6.0-alpha.3`
+
+## Current Milestone
+
+M6 WP1 PR3 — Subscriber Layer

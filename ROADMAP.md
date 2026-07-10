@@ -2,10 +2,16 @@
 
 ## Current
 
-M6 WP1 PR1 — Event Core — `0.6.0-alpha.1`
+M6 WP1 PR3 — Subscriber Layer — `0.6.0-alpha.3`
+
+## Completed
+
+- PR1 Event Core
+- PR2 Publisher
+- PR3 Subscriber
 
 ## Next
 
-- M6 WP1 PR2 — Publisher
-- M6 WP1 PR3 — Subscriber
-- M6 WP1 PR4 — Dispatcher
+- PR4 Dispatcher
+- PR5 Dead Letter Queue
+- PR6 InMemory Event Bus

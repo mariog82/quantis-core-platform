@@ -1,10 +1,12 @@
 # Changelog
 
-## 0.6.0-alpha.2
+## 0.6.0-alpha.3
 
 ### Added
-- Publisher Layer
-- PublisherFactory
-- PublisherMetrics
-- Publisher exceptions
-- Event Doctor tool
+
+- Subscriber contracts.
+- In-memory subscriber.
+- Subscription lifecycle.
+- Subscriber factory and metrics.
+- Subscriber tests.
+- Event Doctor validation.
