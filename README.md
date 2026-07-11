@@ -1,9 +1,5 @@
 # Quantis Core Platform™
 
-## Current Version
+Current version: `0.6.0-beta.4`
 
-`0.6.0-beta.3`
-
-## Current Milestone
-
-M6 WP3 — CQRS and Projection Engine
+Current milestone: M6 WP4 PR1 — Workflow Core

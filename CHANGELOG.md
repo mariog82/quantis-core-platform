@@ -1,13 +1,8 @@
 # Changelog
 
-## 0.6.0-beta.3
+## 0.6.0-beta.4
 
-### Added
-
-- Command Bus.
-- Query Bus.
-- CQRS middleware.
-- Projection Engine.
-- Projection checkpoints.
-- Projection Store.
-- Read Model repository.
+- Added Workflow Core.
+- Added versioned definitions.
+- Added workflow instance lifecycle.
+- Added registry and validation.
