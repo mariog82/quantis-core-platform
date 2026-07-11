@@ -2,8 +2,8 @@
 
 ## Current Version
 
-`0.6.0-beta.6`
+`0.6.0-beta.7`
 
 ## Current Milestone
 
-M6 WP4 PR3 — State Machine
+M6 WP4 PR4 — Human Tasks

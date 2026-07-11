@@ -7,6 +7,25 @@ from core.workflow2.executors import (
     FunctionStepExecutor,
     NoOpStepExecutor,
 )
+from core.workflow2.human_task_executor import HumanTaskStepExecutor
+from core.workflow2.human_task_exceptions import (
+    HumanTaskException,
+    HumanTaskNotFound,
+    HumanTaskPermissionDenied,
+    InvalidHumanTaskState,
+)
+from core.workflow2.human_task_metrics import HumanTaskMetrics
+from core.workflow2.human_task_repository import (
+    HumanTaskRepository,
+    InMemoryHumanTaskRepository,
+)
+from core.workflow2.human_task_service import HumanTaskService
+from core.workflow2.human_tasks import (
+    HumanTask,
+    HumanTaskId,
+    HumanTaskPriority,
+    HumanTaskStatus,
+)
 from core.workflow2.instance import (
     WorkflowContext,
     WorkflowId,
@@ -24,22 +43,11 @@ from core.workflow2.runtime import (
     StepResult,
     WorkflowRuntime,
 )
-from core.workflow2.runtime_exceptions import (
-    StepExecutorNotFound,
-    WorkflowExecutionLimitExceeded,
-    WorkflowRuntimeException,
-)
 from core.workflow2.runtime_metrics import WorkflowRuntimeMetrics
 from core.workflow2.state_machine import (
     StateMachineDecision,
     StateTransitionRule,
     WorkflowStateMachine,
-)
-from core.workflow2.state_machine_exceptions import (
-    GuardNotRegistered,
-    GuardRejectedTransition,
-    InvalidTransition,
-    StateMachineException,
 )
 from core.workflow2.state_machine_metrics import StateMachineMetrics
 from core.workflow2.validation import (
@@ -79,15 +87,21 @@ __all__ = [
     "FunctionStepExecutor",
     "NoOpStepExecutor",
     "WorkflowRuntimeMetrics",
-    "WorkflowRuntimeException",
-    "StepExecutorNotFound",
-    "WorkflowExecutionLimitExceeded",
     "WorkflowStateMachine",
     "StateTransitionRule",
     "StateMachineDecision",
     "StateMachineMetrics",
-    "StateMachineException",
-    "InvalidTransition",
-    "GuardNotRegistered",
-    "GuardRejectedTransition",
+    "HumanTask",
+    "HumanTaskId",
+    "HumanTaskStatus",
+    "HumanTaskPriority",
+    "HumanTaskRepository",
+    "InMemoryHumanTaskRepository",
+    "HumanTaskService",
+    "HumanTaskStepExecutor",
+    "HumanTaskMetrics",
+    "HumanTaskException",
+    "HumanTaskNotFound",
+    "HumanTaskPermissionDenied",
+    "InvalidHumanTaskState",
 ]

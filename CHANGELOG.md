@@ -1,12 +1,12 @@
 # Changelog
 
-## 0.6.0-beta.6
+## 0.6.0-beta.7
 
 ### Added
 
-- Workflow State Machine.
-- Transition evaluation.
-- Named guards.
-- Conditional transitions.
-- Available transition discovery.
-- State Machine metrics and exceptions.
+- Human Task model.
+- Task lifecycle.
+- Claim, start, complete, release and delegation.
+- Human Task repository and service.
+- Workflow HumanTaskStepExecutor.
+- Human Task metrics and exceptions.
