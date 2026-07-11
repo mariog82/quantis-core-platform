@@ -1,8 +1,13 @@
 # Changelog
 
-## 0.6.0-beta.4
+## 0.6.0-beta.5
 
-- Added Workflow Core.
-- Added versioned definitions.
-- Added workflow instance lifecycle.
-- Added registry and validation.
+### Added
+
+- Workflow Runtime.
+- Step executor protocol.
+- StepResult.
+- Executor registration.
+- Transition execution.
+- Waiting, completion and failure handling.
+- Runtime metrics and exceptions.

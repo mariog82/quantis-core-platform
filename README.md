@@ -1,5 +1,9 @@
 # Quantis Core Platform™
 
-Current version: `0.6.0-beta.4`
+## Current Version
 
-Current milestone: M6 WP4 PR1 — Workflow Core
+`0.6.0-beta.5`
+
+## Current Milestone
+
+M6 WP4 PR2 — Workflow Runtime
