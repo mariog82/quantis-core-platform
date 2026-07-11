@@ -1,16 +1,14 @@
 # Changelog
 
-## 0.6.0-beta.11
+## 0.6.0-beta.12
 
 ### Added
 
-- Workflow monitoring events.
-- Monitoring sink and service.
-- Workflow history.
-- Active instance detection.
-- Workflow KPI summary.
-- Completion and failure rates.
-- Average step duration.
-- Monitoring health.
-- Dashboard snapshots.
-- Monitoring metrics and exceptions.
+- Workflow API service.
+- API request and response models.
+- Workflow definition endpoints.
+- Workflow instance operations.
+- Human task completion operation.
+- OpenAPI 3.1 specification.
+- Python Workflow SDK.
+- In-process SDK transport.
