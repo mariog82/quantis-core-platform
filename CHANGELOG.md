@@ -1,13 +1,8 @@
 # Changelog
 
-## 0.6.0-alpha.9
+## 0.6.0-beta.1
 
-### Added
-
-- Kafka adapter.
-- Kafka client protocol.
-- Kafka topic configuration.
-- In-memory Kafka test client.
-- Produce and consume support.
-- Factory, metrics and exceptions.
-- Event Doctor Kafka validation.
+### Freeze
+- WP1 Event Platform frozen.
+- APIs stabilized.
+- Ready for M6 WP2.

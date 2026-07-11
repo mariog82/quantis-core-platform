@@ -1,9 +1,5 @@
-# Quantis Core Platform™
+# Quantis Core Platform
 
-## Current Version
+Current Version: **0.6.0-beta.1**
 
-`0.6.0-alpha.9`
-
-## Current Milestone
-
-M6 WP1 PR9 — Kafka Adapter
+Milestone: **M6 WP1 PR10 Freeze**

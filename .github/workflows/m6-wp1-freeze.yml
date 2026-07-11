@@ -1,0 +1,13 @@
+name: m6-wp1-freeze
+on: [push,pull_request]
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pytest ruff
+      - run: ruff check .
+      - run: python -m pytest --cache-clear --import-mode=importlib
