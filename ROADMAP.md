@@ -2,21 +2,19 @@
 
 ## Current
 
-M6 WP2 — Enterprise Event Platform — `0.6.0-beta.2`
+M6 WP3 — CQRS and Projection Engine — `0.6.0-beta.3`
 
 ## Completed
 
 - M6 WP1 — Event Platform
+- M6 WP2 — Enterprise Event Platform
 
 ## Current scope
 
-- Event Store
-- Outbox
-- Replay
-- Snapshotting
-- Schema Registry
-- Process Manager
+- CQRS
+- Projection Engine
+- Read Models
 
 ## Next
 
-- M6 WP3 — CQRS and Projection Engine
+- M6 WP4 — Workflow Engine 2.0
