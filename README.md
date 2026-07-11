@@ -2,10 +2,16 @@
 
 ## Current Version
 
-`0.5.1`
+`0.6.0`
 
 ## Current Milestone
 
-M5.3 — Stable Release
+M6 — Stable Release
 
-Stable 0.5.x baseline before M6 Event-Driven Platform.
+## Core capabilities
+
+- Event Platform
+- Enterprise Event Platform
+- CQRS and Projection Engine
+- Workflow Engine 2.0
+- Python Workflow SDK
