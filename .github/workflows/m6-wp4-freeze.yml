@@ -1,0 +1,36 @@
+name: m6-wp4-freeze
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  wp4-freeze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest ruff
+
+      - name: Ruff
+        run: ruff check .
+
+      - name: Workflow Engine tests
+        run: python -m pytest tests/core/workflow2 --cache-clear --import-mode=importlib
+
+      - name: Workflow SDK tests
+        run: python -m pytest tests/sdk/workflow --cache-clear --import-mode=importlib
+
+      - name: Release gates
+        run: python -m pytest tests/release/current --cache-clear --import-mode=importlib
+
+      - name: Full test suite
+        run: python -m pytest --cache-clear --import-mode=importlib
