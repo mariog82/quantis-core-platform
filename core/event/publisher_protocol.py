@@ -1,0 +1,6 @@
+from typing import Protocol, Iterable
+from core.event import Event, EventEnvelope
+
+class EventPublisher(Protocol):
+    def publish(self, event: Event) -> EventEnvelope: ...
+    def publish_many(self, events: Iterable[Event]) -> list[EventEnvelope]: ...
