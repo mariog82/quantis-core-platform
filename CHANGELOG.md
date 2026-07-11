@@ -1,13 +1,13 @@
 # Changelog
 
-## 0.6.0-alpha.8
+## 0.6.0-alpha.9
 
 ### Added
 
-- RabbitMQ adapter.
-- RabbitMQ client protocol.
-- Exchange, queue and binding configuration.
-- In-memory RabbitMQ test client.
-- Publication and queue read support.
+- Kafka adapter.
+- Kafka client protocol.
+- Kafka topic configuration.
+- In-memory Kafka test client.
+- Produce and consume support.
 - Factory, metrics and exceptions.
-- Event Doctor RabbitMQ validation.
+- Event Doctor Kafka validation.

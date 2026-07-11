@@ -3,9 +3,9 @@ from dataclasses import dataclass, field
 from core.event import (
     Event,
     EventType,
-    InMemoryRabbitMQClient,
-    RabbitMQConfig,
-    RabbitMQEventBus,
+    InMemoryKafkaClient,
+    KafkaConfig,
+    KafkaEventBus,
 )
 
 
@@ -43,13 +43,10 @@ def run_event_doctor_checks() -> EventDoctorReport:
     report = EventDoctorReport()
 
     try:
-        client = InMemoryRabbitMQClient()
-        bus = RabbitMQEventBus(
+        client = InMemoryKafkaClient()
+        bus = KafkaEventBus(
             client=client,
-            config=RabbitMQConfig(
-                exchange="doctor.events",
-                queue_prefix="doctor",
-            ),
+            config=KafkaConfig(topic_prefix="doctor"),
         )
 
         received: list[str] = []
@@ -61,32 +58,29 @@ def run_event_doctor_checks() -> EventDoctorReport:
 
         event = Event(
             EventType("event.doctor"),
-            {"transport": "rabbitmq"},
+            {"transport": "kafka"},
         )
         bus.publish(event)
-        records = bus.read_queue(
-            "event.doctor",
-            subscriber_name="event-doctor",
-        )
+        records = bus.read_topic("event.doctor")
 
         if received != [event.event_id.value]:
             report.issues.append(
                 EventDoctorIssue(
-                    "RABBITMQ_DELIVERY_FAILED",
-                    "RabbitMQ adapter did not invoke the subscriber.",
+                    "KAFKA_DELIVERY_FAILED",
+                    "Kafka adapter did not invoke the subscriber.",
                 )
             )
 
         if len(records) != 1 or records[0].event_id != event.event_id.value:
             report.issues.append(
                 EventDoctorIssue(
-                    "RABBITMQ_PERSISTENCE_FAILED",
-                    "RabbitMQ adapter did not preserve the serialized event.",
+                    "KAFKA_PERSISTENCE_FAILED",
+                    "Kafka adapter did not preserve the serialized event.",
                 )
             )
     except Exception as exc:
         report.issues.append(
-            EventDoctorIssue("RABBITMQ_CHECK_FAILED", str(exc))
+            EventDoctorIssue("KAFKA_CHECK_FAILED", str(exc))
         )
 
     return report

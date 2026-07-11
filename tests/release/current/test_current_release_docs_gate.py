@@ -1,16 +1,16 @@
 from pathlib import Path
 
 
-def test_m6_wp1_pr8_docs_exist():
+def test_m6_wp1_pr9_docs_exist():
     assert Path(
-        "docs/m6/wp1/pr8-rabbitmq/README.md"
+        "docs/m6/wp1/pr9-kafka/README.md"
     ).exists()
     assert Path(
-        "docs/m6/wp1/pr8-rabbitmq/ARCHITECTURE.md"
+        "docs/m6/wp1/pr9-kafka/ARCHITECTURE.md"
     ).exists()
     assert Path(
-        "docs/adr/ADR-070-rabbitmq-adapter.md"
+        "docs/adr/ADR-071-kafka-adapter.md"
     ).exists()
     assert Path(
-        "docs/rfc/RFC-013-rabbitmq-api.md"
+        "docs/rfc/RFC-014-kafka-api.md"
     ).exists()

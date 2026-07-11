@@ -34,6 +34,20 @@ from core.event.dispatcher import (
 from core.event.dispatcher_factory import DispatcherFactory
 from core.event.dispatcher_metrics import DispatcherMetrics
 from core.event.interceptor import RecordingInterceptor
+from core.event.kafka import (
+    InMemoryKafkaClient,
+    KafkaClient,
+    KafkaConfig,
+    KafkaEventBus,
+)
+from core.event.kafka_exceptions import (
+    KafkaConfigurationException,
+    KafkaConsumeException,
+    KafkaException,
+    KafkaProduceException,
+)
+from core.event.kafka_factory import KafkaEventBusFactory
+from core.event.kafka_metrics import KafkaMetrics
 from core.event.middleware import CorrelationMiddleware, HeaderMiddleware
 from core.event.publisher import BasePublisher, InMemoryPublisher, PublisherMetrics
 from core.event.publisher_factory import PublisherFactory
@@ -147,4 +161,14 @@ __all__ = [
     "RabbitMQPublishException",
     "RabbitMQConsumeException",
     "RabbitMQConfigurationException",
+    "KafkaClient",
+    "KafkaConfig",
+    "InMemoryKafkaClient",
+    "KafkaEventBus",
+    "KafkaEventBusFactory",
+    "KafkaMetrics",
+    "KafkaException",
+    "KafkaProduceException",
+    "KafkaConsumeException",
+    "KafkaConfigurationException",
 ]

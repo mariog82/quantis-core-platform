@@ -2,7 +2,7 @@
 
 ## Current
 
-M6 WP1 PR8 — RabbitMQ Adapter — `0.6.0-alpha.8`
+M6 WP1 PR9 — Kafka Adapter — `0.6.0-alpha.9`
 
 ## Completed
 
@@ -14,8 +14,8 @@ M6 WP1 PR8 — RabbitMQ Adapter — `0.6.0-alpha.8`
 - PR6 InMemory Event Bus
 - PR7 Redis Streams Adapter
 - PR8 RabbitMQ Adapter
+- PR9 Kafka Adapter
 
 ## Next
 
-- PR9 Kafka Adapter
 - PR10 WP1 Freeze
