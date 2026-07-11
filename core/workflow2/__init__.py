@@ -40,6 +40,23 @@ from core.workflow2.instance import (
     WorkflowState,
     WorkflowVersion,
 )
+from core.workflow2.monitoring import (
+    InMemoryWorkflowMonitoringSink,
+    WorkflowEventType,
+    WorkflowMonitoringEvent,
+    WorkflowMonitoringSink,
+)
+from core.workflow2.monitoring_dashboard import WorkflowMonitoringDashboard
+from core.workflow2.monitoring_exceptions import (
+    WorkflowMonitoringEventInvalid,
+    WorkflowMonitoringException,
+    WorkflowMonitoringSinkUnavailable,
+)
+from core.workflow2.monitoring_metrics import WorkflowMonitoringMetrics
+from core.workflow2.monitoring_service import (
+    WorkflowMonitoringService,
+    WorkflowMonitoringSummary,
+)
 from core.workflow2.registry import InMemoryWorkflowRegistry, WorkflowRegistry
 from core.workflow2.runtime import StepExecutor, StepResult, WorkflowRuntime
 from core.workflow2.runtime_metrics import WorkflowRuntimeMetrics
@@ -54,10 +71,7 @@ from core.workflow2.saga import (
     SagaStep,
 )
 from core.workflow2.saga_metrics import SagaMetrics
-from core.workflow2.saga_repository import (
-    InMemorySagaRepository,
-    SagaRepository,
-)
+from core.workflow2.saga_repository import InMemorySagaRepository, SagaRepository
 from core.workflow2.saga_service import SagaService
 from core.workflow2.scheduler import (
     InMemoryWorkflowTimerRepository,
@@ -154,4 +168,15 @@ __all__ = [
     "InMemorySagaRepository",
     "SagaService",
     "SagaMetrics",
+    "WorkflowEventType",
+    "WorkflowMonitoringEvent",
+    "WorkflowMonitoringSink",
+    "InMemoryWorkflowMonitoringSink",
+    "WorkflowMonitoringService",
+    "WorkflowMonitoringSummary",
+    "WorkflowMonitoringDashboard",
+    "WorkflowMonitoringMetrics",
+    "WorkflowMonitoringException",
+    "WorkflowMonitoringEventInvalid",
+    "WorkflowMonitoringSinkUnavailable",
 ]
