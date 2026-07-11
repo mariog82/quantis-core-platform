@@ -1,9 +1,5 @@
 # Quantis Core Platform™
 
-## Current Version
+Current version: `0.6.0-alpha.6`
 
-`0.6.0-alpha.4`
-
-## Current Milestone
-
-M6 WP1 PR4 — Dispatcher Layer
+Current milestone: M6 WP1 PR6 — InMemory Event Bus

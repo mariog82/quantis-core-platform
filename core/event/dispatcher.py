@@ -2,6 +2,8 @@ from dataclasses import replace
 from typing import Protocol
 
 from core.event.contracts import EventEnvelope, EventStatus
+from core.event.deadletter import DeadLetterQueue, InMemoryDeadLetterQueue
+from core.event.retry import RetryPolicy
 from core.event.subscriber import EventSubscriber, InMemoryEventSubscriber
 
 
@@ -33,9 +35,13 @@ class InMemoryEventDispatcher(EventDispatcher):
         self,
         subscriber: EventSubscriber | None = None,
         router: EventRouter | None = None,
+        dead_letter_queue: DeadLetterQueue | None = None,
+        retry_policy: RetryPolicy | None = None,
     ) -> None:
         self.subscriber = subscriber or InMemoryEventSubscriber()
         self.router = router or EventRouter()
+        self.dead_letter_queue = dead_letter_queue or InMemoryDeadLetterQueue()
+        self.retry_policy = retry_policy or RetryPolicy()
         self._middleware: list[EventMiddleware] = []
         self._interceptors: list[EventInterceptor] = []
 
@@ -48,22 +54,36 @@ class InMemoryEventDispatcher(EventDispatcher):
     def dispatch(self, envelope: EventEnvelope) -> EventEnvelope:
         current = envelope
 
-        for middleware in self._middleware:
-            current = middleware(current)
+        try:
+            for middleware in self._middleware:
+                current = middleware(current)
 
-        for interceptor in self._interceptors:
-            interceptor.before_dispatch(current)
+            for interceptor in self._interceptors:
+                interceptor.before_dispatch(current)
 
-        topic = self.router.topic_for(current)
-        subscriptions = self.subscriber.subscriptions_for(topic)
+            topic = self.router.topic_for(current)
+            for subscription in self.subscriber.subscriptions_for(topic):
+                if subscription.active:
+                    subscription.handler(current)
 
-        for subscription in subscriptions:
-            if subscription.active:
-                subscription.handler(current)
+            dispatched = replace(current, status=EventStatus.RECORDED)
 
-        dispatched = replace(current, status=EventStatus.RECORDED)
+            for interceptor in self._interceptors:
+                interceptor.after_dispatch(dispatched)
 
-        for interceptor in self._interceptors:
-            interceptor.after_dispatch(dispatched)
+            return dispatched
+        except Exception as exc:
+            failed = replace(
+                current,
+                status=EventStatus.INVALID,
+                attempts=current.attempts + 1,
+            )
 
-        return dispatched
+            if not self.retry_policy.should_retry(failed.attempts):
+                self.dead_letter_queue.add(
+                    failed,
+                    reason=str(exc),
+                    source="dispatcher",
+                )
+
+            return failed

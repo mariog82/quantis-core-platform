@@ -2,17 +2,11 @@
 
 ## Current
 
-M6 WP1 PR4 — Dispatcher Layer — `0.6.0-alpha.4`
-
-## Completed
-
-- PR1 Event Core
-- PR2 Publisher
-- PR3 Subscriber
-- PR4 Dispatcher
+M6 WP1 PR6 — InMemory Event Bus — `0.6.0-alpha.6`
 
 ## Next
 
-- PR5 Dead Letter Queue
-- PR6 InMemory Event Bus
 - PR7 Redis Streams Adapter
+- PR8 RabbitMQ Adapter
+- PR9 Kafka Adapter
+- PR10 WP1 Freeze

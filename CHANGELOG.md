@@ -1,13 +1,8 @@
 # Changelog
 
-## 0.6.0-alpha.4
+## 0.6.0-alpha.6
 
-### Added
-
-- Dispatcher contracts.
-- In-memory dispatcher.
-- Event router.
-- Middleware pipeline.
-- Interceptor lifecycle.
-- Dispatcher tests.
-- Event Doctor dispatcher validation.
+- Added Event Bus contract.
+- Added InMemoryEventBus.
+- Added batch publication.
+- Added EventBusFactory, metrics and exceptions.
