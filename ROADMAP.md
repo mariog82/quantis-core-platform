@@ -2,20 +2,21 @@
 
 ## Current
 
-M6 WP1 PR9 — Kafka Adapter — `0.6.0-alpha.9`
+M6 WP2 — Enterprise Event Platform — `0.6.0-beta.2`
 
 ## Completed
 
-- PR1 Event Core
-- PR2 Publisher
-- PR3 Subscriber
-- PR4 Dispatcher
-- PR5 Dead Letter Queue
-- PR6 InMemory Event Bus
-- PR7 Redis Streams Adapter
-- PR8 RabbitMQ Adapter
-- PR9 Kafka Adapter
+- M6 WP1 — Event Platform
+
+## Current scope
+
+- Event Store
+- Outbox
+- Replay
+- Snapshotting
+- Schema Registry
+- Process Manager
 
 ## Next
 
-- PR10 WP1 Freeze
+- M6 WP3 — CQRS and Projection Engine

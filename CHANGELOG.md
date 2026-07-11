@@ -1,8 +1,13 @@
 # Changelog
 
-## 0.6.0-beta.1
+## 0.6.0-beta.2
 
-### Freeze
-- WP1 Event Platform frozen.
-- APIs stabilized.
-- Ready for M6 WP2.
+### Added
+
+- Event Store.
+- Optimistic concurrency.
+- Event replay.
+- Snapshotting.
+- Transactional Outbox foundation.
+- Event Schema Registry.
+- Process Manager foundation.

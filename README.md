@@ -1,5 +1,9 @@
-# Quantis Core Platform
+# Quantis Core Platform™
 
-Current Version: **0.6.0-beta.1**
+## Current Version
 
-Milestone: **M6 WP1 PR10 Freeze**
+`0.6.0-beta.2`
+
+## Current Milestone
+
+M6 WP2 — Enterprise Event Platform
