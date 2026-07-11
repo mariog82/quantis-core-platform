@@ -1,0 +1,49 @@
+name: m6-final-release
+
+on:
+  push:
+    branches:
+      - feature/m6-wp1-event-platform
+      - release/m6-final
+      - develop
+  pull_request:
+
+jobs:
+  m6-final:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest ruff
+
+      - name: Ruff
+        run: ruff check .
+
+      - name: M6 stabilization
+        run: python -m tools.m6_stabilization.cli
+
+      - name: Current release gates
+        run: python -m pytest tests/release/current --cache-clear --import-mode=importlib
+
+      - name: M6 stabilization tests
+        run: python -m pytest tests/tools/m6_stabilization --cache-clear --import-mode=importlib
+
+      - name: Event Platform tests
+        run: python -m pytest tests/core/event --cache-clear --import-mode=importlib
+
+      - name: Workflow Engine tests
+        run: python -m pytest tests/core/workflow2 --cache-clear --import-mode=importlib
+
+      - name: Workflow SDK tests
+        run: python -m pytest tests/sdk/workflow --cache-clear --import-mode=importlib
+
+      - name: Full test suite
+        run: python -m pytest --cache-clear --import-mode=importlib

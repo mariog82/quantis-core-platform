@@ -2,12 +2,16 @@
 
 ## Current Version
 
-`0.6.0-rc.1`
+`0.6.0`
 
 ## Current Milestone
 
-M6 WP4 PR10 — Workflow Engine 2.0 Freeze
+M6 — Stable Release
 
-## Status
+## Core capabilities
 
-Release Candidate stabilization.
+- Event Platform
+- Enterprise Event Platform
+- CQRS and Projection Engine
+- Workflow Engine 2.0
+- Python Workflow SDK

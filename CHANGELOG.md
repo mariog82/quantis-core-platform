@@ -1,20 +1,14 @@
 # Changelog
 
-## 0.6.0-rc.1
+## 0.6.0
 
-### Freeze
+### Stable release
 
-- Completed M6 WP4 Workflow Engine 2.0.
-- Froze workflow public APIs.
-- Froze Workflow Runtime contracts.
-- Froze State Machine contracts.
-- Froze Human Task contracts.
-- Froze timer and scheduler contracts.
-- Froze BPMN contracts.
-- Froze Saga Engine contracts.
-- Froze monitoring contracts.
-- Froze Workflow API and SDK contracts.
-
-### Release status
-
-WP4 enters release-candidate stabilization.
+- Stabilized the M6 Event Platform.
+- Stabilized Event Store, Replay, Snapshotting and Outbox foundations.
+- Stabilized CQRS, Projection Engine and Read Models.
+- Stabilized Workflow Engine 2.0.
+- Stabilized Workflow API and Python SDK.
+- Added the M6 stabilization tool.
+- Added final release gates and documentation.
+- Established the M6 public API baseline.
