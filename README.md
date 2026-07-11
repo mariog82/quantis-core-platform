@@ -1,5 +1,9 @@
 # Quantis Core Platform™
 
-Current version: `0.6.0-alpha.6`
+## Current Version
 
-Current milestone: M6 WP1 PR6 — InMemory Event Bus
+`0.6.0-alpha.7`
+
+## Current Milestone
+
+M6 WP1 PR7 — Redis Streams Adapter

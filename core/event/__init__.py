@@ -32,11 +32,26 @@ from core.event.dispatcher import (
     InMemoryEventDispatcher,
 )
 from core.event.dispatcher_factory import DispatcherFactory
+from core.event.dispatcher_metrics import DispatcherMetrics
 from core.event.interceptor import RecordingInterceptor
 from core.event.middleware import CorrelationMiddleware, HeaderMiddleware
 from core.event.publisher import BasePublisher, InMemoryPublisher, PublisherMetrics
 from core.event.publisher_factory import PublisherFactory
 from core.event.publisher_protocol import EventPublisher
+from core.event.redis_streams import (
+    InMemoryRedisStreamsClient,
+    RedisStreamsClient,
+    RedisStreamsConfig,
+    RedisStreamsEventBus,
+)
+from core.event.redis_streams_exceptions import (
+    RedisStreamsConfigurationException,
+    RedisStreamsException,
+    RedisStreamsPublishException,
+    RedisStreamsReadException,
+)
+from core.event.redis_streams_factory import RedisStreamsEventBusFactory
+from core.event.redis_streams_metrics import RedisStreamsMetrics
 from core.event.retry import RetryPolicy
 from core.event.serialization import EventDeserializer, EventSerializer, JsonEventSerializer
 from core.event.subscriber import (
@@ -48,7 +63,6 @@ from core.event.subscriber import (
 )
 from core.event.subscriber_factory import SubscriberFactory
 from core.event.subscriber_metrics import SubscriberMetrics
-from core.event.dispatcher_metrics import DispatcherMetrics
 
 __all__ = [
     "Event",
@@ -79,6 +93,7 @@ __all__ = [
     "EventMiddleware",
     "EventInterceptor",
     "DispatcherFactory",
+    "DispatcherMetrics",
     "CorrelationMiddleware",
     "HeaderMiddleware",
     "RecordingInterceptor",
@@ -98,5 +113,14 @@ __all__ = [
     "EventBusPublishException",
     "EventBusSubscriptionException",
     "EventBusBackendException",
-    "DispatcherMetrics"
+    "RedisStreamsClient",
+    "RedisStreamsConfig",
+    "InMemoryRedisStreamsClient",
+    "RedisStreamsEventBus",
+    "RedisStreamsEventBusFactory",
+    "RedisStreamsMetrics",
+    "RedisStreamsException",
+    "RedisStreamsPublishException",
+    "RedisStreamsReadException",
+    "RedisStreamsConfigurationException",
 ]

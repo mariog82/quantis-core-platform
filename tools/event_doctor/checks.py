@@ -1,11 +1,11 @@
 from dataclasses import dataclass, field
 
 from core.event import (
-    DispatcherFactory,
     Event,
-    EventEnvelope,
     EventType,
-    InMemoryEventSubscriber,
+    InMemoryRedisStreamsClient,
+    RedisStreamsConfig,
+    RedisStreamsEventBus,
 )
 
 
@@ -43,33 +43,41 @@ def run_event_doctor_checks() -> EventDoctorReport:
     report = EventDoctorReport()
 
     try:
-        subscriber = InMemoryEventSubscriber()
-        received: list[str] = []
-        subscriber.subscribe(
-            "event.doctor",
-            lambda envelope: received.append(envelope.event_id),
+        client = InMemoryRedisStreamsClient()
+        bus = RedisStreamsEventBus(
+            client=client,
+            config=RedisStreamsConfig(stream_prefix="doctor"),
         )
 
-        dispatcher = DispatcherFactory.create(subscriber=subscriber)
-        envelope = EventEnvelope(Event(EventType("event.doctor"), {}))
-        dispatched = dispatcher.dispatch(envelope)
+        received: list[str] = []
+        bus.subscribe(
+            "event.doctor",
+            lambda envelope: received.append(envelope.event_id),
+            subscriber_name="event-doctor",
+        )
 
-        if not received or received[0] != envelope.event_id:
+        event = Event(EventType("event.doctor"), {"transport": "redis"})
+        bus.publish(event)
+        records = bus.read_stream("event.doctor")
+
+        if received != [event.event_id.value]:
             report.issues.append(
                 EventDoctorIssue(
-                    "DISPATCHER_DELIVERY_FAILED",
-                    "Dispatcher did not deliver the envelope to the registered handler.",
+                    "REDIS_STREAMS_DELIVERY_FAILED",
+                    "Redis Streams adapter did not invoke the subscriber.",
                 )
             )
 
-        if dispatched.event_id != envelope.event_id:
+        if len(records) != 1 or records[0].event_id != event.event_id.value:
             report.issues.append(
                 EventDoctorIssue(
-                    "DISPATCHER_IDENTITY_CHANGED",
-                    "Dispatcher changed the event identity.",
+                    "REDIS_STREAMS_PERSISTENCE_FAILED",
+                    "Redis Streams adapter did not persist or restore the event.",
                 )
             )
     except Exception as exc:
-        report.issues.append(EventDoctorIssue("DISPATCHER_CHECK_FAILED", str(exc)))
+        report.issues.append(
+            EventDoctorIssue("REDIS_STREAMS_CHECK_FAILED", str(exc))
+        )
 
     return report

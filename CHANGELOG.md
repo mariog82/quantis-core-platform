@@ -1,8 +1,13 @@
 # Changelog
 
-## 0.6.0-alpha.6
+## 0.6.0-alpha.7
 
-- Added Event Bus contract.
-- Added InMemoryEventBus.
-- Added batch publication.
-- Added EventBusFactory, metrics and exceptions.
+### Added
+
+- Redis Streams adapter.
+- Redis client protocol.
+- Redis Streams configuration.
+- In-memory Redis Streams test client.
+- Stream publication and read support.
+- Factory, metrics and exceptions.
+- Event Doctor Redis validation.
