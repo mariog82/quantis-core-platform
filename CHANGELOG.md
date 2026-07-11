@@ -1,14 +1,12 @@
 # Changelog
 
-## 0.6.0-beta.8
+## 0.6.0-beta.10
 
 ### Added
 
-- Workflow timers.
-- Delay, deadline and reminder timer types.
-- Timer repository.
-- Workflow Scheduler.
-- Due timer firing.
-- Timer cancellation.
-- Timer Step Executor.
-- Scheduling metrics and exceptions.
+- Saga Engine.
+- Saga definitions and instances.
+- Action execution.
+- Reverse compensation.
+- Saga repository and service.
+- Saga metrics and exceptions.

@@ -2,8 +2,8 @@
 
 ## Current Version
 
-`0.6.0-beta.8`
+`0.6.0-beta.10`
 
 ## Current Milestone
 
-M6 WP4 PR5 — Timers and Scheduling
+M6 WP4 PR7 — Saga Engine
