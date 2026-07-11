@@ -1,12 +1,14 @@
 # Changelog
 
-## 0.6.0-beta.7
+## 0.6.0-beta.8
 
 ### Added
 
-- Human Task model.
-- Task lifecycle.
-- Claim, start, complete, release and delegation.
-- Human Task repository and service.
-- Workflow HumanTaskStepExecutor.
-- Human Task metrics and exceptions.
+- Workflow timers.
+- Delay, deadline and reminder timer types.
+- Timer repository.
+- Workflow Scheduler.
+- Due timer firing.
+- Timer cancellation.
+- Timer Step Executor.
+- Scheduling metrics and exceptions.
