@@ -38,6 +38,20 @@ from core.event.middleware import CorrelationMiddleware, HeaderMiddleware
 from core.event.publisher import BasePublisher, InMemoryPublisher, PublisherMetrics
 from core.event.publisher_factory import PublisherFactory
 from core.event.publisher_protocol import EventPublisher
+from core.event.rabbitmq import (
+    InMemoryRabbitMQClient,
+    RabbitMQClient,
+    RabbitMQConfig,
+    RabbitMQEventBus,
+)
+from core.event.rabbitmq_exceptions import (
+    RabbitMQConfigurationException,
+    RabbitMQConsumeException,
+    RabbitMQException,
+    RabbitMQPublishException,
+)
+from core.event.rabbitmq_factory import RabbitMQEventBusFactory
+from core.event.rabbitmq_metrics import RabbitMQMetrics
 from core.event.redis_streams import (
     InMemoryRedisStreamsClient,
     RedisStreamsClient,
@@ -123,4 +137,14 @@ __all__ = [
     "RedisStreamsPublishException",
     "RedisStreamsReadException",
     "RedisStreamsConfigurationException",
+    "RabbitMQClient",
+    "RabbitMQConfig",
+    "InMemoryRabbitMQClient",
+    "RabbitMQEventBus",
+    "RabbitMQEventBusFactory",
+    "RabbitMQMetrics",
+    "RabbitMQException",
+    "RabbitMQPublishException",
+    "RabbitMQConsumeException",
+    "RabbitMQConfigurationException",
 ]

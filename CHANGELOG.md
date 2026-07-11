@@ -1,13 +1,13 @@
 # Changelog
 
-## 0.6.0-alpha.7
+## 0.6.0-alpha.8
 
 ### Added
 
-- Redis Streams adapter.
-- Redis client protocol.
-- Redis Streams configuration.
-- In-memory Redis Streams test client.
-- Stream publication and read support.
+- RabbitMQ adapter.
+- RabbitMQ client protocol.
+- Exchange, queue and binding configuration.
+- In-memory RabbitMQ test client.
+- Publication and queue read support.
 - Factory, metrics and exceptions.
-- Event Doctor Redis validation.
+- Event Doctor RabbitMQ validation.

@@ -3,9 +3,9 @@ from dataclasses import dataclass, field
 from core.event import (
     Event,
     EventType,
-    InMemoryRedisStreamsClient,
-    RedisStreamsConfig,
-    RedisStreamsEventBus,
+    InMemoryRabbitMQClient,
+    RabbitMQConfig,
+    RabbitMQEventBus,
 )
 
 
@@ -43,10 +43,13 @@ def run_event_doctor_checks() -> EventDoctorReport:
     report = EventDoctorReport()
 
     try:
-        client = InMemoryRedisStreamsClient()
-        bus = RedisStreamsEventBus(
+        client = InMemoryRabbitMQClient()
+        bus = RabbitMQEventBus(
             client=client,
-            config=RedisStreamsConfig(stream_prefix="doctor"),
+            config=RabbitMQConfig(
+                exchange="doctor.events",
+                queue_prefix="doctor",
+            ),
         )
 
         received: list[str] = []
@@ -56,28 +59,34 @@ def run_event_doctor_checks() -> EventDoctorReport:
             subscriber_name="event-doctor",
         )
 
-        event = Event(EventType("event.doctor"), {"transport": "redis"})
+        event = Event(
+            EventType("event.doctor"),
+            {"transport": "rabbitmq"},
+        )
         bus.publish(event)
-        records = bus.read_stream("event.doctor")
+        records = bus.read_queue(
+            "event.doctor",
+            subscriber_name="event-doctor",
+        )
 
         if received != [event.event_id.value]:
             report.issues.append(
                 EventDoctorIssue(
-                    "REDIS_STREAMS_DELIVERY_FAILED",
-                    "Redis Streams adapter did not invoke the subscriber.",
+                    "RABBITMQ_DELIVERY_FAILED",
+                    "RabbitMQ adapter did not invoke the subscriber.",
                 )
             )
 
         if len(records) != 1 or records[0].event_id != event.event_id.value:
             report.issues.append(
                 EventDoctorIssue(
-                    "REDIS_STREAMS_PERSISTENCE_FAILED",
-                    "Redis Streams adapter did not persist or restore the event.",
+                    "RABBITMQ_PERSISTENCE_FAILED",
+                    "RabbitMQ adapter did not preserve the serialized event.",
                 )
             )
     except Exception as exc:
         report.issues.append(
-            EventDoctorIssue("REDIS_STREAMS_CHECK_FAILED", str(exc))
+            EventDoctorIssue("RABBITMQ_CHECK_FAILED", str(exc))
         )
 
     return report
