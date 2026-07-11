@@ -30,6 +30,18 @@ from core.workflow2.runtime_exceptions import (
     WorkflowRuntimeException,
 )
 from core.workflow2.runtime_metrics import WorkflowRuntimeMetrics
+from core.workflow2.state_machine import (
+    StateMachineDecision,
+    StateTransitionRule,
+    WorkflowStateMachine,
+)
+from core.workflow2.state_machine_exceptions import (
+    GuardNotRegistered,
+    GuardRejectedTransition,
+    InvalidTransition,
+    StateMachineException,
+)
+from core.workflow2.state_machine_metrics import StateMachineMetrics
 from core.workflow2.validation import (
     WorkflowDefinitionValidator,
     WorkflowValidationIssue,
@@ -70,4 +82,12 @@ __all__ = [
     "WorkflowRuntimeException",
     "StepExecutorNotFound",
     "WorkflowExecutionLimitExceeded",
+    "WorkflowStateMachine",
+    "StateTransitionRule",
+    "StateMachineDecision",
+    "StateMachineMetrics",
+    "StateMachineException",
+    "InvalidTransition",
+    "GuardNotRegistered",
+    "GuardRejectedTransition",
 ]

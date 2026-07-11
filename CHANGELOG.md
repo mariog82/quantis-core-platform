@@ -1,13 +1,12 @@
 # Changelog
 
-## 0.6.0-beta.5
+## 0.6.0-beta.6
 
 ### Added
 
-- Workflow Runtime.
-- Step executor protocol.
-- StepResult.
-- Executor registration.
-- Transition execution.
-- Waiting, completion and failure handling.
-- Runtime metrics and exceptions.
+- Workflow State Machine.
+- Transition evaluation.
+- Named guards.
+- Conditional transitions.
+- Available transition discovery.
+- State Machine metrics and exceptions.
