@@ -1,17 +1,5 @@
 # Quantis Core Platform™
 
-## Current Version
+Current version: `0.7.0-alpha.1`
 
-`0.6.0`
-
-## Current Milestone
-
-M6 — Stable Release
-
-## Core capabilities
-
-- Event Platform
-- Enterprise Event Platform
-- CQRS and Projection Engine
-- Workflow Engine 2.0
-- Python Workflow SDK
+Current milestone: M7 WP1 PR1 — Knowledge Graph Core
