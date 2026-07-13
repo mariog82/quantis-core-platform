@@ -1,11 +1,7 @@
 # Roadmap
 
 ## Current
-M7 WP1 PR3 — Relationship Engine — `0.7.0-alpha.3`
-
-## Completed
-- M7 WP1 PR1 — Knowledge Graph Core
-- M7 WP1 PR2 — Entity Registry
+M7 WP1 PR4 — Graph Repository — `0.7.0-alpha.4`
 
 ## Next
-M7 WP1 PR4 — Graph Repository
+M7 WP1 PR5 — Graph Query Engine
