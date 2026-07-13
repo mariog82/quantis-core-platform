@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.7.0-alpha.3
+
+- Added Relationship Engine.
+- Added typed relationship definitions.
+- Added direction and cardinality.
+- Added weighted and semantic relationships.
+- Added relationship repository and indexes.
+- Added graph traversal and shortest-path search.
+- Added the official `python -m quantis version` command.
+
 ## 0.7.0-alpha.2
 
 - Added Entity contract and factory.
