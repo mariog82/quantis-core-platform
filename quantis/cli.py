@@ -8,10 +8,7 @@ def _read_version() -> str:
 
 def _git_commit() -> str:
     try:
-        result = subprocess.run(
-            ["git", "rev-parse", "--short", "HEAD"],
-            check=True, capture_output=True, text=True,
-        )
+        result = subprocess.run(["git", "rev-parse", "--short", "HEAD"], check=True, capture_output=True, text=True)
         return result.stdout.strip()
     except (OSError, subprocess.CalledProcessError):
         return "unknown"
@@ -22,7 +19,7 @@ def version_command() -> int:
     print(f"Version        : {_read_version()}")
     print("Milestone      : M7")
     print("Work Package   : WP1")
-    print("Pull Request   : PR4")
+    print("Pull Request   : PR5")
     print("Codename       : Knowledge Graph Engine")
     print(f"Git Commit     : {_git_commit()}")
     print(f"Python         : {platform.python_version()}")

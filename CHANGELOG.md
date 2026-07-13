@@ -1,13 +1,10 @@
 # Changelog
 
+## 0.7.0-alpha.5
+
+- Added Graph Query Engine.
+- Added predicates, planner, executor, sorting, projection and pagination.
+
 ## 0.7.0-alpha.4
 
-- Added GraphRepository contract.
-- Added InMemoryGraphRepository.
-- Added graph snapshots and restore.
-- Added repository isolation.
-- Added repository service, metrics and exceptions.
-
-## 0.7.0-alpha.3
-
-- Added Relationship Engine and official version command.
+- Added Graph Repository.
