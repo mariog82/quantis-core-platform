@@ -1,3 +1,9 @@
+from core.knowledge_graph.entities import Entity
+from core.knowledge_graph.entity_factory import EntityFactory
+from core.knowledge_graph.entity_index import EntityIndex
+from core.knowledge_graph.entity_registry import EntityRegistry
+from core.knowledge_graph.entity_repository import EntityRepository, InMemoryEntityRepository
+from core.knowledge_graph.entity_validation import EntityValidationIssue, EntityValidationReport, EntityValidator
 from core.knowledge_graph.exceptions import DuplicateEdge, DuplicateNode, EdgeNotFound, GraphCoreException, InvalidGraphElement, NodeNotFound
 from core.knowledge_graph.graph import KnowledgeGraph
 from core.knowledge_graph.identifiers import EdgeId, NodeId
@@ -9,5 +15,8 @@ __all__ = [
     "GraphMetadata", "GraphVersion", "GraphSerializer",
     "GraphDeserializer", "JsonGraphSerializer", "GraphCoreException",
     "InvalidGraphElement", "DuplicateNode", "DuplicateEdge",
-    "NodeNotFound", "EdgeNotFound",
+    "NodeNotFound", "EdgeNotFound", "Entity", "EntityFactory",
+    "EntityRepository", "InMemoryEntityRepository", "EntityRegistry",
+    "EntityIndex", "EntityValidator", "EntityValidationIssue",
+    "EntityValidationReport",
 ]

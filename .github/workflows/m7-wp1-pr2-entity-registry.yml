@@ -1,0 +1,14 @@
+name: m7-wp1-pr2-entity-registry
+on: [push, pull_request]
+jobs:
+  entity-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pytest ruff
+      - run: ruff check .
+      - run: python -m pytest tests/core/knowledge_graph/entity_registry --cache-clear --import-mode=importlib
+      - run: python -m pytest --cache-clear --import-mode=importlib
