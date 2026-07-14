@@ -1,11 +1,5 @@
 # Quantis Core Platform™
 
-Current version: `0.7.0-alpha.6`
+Current version: `0.7.0-alpha.7`
 
-Current milestone: M7 WP1 PR6 — Query Optimizer
-
-Official version command:
-
-```powershell
-python -m quantis version
-```
+Current milestone: M7 WP1 PR7 — Graph Algorithms
