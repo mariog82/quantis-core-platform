@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+﻿from dataclasses import dataclass
 import re
 from typing import Any
 
@@ -34,14 +34,6 @@ class GreaterThan:
         return value is not None and value > self.threshold
 
 @dataclass(frozen=True)
-class Regex:
-    field: str
-    pattern: str
-    def evaluate(self, values: dict[str, Any]) -> bool:
-        value = _value(values, self.field)
-        return isinstance(value, str) and re.search(self.pattern, value) is not None
-
-@dataclass(frozen=True)
 class And:
     predicates: tuple[Any, ...]
     def evaluate(self, values: dict[str, Any]) -> bool:
@@ -58,3 +50,25 @@ class Not:
     predicate: Any
     def evaluate(self, values: dict[str, Any]) -> bool:
         return not self.predicate.evaluate(values)
+
+@dataclass(frozen=True)
+class Regex:
+    field: str
+    pattern: str
+
+    def evaluate(self, values: dict) -> bool:
+        value = values
+        for part in self.field.split("."):
+            if not isinstance(value, dict) or part not in value:
+                return False
+            value = value[part]
+
+        return (
+            isinstance(value, str)
+            and re.search(self.pattern, value) is not None
+        )
+
+    @property
+    def cost(self) -> float:
+        return 3.0
+
