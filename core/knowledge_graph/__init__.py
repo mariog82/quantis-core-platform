@@ -1,4 +1,11 @@
-﻿from core.knowledge_graph.algorithm_exceptions import AlgorithmNodeNotFound, GraphAlgorithmException, GraphContainsCycle, NegativeWeightNotSupported
+﻿from core.knowledge_graph.analytics_models import (
+    DistributionBucket,
+    GraphAnalyticsReport,
+    GraphSummary,
+    NodeAnalytics,
+)
+from core.knowledge_graph.graph_analytics import GraphAnalyticsService
+from core.knowledge_graph.algorithm_exceptions import AlgorithmNodeNotFound, GraphAlgorithmException, GraphContainsCycle, NegativeWeightNotSupported
 from core.knowledge_graph.algorithm_models import CentralityResult, ConnectedComponentsResult, GraphAlgorithmMetrics, PathResult
 from core.knowledge_graph.graph_algorithms import GraphAlgorithmsService
 from core.knowledge_graph.predicates import Regex
@@ -104,6 +111,11 @@ from core.knowledge_graph.serialization import (
 from core.knowledge_graph.traversal_query import GraphTraversalQuery
 
 __all__ = [
+    "DistributionBucket",
+    "NodeAnalytics",
+    "GraphSummary",
+    "GraphAnalyticsReport",
+    "GraphAnalyticsService",
     "GraphContainsCycle",
     "NegativeWeightNotSupported",
     "AlgorithmNodeNotFound",
@@ -190,6 +202,7 @@ __all__ = [
     "QueryCacheEntry",
     "OptimizedGraphQueryExecutor",
 ]
+
 
 
 

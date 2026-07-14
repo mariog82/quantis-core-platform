@@ -27,7 +27,7 @@ def version_command() -> int:
     print(f"Version        : {_read_version()}")
     print("Milestone      : M7")
     print("Work Package   : WP1")
-    print("Pull Request   : PR7")
+    print("Pull Request   : PR8")
     print("Codename       : Knowledge Graph Engine")
     print(f"Git Commit     : {_git_commit()}")
     print(f"Python         : {platform.python_version()}")
@@ -42,4 +42,5 @@ def main(argv: list[str] | None = None) -> int:
 
     print("Usage: python -m quantis version")
     return 2
+
 
