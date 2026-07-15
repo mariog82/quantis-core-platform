@@ -1,4 +1,21 @@
-﻿from core.knowledge_graph.analytics_models import (
+﻿from core.knowledge_graph.semantic_inference import SemanticInferenceEngine
+from core.knowledge_graph.semantic_layer import SemanticLayerService
+from core.knowledge_graph.semantic_mapper import SemanticMapper
+from core.knowledge_graph.semantic_models import (
+    SemanticConcept,
+    SemanticInference,
+    SemanticMapping,
+    SemanticProperty,
+    SemanticRelationship,
+)
+from core.knowledge_graph.semantic_normalizer import SemanticNormalizer
+from core.knowledge_graph.semantic_registry import SemanticRegistry
+from core.knowledge_graph.semantic_validator import (
+    SemanticValidationIssue,
+    SemanticValidationReport,
+    SemanticValidator,
+)
+from core.knowledge_graph.analytics_models import (
     DistributionBucket,
     GraphAnalyticsReport,
     GraphSummary,
@@ -111,6 +128,19 @@ from core.knowledge_graph.serialization import (
 from core.knowledge_graph.traversal_query import GraphTraversalQuery
 
 __all__ = [
+    "SemanticLayerService",
+    "SemanticInferenceEngine",
+    "SemanticValidationReport",
+    "SemanticValidationIssue",
+    "SemanticValidator",
+    "SemanticMapper",
+    "SemanticNormalizer",
+    "SemanticRegistry",
+    "SemanticInference",
+    "SemanticMapping",
+    "SemanticRelationship",
+    "SemanticProperty",
+    "SemanticConcept",
     "DistributionBucket",
     "NodeAnalytics",
     "GraphSummary",
@@ -202,6 +232,7 @@ __all__ = [
     "QueryCacheEntry",
     "OptimizedGraphQueryExecutor",
 ]
+
 
 
 
