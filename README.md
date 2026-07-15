@@ -1,5 +1,5 @@
 # Quantis Core Platform™
 
-Current version: `0.7.0-alpha.9`
+Current version: `0.7.0-beta.1`
 
-Current milestone: M7 WP1 PR9 — Semantic Layer
+Current milestone: M7 WP1 PR10 — WP1 Freeze

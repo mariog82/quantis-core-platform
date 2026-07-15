@@ -1,10 +1,7 @@
 # Changelog
 
-## 0.7.0-alpha.9
+## 0.7.0-beta.1
 
-- Added Semantic Layer.
-- Added concepts, mappings, validation and inference.
-
-## 0.7.0-alpha.8
-
-- Added Graph Analytics.
+- Froze the M7 WP1 Knowledge Graph Engine public surface.
+- Added freeze validator and CLI.
+- Added required-artifact and conflict-marker checks.

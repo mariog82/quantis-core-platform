@@ -1,4 +1,9 @@
-﻿from core.knowledge_graph.semantic_inference import SemanticInferenceEngine
+﻿from core.knowledge_graph.freeze import (
+    FreezeIssue,
+    FreezeReport,
+    KnowledgeGraphFreezeValidator,
+)
+from core.knowledge_graph.semantic_inference import SemanticInferenceEngine
 from core.knowledge_graph.semantic_layer import SemanticLayerService
 from core.knowledge_graph.semantic_mapper import SemanticMapper
 from core.knowledge_graph.semantic_models import (
@@ -128,6 +133,9 @@ from core.knowledge_graph.serialization import (
 from core.knowledge_graph.traversal_query import GraphTraversalQuery
 
 __all__ = [
+    "KnowledgeGraphFreezeValidator",
+    "FreezeReport",
+    "FreezeIssue",
     "SemanticLayerService",
     "SemanticInferenceEngine",
     "SemanticValidationReport",
@@ -232,9 +240,3 @@ __all__ = [
     "QueryCacheEntry",
     "OptimizedGraphQueryExecutor",
 ]
-
-
-
-
-
-
