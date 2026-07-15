@@ -1,0 +1,1424 @@
+From f560f7e05b80f500f8623b4e10aa6209e1ca35b7 Mon Sep 17 00:00:00 2001
+From: "mario.gaglio@itisetorricelli.it" <mario.gaglio@itisetorricelli.it>
+Date: Tue, 14 Jul 2026 16:03:57 +0200
+Subject: [PATCH] feat(knowledge-graph): add Query Optimizer (M7 WP1 PR6)
+
+---
+ --cache-clear                                 |   0
+ .../workflows/m7-wp1-pr6-query-optimizer.yml  |  42 ++++
+ CHANGELOG.md                                  |  15 +-
+ README.md                                     |  10 +-
+ ROADMAP.md                                    |  11 +-
+ VERSION                                       |   2 +-
+ core/knowledge_graph/__init__.py              | 189 ++++++++++++++++--
+ .../optimized_query_executor.py               |  49 +++++
+ core/knowledge_graph/predicates.py            |  32 ++-
+ core/knowledge_graph/query_cache.py           |  74 +++++++
+ core/knowledge_graph/query_exceptions.py      |  18 ++
+ core/knowledge_graph/query_executor.py        | 136 +++++++++++++
+ core/knowledge_graph/query_metrics.py         |  15 ++
+ core/knowledge_graph/query_models.py          |  61 ++++++
+ core/knowledge_graph/query_optimizer.py       | 113 +++++++++++
+ core/knowledge_graph/query_planner.py         |  46 +++++
+ core/knowledge_graph/traversal_query.py       |  94 +++++++++
+ docs/adr/ADR-091-m7-query-optimizer.md        |  15 ++
+ .../M7_WP1_PR6_QUERY_OPTIMIZER_RELEASE.md     |   3 +
+ .../wp1/pr6-query-optimizer/ARCHITECTURE.md   |  16 ++
+ docs/m7/wp1/pr6-query-optimizer/README.md     |  14 ++
+ docs/m7/wp1/pr6-query-optimizer/TEST_PLAN.md  |  11 +
+ docs/rfc/RFC-034-m7-query-optimizer.md        |  11 +
+ quantis/cli.py                                |  14 +-
+ .../query_optimizer/test_optimizer_plan.py    |  25 +++
+ .../query_optimizer/test_optimizer_rules.py   |  30 +++
+ .../query_optimizer/test_pagination_rule.py   |  10 +
+ .../query_optimizer/test_query_cache.py       |  20 ++
+ tests/quantis/test_version_command.py         |  11 +-
+ .../test_current_release_version_gate.py      |   8 +-
+ .../current/test_m7_wp1_pr6_docs_gate.py      |  14 ++
+ 31 files changed, 1061 insertions(+), 48 deletions(-)
+ create mode 100644 --cache-clear
+ create mode 100644 .github/workflows/m7-wp1-pr6-query-optimizer.yml
+ create mode 100644 core/knowledge_graph/optimized_query_executor.py
+ create mode 100644 core/knowledge_graph/query_cache.py
+ create mode 100644 core/knowledge_graph/query_exceptions.py
+ create mode 100644 core/knowledge_graph/query_executor.py
+ create mode 100644 core/knowledge_graph/query_metrics.py
+ create mode 100644 core/knowledge_graph/query_models.py
+ create mode 100644 core/knowledge_graph/query_optimizer.py
+ create mode 100644 core/knowledge_graph/query_planner.py
+ create mode 100644 core/knowledge_graph/traversal_query.py
+ create mode 100644 docs/adr/ADR-091-m7-query-optimizer.md
+ create mode 100644 docs/fixes/M7_WP1_PR6_QUERY_OPTIMIZER_RELEASE.md
+ create mode 100644 docs/m7/wp1/pr6-query-optimizer/ARCHITECTURE.md
+ create mode 100644 docs/m7/wp1/pr6-query-optimizer/README.md
+ create mode 100644 docs/m7/wp1/pr6-query-optimizer/TEST_PLAN.md
+ create mode 100644 docs/rfc/RFC-034-m7-query-optimizer.md
+ create mode 100644 tests/core/knowledge_graph/query_optimizer/test_optimizer_plan.py
+ create mode 100644 tests/core/knowledge_graph/query_optimizer/test_optimizer_rules.py
+ create mode 100644 tests/core/knowledge_graph/query_optimizer/test_pagination_rule.py
+ create mode 100644 tests/core/knowledge_graph/query_optimizer/test_query_cache.py
+ create mode 100644 tests/release/current/test_m7_wp1_pr6_docs_gate.py
+
+diff --git a/--cache-clear b/--cache-clear
+new file mode 100644
+index 0000000..e69de29
+diff --git a/.github/workflows/m7-wp1-pr6-query-optimizer.yml b/.github/workflows/m7-wp1-pr6-query-optimizer.yml
+new file mode 100644
+index 0000000..a0ac127
+--- /dev/null
++++ b/.github/workflows/m7-wp1-pr6-query-optimizer.yml
+@@ -0,0 +1,42 @@
++name: m7-wp1-pr6-query-optimizer
++
++on:
++  push:
++  pull_request:
++
++jobs:
++  query-optimizer:
++    runs-on: ubuntu-latest
++
++    steps:
++      - uses: actions/checkout@v4
++
++      - uses: actions/setup-python@v5
++        with:
++          python-version: "3.12"
++
++      - name: Install dependencies
++        run: |
++          python -m pip install --upgrade pip
++          pip install pytest ruff
++
++      - name: Ruff
++        run: ruff check .
++
++      - name: Official version command
++        run: python -m quantis version
++
++      - name: Query Optimizer tests
++        run: python -m pytest tests/core/knowledge_graph/query_optimizer --cache-clear --import-mode=importlib
++
++      - name: Graph Query tests
++        run: python -m pytest tests/core/knowledge_graph/query --cache-clear --import-mode=importlib
++
++      - name: Knowledge Graph tests
++        run: python -m pytest tests/core/knowledge_graph --cache-clear --import-mode=importlib
++
++      - name: Current release gates
++        run: python -m pytest tests/release/current --cache-clear --import-mode=importlib
++
++      - name: Full test suite
++        run: python -m pytest --cache-clear --import-mode=importlib
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 01ec071..22131fa 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,10 +1,15 @@
+ # Changelog
+ 
+-## 0.7.0-alpha.5
++## 0.7.0-alpha.6
+ 
+-- Added Graph Query Engine.
+-- Added predicates, planner, executor, sorting, projection and pagination.
++- Added GraphQueryOptimizer.
++- Added duplicate predicate elimination.
++- Added predicate cost reordering.
++- Added pagination normalization.
++- Added query result cache.
++- Added optimized query executor.
++- Added cache hit and miss metrics.
+ 
+-## 0.7.0-alpha.4
++## 0.7.0-alpha.5
+ 
+-- Added Graph Repository.
++- Added Graph Query Engine.
+diff --git a/README.md b/README.md
+index ff1af87..7cc96fd 100644
+--- a/README.md
++++ b/README.md
+@@ -1,5 +1,11 @@
+ # Quantis Core Platform™
+ 
+-Current version: `0.7.0-alpha.5`
++Current version: `0.7.0-alpha.6`
+ 
+-Current milestone: M7 WP1 PR5 — Graph Query Engine
++Current milestone: M7 WP1 PR6 — Query Optimizer
++
++Official version command:
++
++```powershell
++python -m quantis version
++```
+diff --git a/ROADMAP.md b/ROADMAP.md
+index 1178125..f7b8dee 100644
+--- a/ROADMAP.md
++++ b/ROADMAP.md
+@@ -1,7 +1,14 @@
+ # Roadmap
+ 
+ ## Current
+-M7 WP1 PR5 — Graph Query Engine — `0.7.0-alpha.5`
++M7 WP1 PR6 — Query Optimizer — `0.7.0-alpha.6`
++
++## Completed
++- M7 WP1 PR1 — Knowledge Graph Core
++- M7 WP1 PR2 — Entity Registry
++- M7 WP1 PR3 — Relationship Engine
++- M7 WP1 PR4 — Graph Repository
++- M7 WP1 PR5 — Graph Query Engine
+ 
+ ## Next
+-M7 WP1 PR6 — Semantic Search
++M7 WP1 PR7 — Graph Algorithms
+diff --git a/VERSION b/VERSION
+index 7cc5067..ec6c2cd 100644
+--- a/VERSION
++++ b/VERSION
+@@ -1 +1 @@
+-0.7.0-alpha.5
++0.7.0-alpha.6
+diff --git a/core/knowledge_graph/__init__.py b/core/knowledge_graph/__init__.py
+index 6cf4d25..8d96696 100644
+--- a/core/knowledge_graph/__init__.py
++++ b/core/knowledge_graph/__init__.py
+@@ -1,36 +1,183 @@
++﻿from core.knowledge_graph.predicates import Regex
+ from core.knowledge_graph.entities import Entity
+ from core.knowledge_graph.entity_factory import EntityFactory
+ from core.knowledge_graph.entity_index import EntityIndex
+ from core.knowledge_graph.entity_registry import EntityRegistry
+-from core.knowledge_graph.entity_repository import EntityRepository, InMemoryEntityRepository
+-from core.knowledge_graph.entity_validation import EntityValidationIssue, EntityValidationReport, EntityValidator
+-from core.knowledge_graph.exceptions import DuplicateEdge, DuplicateNode, EdgeNotFound, GraphCoreException, InvalidGraphElement, NodeNotFound
++from core.knowledge_graph.entity_repository import (
++    EntityRepository,
++    InMemoryEntityRepository,
++)
++from core.knowledge_graph.entity_validation import (
++    EntityValidationIssue,
++    EntityValidationReport,
++    EntityValidator,
++)
++from core.knowledge_graph.exceptions import (
++    DuplicateEdge,
++    DuplicateNode,
++    EdgeNotFound,
++    GraphCoreException,
++    InvalidGraphElement,
++    NodeNotFound,
++)
+ from core.knowledge_graph.graph import KnowledgeGraph
+ from core.knowledge_graph.identifiers import EdgeId, NodeId
+ from core.knowledge_graph.inmemory_repository import InMemoryGraphRepository
+-from core.knowledge_graph.models import GraphEdge, GraphMetadata, GraphNode, GraphVersion
+-from core.knowledge_graph.predicates import And, Contains, Equals, GreaterThan, Not, Or, Regex
+-from core.knowledge_graph.query import GraphQuery, GraphResult, SortDirection, SortSpec
+-from core.knowledge_graph.query_engine import GraphQueryExecutor, GraphQueryMetrics, GraphQueryPlanner
++from core.knowledge_graph.models import (
++    GraphEdge,
++    GraphMetadata,
++    GraphNode,
++    GraphVersion,
++)
++from core.knowledge_graph.optimized_query_executor import (
++    OptimizedGraphQueryExecutor,
++)
++from core.knowledge_graph.predicates import (
++    And,
++    Contains,
++    Equals,
++    Not,
++    Or,
++)
++from core.knowledge_graph.query_cache import (
++    QueryCacheEntry,
++    QueryResultCache,
++)
++from core.knowledge_graph.query_exceptions import (
++    GraphQueryException,
++    InvalidQuery,
++    PlannerException,
++    QueryTimeout,
++    UnsupportedPredicate,
++)
++from core.knowledge_graph.query_executor import GraphQueryExecutor
++from core.knowledge_graph.query_metrics import GraphQueryMetrics
++from core.knowledge_graph.query_models import (
++    GraphCount,
++    GraphCursor,
++    GraphPage,
++    GraphQuery,
++    GraphQueryPlan,
++    GraphResult,
++    QueryDirection,
++    SortDirection,
++    SortSpec,
++)
++from core.knowledge_graph.query_optimizer import (
++    GraphQueryOptimizer,
++    NormalizePagination,
++    QueryOptimization,
++    QueryOptimizationRule,
++    RemoveDuplicatePredicates,
++    ReorderAndPredicates,
++)
++from core.knowledge_graph.query_planner import GraphQueryPlanner
+ from core.knowledge_graph.relationship_engine import RelationshipEngine
+ from core.knowledge_graph.relationship_index import RelationshipIndex
+-from core.knowledge_graph.relationship_repository import InMemoryRelationshipRepository, RelationshipRepository
+-from core.knowledge_graph.relationships import Relationship, RelationshipCardinality, RelationshipDirection, RelationshipType
++from core.knowledge_graph.relationship_repository import (
++    InMemoryRelationshipRepository,
++    RelationshipRepository,
++)
++from core.knowledge_graph.relationships import (
++    Relationship,
++    RelationshipCardinality,
++    RelationshipDirection,
++    RelationshipType,
++)
+ from core.knowledge_graph.repository import GraphRepository, GraphSnapshot
+-from core.knowledge_graph.repository_exceptions import GraphAlreadyExists, GraphNotFound, GraphRepositoryException, GraphSnapshotInvalid
++from core.knowledge_graph.repository_exceptions import (
++    GraphAlreadyExists,
++    GraphNotFound,
++    GraphRepositoryException,
++    GraphSnapshotInvalid,
++)
+ from core.knowledge_graph.repository_metrics import GraphRepositoryMetrics
+ from core.knowledge_graph.repository_service import GraphRepositoryService
+-from core.knowledge_graph.serialization import GraphDeserializer, GraphSerializer, JsonGraphSerializer
++from core.knowledge_graph.serialization import (
++    GraphDeserializer,
++    GraphSerializer,
++    JsonGraphSerializer,
++)
++from core.knowledge_graph.traversal_query import GraphTraversalQuery
+ 
+ __all__ = [
+-    "KnowledgeGraph", "NodeId", "EdgeId", "GraphNode", "GraphEdge", "GraphMetadata", "GraphVersion",
+-    "GraphSerializer", "GraphDeserializer", "JsonGraphSerializer", "GraphCoreException", "InvalidGraphElement",
+-    "DuplicateNode", "DuplicateEdge", "NodeNotFound", "EdgeNotFound", "Entity", "EntityFactory",
+-    "EntityRepository", "InMemoryEntityRepository", "EntityRegistry", "EntityIndex", "EntityValidator",
+-    "EntityValidationIssue", "EntityValidationReport", "Relationship", "RelationshipType", "RelationshipDirection",
+-    "RelationshipCardinality", "RelationshipRepository", "InMemoryRelationshipRepository", "RelationshipIndex",
+-    "RelationshipEngine", "GraphRepository", "InMemoryGraphRepository", "GraphRepositoryService", "GraphSnapshot",
+-    "GraphRepositoryMetrics", "GraphRepositoryException", "GraphAlreadyExists", "GraphNotFound", "GraphSnapshotInvalid",
+-    "Equals", "Contains", "GreaterThan", "Regex", "And", "Or", "Not", "GraphQuery", "GraphResult",
+-    "SortSpec", "SortDirection", "GraphQueryPlanner", "GraphQueryExecutor", "GraphQueryMetrics",
++    "Regex",
++    "KnowledgeGraph",
++    "NodeId",
++    "EdgeId",
++    "GraphNode",
++    "GraphEdge",
++    "GraphMetadata",
++    "GraphVersion",
++    "GraphSerializer",
++    "GraphDeserializer",
++    "JsonGraphSerializer",
++    "GraphCoreException",
++    "InvalidGraphElement",
++    "DuplicateNode",
++    "DuplicateEdge",
++    "NodeNotFound",
++    "EdgeNotFound",
++    "Entity",
++    "EntityFactory",
++    "EntityRepository",
++    "InMemoryEntityRepository",
++    "EntityRegistry",
++    "EntityIndex",
++    "EntityValidator",
++    "EntityValidationIssue",
++    "EntityValidationReport",
++    "Relationship",
++    "RelationshipType",
++    "RelationshipDirection",
++    "RelationshipCardinality",
++    "RelationshipRepository",
++    "InMemoryRelationshipRepository",
++    "RelationshipIndex",
++    "RelationshipEngine",
++    "GraphRepository",
++    "InMemoryGraphRepository",
++    "GraphRepositoryService",
++    "GraphSnapshot",
++    "GraphRepositoryMetrics",
++    "GraphRepositoryException",
++    "GraphAlreadyExists",
++    "GraphNotFound",
++    "GraphSnapshotInvalid",
++    "Equals",
++    "Contains",
++    "Missing",
++    "And",
++    "Or",
++    "Not",
++    "GraphQuery",
++    "SortSpec",
++    "SortDirection",
++    "QueryDirection",
++    "GraphQueryPlan",
++    "GraphResult",
++    "GraphPage",
++    "GraphCursor",
++    "GraphCount",
++    "GraphQueryPlanner",
++    "GraphQueryExecutor",
++    "GraphTraversalQuery",
++    "GraphQueryMetrics",
++    "GraphQueryException",
++    "InvalidQuery",
++    "QueryTimeout",
++    "UnsupportedPredicate",
++    "PlannerException",
++    "GraphQueryOptimizer",
++    "QueryOptimization",
++    "QueryOptimizationRule",
++    "RemoveDuplicatePredicates",
++    "ReorderAndPredicates",
++    "NormalizePagination",
++    "QueryResultCache",
++    "QueryCacheEntry",
++    "OptimizedGraphQueryExecutor",
+ ]
++
++
++
+diff --git a/core/knowledge_graph/optimized_query_executor.py b/core/knowledge_graph/optimized_query_executor.py
+new file mode 100644
+index 0000000..9d7b57b
+--- /dev/null
++++ b/core/knowledge_graph/optimized_query_executor.py
+@@ -0,0 +1,49 @@
++﻿from core.knowledge_graph.graph import KnowledgeGraph
++from core.knowledge_graph.query_cache import QueryResultCache
++from core.knowledge_graph.query_executor import GraphQueryExecutor
++from core.knowledge_graph.query_metrics import GraphQueryMetrics
++from core.knowledge_graph.query_models import GraphQuery, GraphResult
++from core.knowledge_graph.query_optimizer import GraphQueryOptimizer
++
++
++class OptimizedGraphQueryExecutor:
++    def __init__(
++        self,
++        executor: GraphQueryExecutor | None = None,
++        optimizer: GraphQueryOptimizer | None = None,
++        cache: QueryResultCache | None = None,
++        metrics: GraphQueryMetrics | None = None,
++    ) -> None:
++        self.metrics = metrics or GraphQueryMetrics()
++        self.executor = executor or GraphQueryExecutor(self.metrics)
++        self.optimizer = optimizer or GraphQueryOptimizer()
++        self.cache = cache or QueryResultCache()
++
++    def execute(
++        self,
++        graph: KnowledgeGraph,
++        query: GraphQuery,
++        *,
++        use_cache: bool = True,
++    ) -> GraphResult:
++        optimization = self.optimizer.optimize(query)
++        optimized = optimization.optimized
++
++        if use_cache:
++            cached = self.cache.get(optimized)
++
++            if cached is not None:
++                self.metrics.cache_hits += 1
++                return cached
++
++            self.metrics.cache_misses += 1
++
++        result = self.executor.execute(graph, optimized)
++
++        if use_cache:
++            self.cache.put(optimized, result)
++
++        return result
++
++
++__all__ = ["OptimizedGraphQueryExecutor"]
+diff --git a/core/knowledge_graph/predicates.py b/core/knowledge_graph/predicates.py
+index d423790..1c20cab 100644
+--- a/core/knowledge_graph/predicates.py
++++ b/core/knowledge_graph/predicates.py
+@@ -1,4 +1,4 @@
+-from dataclasses import dataclass
++﻿from dataclasses import dataclass
+ import re
+ from typing import Any
+ 
+@@ -33,14 +33,6 @@ class GreaterThan:
+         value = _value(values, self.field)
+         return value is not None and value > self.threshold
+ 
+-@dataclass(frozen=True)
+-class Regex:
+-    field: str
+-    pattern: str
+-    def evaluate(self, values: dict[str, Any]) -> bool:
+-        value = _value(values, self.field)
+-        return isinstance(value, str) and re.search(self.pattern, value) is not None
+-
+ @dataclass(frozen=True)
+ class And:
+     predicates: tuple[Any, ...]
+@@ -58,3 +50,25 @@ class Not:
+     predicate: Any
+     def evaluate(self, values: dict[str, Any]) -> bool:
+         return not self.predicate.evaluate(values)
++
++@dataclass(frozen=True)
++class Regex:
++    field: str
++    pattern: str
++
++    def evaluate(self, values: dict) -> bool:
++        value = values
++        for part in self.field.split("."):
++            if not isinstance(value, dict) or part not in value:
++                return False
++            value = value[part]
++
++        return (
++            isinstance(value, str)
++            and re.search(self.pattern, value) is not None
++        )
++
++    @property
++    def cost(self) -> float:
++        return 3.0
++
+diff --git a/core/knowledge_graph/query_cache.py b/core/knowledge_graph/query_cache.py
+new file mode 100644
+index 0000000..a51c509
+--- /dev/null
++++ b/core/knowledge_graph/query_cache.py
+@@ -0,0 +1,74 @@
++﻿from dataclasses import dataclass
++from hashlib import sha256
++import json
++
++from core.knowledge_graph.query_models import GraphQuery, GraphResult
++
++
++@dataclass(frozen=True)
++class QueryCacheEntry:
++    key: str
++    result: GraphResult
++
++
++class QueryResultCache:
++    def __init__(self) -> None:
++        self._entries: dict[str, GraphResult] = {}
++
++    def key_for(self, query: GraphQuery) -> str:
++        sort_specs = getattr(query, "sort", ())
++
++        payload = json.dumps(
++            {
++                "node_type": getattr(query, "node_type", None),
++                "projection": getattr(query, "projection", ()),
++                "sort": [
++                    (
++                        item.field,
++                        getattr(
++                            item.direction,
++                            "value",
++                            str(item.direction),
++                        ),
++                    )
++                    for item in sort_specs
++                ],
++                "limit": getattr(query, "limit", None),
++                "offset": getattr(query, "offset", 0),
++                "predicate": repr(
++                    getattr(query, "predicate", None)
++                ),
++            },
++            sort_keys=True,
++            default=str,
++        )
++
++        return sha256(payload.encode("utf-8")).hexdigest()
++
++    def get(
++        self,
++        query: GraphQuery,
++    ) -> GraphResult | None:
++        return self._entries.get(self.key_for(query))
++
++    def put(
++        self,
++        query: GraphQuery,
++        result: GraphResult,
++    ) -> QueryCacheEntry:
++        key = self.key_for(query)
++        self._entries[key] = result
++
++        return QueryCacheEntry(
++            key=key,
++            result=result,
++        )
++
++    def clear(self) -> None:
++        self._entries.clear()
++
++
++__all__ = [
++    "QueryCacheEntry",
++    "QueryResultCache",
++]
+diff --git a/core/knowledge_graph/query_exceptions.py b/core/knowledge_graph/query_exceptions.py
+new file mode 100644
+index 0000000..38fba14
+--- /dev/null
++++ b/core/knowledge_graph/query_exceptions.py
+@@ -0,0 +1,18 @@
++﻿class GraphQueryException(Exception):
++    pass
++
++
++class InvalidQuery(GraphQueryException):
++    pass
++
++
++class QueryTimeout(GraphQueryException):
++    pass
++
++
++class UnsupportedPredicate(GraphQueryException):
++    pass
++
++
++class PlannerException(GraphQueryException):
++    pass
+diff --git a/core/knowledge_graph/query_executor.py b/core/knowledge_graph/query_executor.py
+new file mode 100644
+index 0000000..afb008c
+--- /dev/null
++++ b/core/knowledge_graph/query_executor.py
+@@ -0,0 +1,136 @@
++﻿from time import perf_counter
++from typing import Any
++
++from core.knowledge_graph import query_engine as legacy
++from core.knowledge_graph.graph import KnowledgeGraph
++from core.knowledge_graph.query_metrics import GraphQueryMetrics
++from core.knowledge_graph.query_models import GraphQuery, GraphResult
++
++
++def _resolve(item: dict[str, Any], field: str) -> Any:
++    current: Any = item
++
++    for part in field.split("."):
++        if not isinstance(current, dict):
++            return None
++        current = current.get(part)
++
++    return current
++
++
++def _node_item(node: Any) -> dict[str, Any]:
++    return {
++        "node_id": node.node_id.value,
++        "node_type": node.node_type,
++        "properties": dict(node.properties),
++    }
++
++
++if hasattr(legacy, "GraphQueryExecutor"):
++    GraphQueryExecutor = legacy.GraphQueryExecutor
++
++elif hasattr(legacy, "GraphQueryEngine"):
++
++    class GraphQueryExecutor(legacy.GraphQueryEngine):
++        pass
++
++else:
++
++    class GraphQueryExecutor:
++        def __init__(
++            self,
++            metrics: GraphQueryMetrics | None = None,
++        ) -> None:
++            self.metrics = metrics or GraphQueryMetrics()
++
++        def execute(
++            self,
++            graph: KnowledgeGraph,
++            query: GraphQuery,
++        ) -> GraphResult:
++            started = perf_counter()
++            self.metrics.executions += 1
++
++            try:
++                items = [
++                    _node_item(node)
++                    for node in graph.nodes()
++                ]
++                self.metrics.nodes_scanned += len(items)
++
++                node_type = getattr(query, "node_type", None)
++                if node_type is not None:
++                    items = [
++                        item
++                        for item in items
++                        if item["node_type"] == node_type
++                    ]
++
++                predicate = getattr(query, "predicate", None)
++                if predicate is not None:
++                    items = [
++                        item
++                        for item in items
++                        if predicate.evaluate(item)
++                    ]
++
++                sort_specs = getattr(query, "sort", ())
++                for sort_spec in reversed(sort_specs):
++                    direction = getattr(
++                        sort_spec.direction,
++                        "value",
++                        str(sort_spec.direction),
++                    )
++                    reverse = direction in {
++                        "descending",
++                        "desc",
++                    }
++
++                    items.sort(
++                        key=lambda item: (
++                            _resolve(item, sort_spec.field) is None,
++                            _resolve(item, sort_spec.field),
++                        ),
++                        reverse=reverse,
++                    )
++
++                total_count = len(items)
++                offset = getattr(query, "offset", 0)
++                limit = getattr(query, "limit", None)
++                end = None if limit is None else offset + limit
++                page_items = items[offset:end]
++
++                projection = getattr(query, "projection", ())
++                if projection:
++                    page_items = [
++                        {
++                            field: _resolve(item, field)
++                            for field in projection
++                        }
++                        for item in page_items
++                    ]
++
++                try:
++                    return GraphResult(
++                        items=tuple(page_items),
++                        total_count=total_count,
++                        offset=offset,
++                        limit=limit,
++                    )
++                except TypeError:
++                    return GraphResult(
++                        tuple(page_items),
++                        total_count,
++                    )
++
++            except Exception:
++                self.metrics.failures += 1
++                raise
++
++            finally:
++                self.metrics.execution_time_seconds += (
++                    perf_counter() - started
++                )
++
++
++__all__ = ["GraphQueryExecutor"]
+diff --git a/core/knowledge_graph/query_metrics.py b/core/knowledge_graph/query_metrics.py
+new file mode 100644
+index 0000000..d66d0b8
+--- /dev/null
++++ b/core/knowledge_graph/query_metrics.py
+@@ -0,0 +1,15 @@
++﻿from dataclasses import dataclass
++
++
++@dataclass
++class GraphQueryMetrics:
++    executions: int = 0
++    failures: int = 0
++    nodes_scanned: int = 0
++    edges_scanned: int = 0
++    cache_hits: int = 0
++    cache_misses: int = 0
++    execution_time_seconds: float = 0.0
++
++
++__all__ = ["GraphQueryMetrics"]
+diff --git a/core/knowledge_graph/query_models.py b/core/knowledge_graph/query_models.py
+new file mode 100644
+index 0000000..1e04563
+--- /dev/null
++++ b/core/knowledge_graph/query_models.py
+@@ -0,0 +1,61 @@
++﻿from dataclasses import dataclass
++from enum import Enum
++
++from core.knowledge_graph.query_engine import (
++    GraphQuery,
++    GraphResult,
++)
++
++
++class QueryDirection(str, Enum):
++    ANY = "any"
++    OUTGOING = "outgoing"
++    INCOMING = "incoming"
++
++
++class SortDirection(str, Enum):
++    ASCENDING = "ascending"
++    DESCENDING = "descending"
++
++
++@dataclass(frozen=True)
++class SortSpec:
++    field: str
++    direction: SortDirection = SortDirection.ASCENDING
++
++
++@dataclass(frozen=True)
++class GraphQueryPlan:
++    query: GraphQuery
++    estimated_cost: float
++    uses_type_filter: bool
++    ordered_predicates: tuple[str, ...] = ()
++
++
++@dataclass(frozen=True)
++class GraphCursor:
++    offset: int
++
++
++@dataclass(frozen=True)
++class GraphPage:
++    result: GraphResult
++    next_cursor: GraphCursor | None = None
++
++
++@dataclass(frozen=True)
++class GraphCount:
++    value: int
++
++
++__all__ = [
++    "GraphQuery",
++    "GraphResult",
++    "QueryDirection",
++    "SortDirection",
++    "SortSpec",
++    "GraphQueryPlan",
++    "GraphCursor",
++    "GraphPage",
++    "GraphCount",
++]
+diff --git a/core/knowledge_graph/query_optimizer.py b/core/knowledge_graph/query_optimizer.py
+new file mode 100644
+index 0000000..94ad3da
+--- /dev/null
++++ b/core/knowledge_graph/query_optimizer.py
+@@ -0,0 +1,113 @@
++﻿from dataclasses import dataclass, replace
++from typing import Any, Iterable
++
++from core.knowledge_graph.predicates import And
++from core.knowledge_graph.query_engine import GraphQuery
++from core.knowledge_graph.query_planner import GraphQueryPlanner
++from core.knowledge_graph.query_models import GraphQueryPlan
++
++
++@dataclass(frozen=True)
++class QueryOptimization:
++    original: GraphQuery
++    optimized: GraphQuery
++    applied_rules: tuple[str, ...]
++    original_cost: float
++    optimized_cost: float
++
++
++class QueryOptimizationRule:
++    name = "base"
++
++    def apply(self, query: GraphQuery) -> GraphQuery:
++        return query
++
++
++class ReorderAndPredicates(QueryOptimizationRule):
++    name = "reorder-and-predicates"
++
++    def apply(self, query: GraphQuery) -> GraphQuery:
++        if not isinstance(query.predicate, And):
++            return query
++
++        ordered = tuple(
++            sorted(
++                query.predicate.predicates,
++                key=lambda predicate: getattr(predicate, "cost", 1.0),
++            )
++        )
++        return replace(query, predicate=And(ordered))
++
++
++class RemoveDuplicatePredicates(QueryOptimizationRule):
++    name = "remove-duplicate-predicates"
++
++    def apply(self, query: GraphQuery) -> GraphQuery:
++        if not isinstance(query.predicate, And):
++            return query
++
++        unique: list[Any] = []
++        seen: set[str] = set()
++
++        for predicate in query.predicate.predicates:
++            marker = repr(predicate)
++            if marker not in seen:
++                seen.add(marker)
++                unique.append(predicate)
++
++        return replace(query, predicate=And(tuple(unique)))
++
++
++class NormalizePagination(QueryOptimizationRule):
++    name = "normalize-pagination"
++
++    def apply(self, query: GraphQuery) -> GraphQuery:
++        limit = query.limit
++        if limit is None or limit <= 1000:
++            return query
++
++        return replace(query, limit=1000)
++
++
++class GraphQueryOptimizer:
++    def __init__(
++        self,
++        rules: Iterable[QueryOptimizationRule] | None = None,
++        planner: GraphQueryPlanner | None = None,
++    ) -> None:
++        self.rules = tuple(
++            rules
++            or (
++                RemoveDuplicatePredicates(),
++                ReorderAndPredicates(),
++                NormalizePagination(),
++            )
++        )
++        self.planner = planner or GraphQueryPlanner()
++
++    def optimize(self, query: GraphQuery) -> QueryOptimization:
++        current = query
++        applied: list[str] = []
++        original_plan = self.planner.plan(query)
++
++        for rule in self.rules:
++            updated = rule.apply(current)
++            if updated != current:
++                applied.append(rule.name)
++                current = updated
++
++        optimized_plan = self.planner.plan(current)
++
++        return QueryOptimization(
++            original=query,
++            optimized=current,
++            applied_rules=tuple(applied),
++            original_cost=original_plan.estimated_cost,
++            optimized_cost=optimized_plan.estimated_cost,
++        )
++
++    def plan(self, query: GraphQuery) -> GraphQueryPlan:
++        optimized = self.optimize(query).optimized
++        return self.planner.plan(optimized)
++
++
+diff --git a/core/knowledge_graph/query_planner.py b/core/knowledge_graph/query_planner.py
+new file mode 100644
+index 0000000..d27d220
+--- /dev/null
++++ b/core/knowledge_graph/query_planner.py
+@@ -0,0 +1,46 @@
++﻿from core.knowledge_graph.predicates import And
++from core.knowledge_graph.query_engine import GraphQuery
++from core.knowledge_graph.query_models import GraphQueryPlan
++
++
++class GraphQueryPlanner:
++    def plan(self, query: GraphQuery) -> GraphQueryPlan:
++        ordered_predicates: tuple[str, ...] = ()
++        estimated_cost = 1.0
++
++        predicate = getattr(query, "predicate", None)
++
++        if isinstance(predicate, And):
++            ordered = tuple(
++                sorted(
++                    predicate.predicates,
++                    key=lambda current: getattr(current, "cost", 1.0),
++                )
++            )
++            ordered_predicates = tuple(
++                type(current).__name__ for current in ordered
++            )
++            estimated_cost += sum(
++                getattr(current, "cost", 1.0)
++                for current in ordered
++            )
++        elif predicate is not None:
++            ordered_predicates = (type(predicate).__name__,)
++            estimated_cost += getattr(predicate, "cost", 1.0)
++
++        node_type = getattr(query, "node_type", None)
++        if node_type is not None:
++            estimated_cost *= 0.5
++
++        offset = getattr(query, "offset", 0)
++        estimated_cost += offset * 0.01
++
++        return GraphQueryPlan(
++            query=query,
++            estimated_cost=estimated_cost,
++            uses_type_filter=node_type is not None,
++            ordered_predicates=ordered_predicates,
++        )
++
++
++__all__ = ["GraphQueryPlanner"]
+diff --git a/core/knowledge_graph/traversal_query.py b/core/knowledge_graph/traversal_query.py
+new file mode 100644
+index 0000000..69b90f6
+--- /dev/null
++++ b/core/knowledge_graph/traversal_query.py
+@@ -0,0 +1,94 @@
++﻿from collections import deque
++
++from core.knowledge_graph.graph import KnowledgeGraph
++from core.knowledge_graph.identifiers import NodeId
++from core.knowledge_graph.query_models import QueryDirection
++
++
++class GraphTraversalQuery:
++    def neighbors(
++        self,
++        graph: KnowledgeGraph,
++        node_id: NodeId,
++        *,
++        direction: QueryDirection = QueryDirection.ANY,
++    ):
++        if direction == QueryDirection.OUTGOING:
++            target_ids = {
++                edge.target_id
++                for edge in graph.outgoing(node_id)
++            }
++
++        elif direction == QueryDirection.INCOMING:
++            target_ids = {
++                edge.source_id
++                for edge in graph.incoming(node_id)
++            }
++
++        else:
++            return graph.neighbors(node_id)
++
++        return tuple(
++            graph.get_node(current)
++            for current in sorted(
++                target_ids,
++                key=lambda value: value.value,
++            )
++        )
++
++    def breadth_first(
++        self,
++        graph: KnowledgeGraph,
++        start_id: NodeId,
++        *,
++        max_depth: int = 1,
++    ) -> tuple[NodeId, ...]:
++        visited = {start_id}
++        result: list[NodeId] = []
++        queue: deque[tuple[NodeId, int]] = deque(
++            [(start_id, 0)]
++        )
++
++        while queue:
++            current, depth = queue.popleft()
++
++            if depth >= max_depth:
++                continue
++
++            for neighbor in graph.neighbors(current):
++                neighbor_id = neighbor.node_id
++
++                if neighbor_id not in visited:
++                    visited.add(neighbor_id)
++                    result.append(neighbor_id)
++                    queue.append((neighbor_id, depth + 1))
++
++        return tuple(result)
++
++    def depth_first(
++        self,
++        graph: KnowledgeGraph,
++        start_id: NodeId,
++        *,
++        max_depth: int = 1,
++    ) -> tuple[NodeId, ...]:
++        visited = {start_id}
++        result: list[NodeId] = []
++
++        def visit(current: NodeId, depth: int) -> None:
++            if depth >= max_depth:
++                return
++
++            for neighbor in graph.neighbors(current):
++                neighbor_id = neighbor.node_id
++
++                if neighbor_id not in visited:
++                    visited.add(neighbor_id)
++                    result.append(neighbor_id)
++                    visit(neighbor_id, depth + 1)
++
++        visit(start_id, 0)
++        return tuple(result)
++
++
++__all__ = ["GraphTraversalQuery"]
+diff --git a/docs/adr/ADR-091-m7-query-optimizer.md b/docs/adr/ADR-091-m7-query-optimizer.md
+new file mode 100644
+index 0000000..6c28104
+--- /dev/null
++++ b/docs/adr/ADR-091-m7-query-optimizer.md
+@@ -0,0 +1,15 @@
++# ADR-091 — M7 Query Optimizer
++
++## Status
++
++Accepted
++
++## Decision
++
++Introduce a rule-based query optimizer before adding database-specific
++translation and execution backends.
++
++## Consequence
++
++Quantis can normalize and reduce query cost independently from the selected
++graph persistence engine.
+diff --git a/docs/fixes/M7_WP1_PR6_QUERY_OPTIMIZER_RELEASE.md b/docs/fixes/M7_WP1_PR6_QUERY_OPTIMIZER_RELEASE.md
+new file mode 100644
+index 0000000..51f5bc5
+--- /dev/null
++++ b/docs/fixes/M7_WP1_PR6_QUERY_OPTIMIZER_RELEASE.md
+@@ -0,0 +1,3 @@
++# M7 WP1 PR6 Query Optimizer Release
++
++Complete local-commit release package for the Query Optimizer.
+diff --git a/docs/m7/wp1/pr6-query-optimizer/ARCHITECTURE.md b/docs/m7/wp1/pr6-query-optimizer/ARCHITECTURE.md
+new file mode 100644
+index 0000000..52a4b22
+--- /dev/null
++++ b/docs/m7/wp1/pr6-query-optimizer/ARCHITECTURE.md
+@@ -0,0 +1,16 @@
++# Query Optimizer Architecture
++
++```text
++GraphQuery
++    ↓
++GraphQueryOptimizer
++    ├── RemoveDuplicatePredicates
++    ├── ReorderAndPredicates
++    └── NormalizePagination
++    ↓
++GraphQueryPlanner
++    ↓
++QueryResultCache
++    ↓
++OptimizedGraphQueryExecutor
++```
+diff --git a/docs/m7/wp1/pr6-query-optimizer/README.md b/docs/m7/wp1/pr6-query-optimizer/README.md
+new file mode 100644
+index 0000000..5b2c912
+--- /dev/null
++++ b/docs/m7/wp1/pr6-query-optimizer/README.md
+@@ -0,0 +1,14 @@
++# M7 WP1 PR6 — Query Optimizer
++
++Version: `0.7.0-alpha.6`
++
++Introduces:
++
++- GraphQueryOptimizer
++- rule-based query optimization
++- duplicate predicate elimination
++- predicate cost reordering
++- pagination normalization
++- QueryResultCache
++- OptimizedGraphQueryExecutor
++- cache hit and miss metrics
+diff --git a/docs/m7/wp1/pr6-query-optimizer/TEST_PLAN.md b/docs/m7/wp1/pr6-query-optimizer/TEST_PLAN.md
+new file mode 100644
+index 0000000..969e321
+--- /dev/null
++++ b/docs/m7/wp1/pr6-query-optimizer/TEST_PLAN.md
+@@ -0,0 +1,11 @@
++# Test Plan
++
++```powershell
++ruff check .
++python -m quantis version
++python -m pytest tests/core/knowledge_graph/query_optimizer --cache-clear --import-mode=importlib
++python -m pytest tests/core/knowledge_graph/query --cache-clear --import-mode=importlib
++python -m pytest tests/core/knowledge_graph --cache-clear --import-mode=importlib
++python -m pytest tests/release/current --cache-clear --import-mode=importlib
++python -m pytest --cache-clear --import-mode=importlib
++```
+diff --git a/docs/rfc/RFC-034-m7-query-optimizer.md b/docs/rfc/RFC-034-m7-query-optimizer.md
+new file mode 100644
+index 0000000..05cc1f9
+--- /dev/null
++++ b/docs/rfc/RFC-034-m7-query-optimizer.md
+@@ -0,0 +1,11 @@
++# RFC-034 — M7 Query Optimizer
++
++## Goals
++
++- remove duplicate predicates;
++- reorder predicates by estimated cost;
++- normalize pagination;
++- expose optimization reports;
++- cache query results;
++- track cache hits and misses;
++- preserve compatibility with GraphQueryPlanner.
+diff --git a/quantis/cli.py b/quantis/cli.py
+index 73f57b7..4120558 100644
+--- a/quantis/cli.py
++++ b/quantis/cli.py
+@@ -3,32 +3,42 @@ import platform
+ import subprocess
+ import sys
+ 
++
+ def _read_version() -> str:
+     return Path("VERSION").read_text(encoding="utf-8").strip()
+ 
++
+ def _git_commit() -> str:
+     try:
+-        result = subprocess.run(["git", "rev-parse", "--short", "HEAD"], check=True, capture_output=True, text=True)
++        result = subprocess.run(
++            ["git", "rev-parse", "--short", "HEAD"],
++            check=True,
++            capture_output=True,
++            text=True,
++        )
+         return result.stdout.strip()
+     except (OSError, subprocess.CalledProcessError):
+         return "unknown"
+ 
++
+ def version_command() -> int:
+     print("Quantis Core Platform™")
+     print()
+     print(f"Version        : {_read_version()}")
+     print("Milestone      : M7")
+     print("Work Package   : WP1")
+-    print("Pull Request   : PR5")
++    print("Pull Request   : PR6")
+     print("Codename       : Knowledge Graph Engine")
+     print(f"Git Commit     : {_git_commit()}")
+     print(f"Python         : {platform.python_version()}")
+     print(f"Platform       : {platform.system()}")
+     return 0
+ 
++
+ def main(argv: list[str] | None = None) -> int:
+     arguments = list(sys.argv[1:] if argv is None else argv)
+     if arguments == ["version"]:
+         return version_command()
++
+     print("Usage: python -m quantis version")
+     return 2
+diff --git a/tests/core/knowledge_graph/query_optimizer/test_optimizer_plan.py b/tests/core/knowledge_graph/query_optimizer/test_optimizer_plan.py
+new file mode 100644
+index 0000000..5755d08
+--- /dev/null
++++ b/tests/core/knowledge_graph/query_optimizer/test_optimizer_plan.py
+@@ -0,0 +1,25 @@
++from core.knowledge_graph import (
++    And,
++    Equals,
++    GraphQuery,
++    GraphQueryOptimizer,
++    Regex,
++)
++
++
++def test_optimizer_returns_optimized_plan():
++    optimizer = GraphQueryOptimizer()
++    plan = optimizer.plan(
++        GraphQuery(
++            node_type="document",
++            predicate=And(
++                (
++                    Regex("properties.title", "AI"),
++                    Equals("properties.status", "approved"),
++                )
++            ),
++        )
++    )
++
++    assert plan.uses_type_filter is True
++    assert plan.ordered_predicates == ("Equals", "Regex")
+diff --git a/tests/core/knowledge_graph/query_optimizer/test_optimizer_rules.py b/tests/core/knowledge_graph/query_optimizer/test_optimizer_rules.py
+new file mode 100644
+index 0000000..df433b5
+--- /dev/null
++++ b/tests/core/knowledge_graph/query_optimizer/test_optimizer_rules.py
+@@ -0,0 +1,30 @@
++from core.knowledge_graph import (
++    And,
++    Equals,
++    GraphQuery,
++    GraphQueryOptimizer,
++    Regex,
++)
++
++
++def test_optimizer_removes_duplicates_and_reorders_predicates():
++    duplicate = Equals("properties.status", "approved")
++    query = GraphQuery(
++        predicate=And(
++            (
++                Regex("properties.title", "AI"),
++                duplicate,
++                duplicate,
++            )
++        )
++    )
++
++    result = GraphQueryOptimizer().optimize(query)
++
++    assert result.applied_rules == (
++        "remove-duplicate-predicates",
++        "reorder-and-predicates",
++    )
++    assert isinstance(result.optimized.predicate, And)
++    assert len(result.optimized.predicate.predicates) == 2
++    assert type(result.optimized.predicate.predicates[0]).__name__ == "Equals"
+diff --git a/tests/core/knowledge_graph/query_optimizer/test_pagination_rule.py b/tests/core/knowledge_graph/query_optimizer/test_pagination_rule.py
+new file mode 100644
+index 0000000..2bcf8c3
+--- /dev/null
++++ b/tests/core/knowledge_graph/query_optimizer/test_pagination_rule.py
+@@ -0,0 +1,10 @@
++from core.knowledge_graph import GraphQuery, GraphQueryOptimizer
++
++
++def test_optimizer_caps_excessive_limit():
++    result = GraphQueryOptimizer().optimize(
++        GraphQuery(limit=5000)
++    )
++
++    assert result.optimized.limit == 1000
++    assert "normalize-pagination" in result.applied_rules
+diff --git a/tests/core/knowledge_graph/query_optimizer/test_query_cache.py b/tests/core/knowledge_graph/query_optimizer/test_query_cache.py
+new file mode 100644
+index 0000000..86f2b4f
+--- /dev/null
++++ b/tests/core/knowledge_graph/query_optimizer/test_query_cache.py
+@@ -0,0 +1,20 @@
++from core.knowledge_graph import (
++    GraphNode,
++    GraphQuery,
++    KnowledgeGraph,
++    OptimizedGraphQueryExecutor,
++)
++
++
++def test_optimized_executor_uses_cache():
++    graph = KnowledgeGraph()
++    graph.add_node(GraphNode("document", {"title": "A"}))
++    executor = OptimizedGraphQueryExecutor()
++    query = GraphQuery(node_type="document")
++
++    first = executor.execute(graph, query)
++    second = executor.execute(graph, query)
++
++    assert first == second
++    assert executor.metrics.cache_misses == 1
++    assert executor.metrics.cache_hits == 1
+diff --git a/tests/quantis/test_version_command.py b/tests/quantis/test_version_command.py
+index 4c98a5a..8a55d4a 100644
+--- a/tests/quantis/test_version_command.py
++++ b/tests/quantis/test_version_command.py
+@@ -1,7 +1,10 @@
+ from quantis.cli import main
+ 
++
+ def test_official_version_command(capsys):
+-    assert main(["version"])==0
+-    output=capsys.readouterr().out
+-    assert "0.7.0-alpha.5" in output
+-    assert "PR5" in output
++    assert main(["version"]) == 0
++    output = capsys.readouterr().out
++
++    assert "Quantis Core Platform™" in output
++    assert "0.7.0-alpha.6" in output
++    assert "PR6" in output
+diff --git a/tests/release/current/test_current_release_version_gate.py b/tests/release/current/test_current_release_version_gate.py
+index 94e8746..91dadac 100644
+--- a/tests/release/current/test_current_release_version_gate.py
++++ b/tests/release/current/test_current_release_version_gate.py
+@@ -1,4 +1,8 @@
+ from pathlib import Path
+ 
+-def test_current_release_version_is_m7_alpha_5():
+-    assert Path("VERSION").read_text(encoding="utf-8").strip()=="0.7.0-alpha.5"
++
++def test_current_release_version_is_m7_alpha_6():
++    assert (
++        Path("VERSION").read_text(encoding="utf-8").strip()
++        == "0.7.0-alpha.6"
++    )
+diff --git a/tests/release/current/test_m7_wp1_pr6_docs_gate.py b/tests/release/current/test_m7_wp1_pr6_docs_gate.py
+new file mode 100644
+index 0000000..1a502c9
+--- /dev/null
++++ b/tests/release/current/test_m7_wp1_pr6_docs_gate.py
+@@ -0,0 +1,14 @@
++from pathlib import Path
++
++
++def test_m7_wp1_pr6_docs_exist():
++    required = [
++        "docs/m7/wp1/pr6-query-optimizer/README.md",
++        "docs/m7/wp1/pr6-query-optimizer/ARCHITECTURE.md",
++        "docs/m7/wp1/pr6-query-optimizer/TEST_PLAN.md",
++        "docs/adr/ADR-091-m7-query-optimizer.md",
++        "docs/rfc/RFC-034-m7-query-optimizer.md",
++    ]
++
++    for path in required:
++        assert Path(path).exists(), path
+-- 
+2.44.0.windows.1
+

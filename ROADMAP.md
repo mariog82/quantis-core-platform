@@ -1,22 +1,7 @@
 # Roadmap
 
 ## Current
-
-M6 Stable — `0.6.0`
-
-## Completed
-
-- M6 WP1 — Event Platform
-- M6 WP2 — Enterprise Event Platform
-- M6 WP3 — CQRS and Projection Engine
-- M6 WP4 — Workflow Engine 2.0
-- M6 General Stabilization
-- M6 Final Release
+M7 WP1 PR10 — WP1 Freeze — `0.7.0-beta.1`
 
 ## Next
-
-- M7 planning
-- AI orchestration and decision intelligence integration
-- Production persistence adapters
-- Distributed observability
-- Security and compliance hardening
+M7 WP2 — RAG and Knowledge Retrieval Engine

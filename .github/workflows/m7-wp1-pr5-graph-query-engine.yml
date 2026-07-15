@@ -1,0 +1,15 @@
+name: m7-wp1-pr5-graph-query-engine
+on: [push, pull_request]
+jobs:
+  query-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install pytest ruff
+      - run: ruff check .
+      - run: python -m quantis version
+      - run: python -m pytest tests/core/knowledge_graph/query --cache-clear --import-mode=importlib
+      - run: python -m pytest tests/release/current --cache-clear --import-mode=importlib
+      - run: python -m pytest --cache-clear --import-mode=importlib
